@@ -1,0 +1,25 @@
+{
+    "name": "budisteikul/fin",
+    "description": "Fin",
+    "authors": [
+        {
+            "name": "Budi",
+            "email": "aku@budi.my.id"
+        }
+    ],
+    "require": {
+    	"budisteikul/coresdk": "dev-master"
+    },
+    "autoload": {
+   		"psr-4": {
+        	"budisteikul\\fin\\": "src/"
+    	}
+	},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "budisteikul\\fin\\FinServiceProvider"
+            ]
+        }
+    }
+}
