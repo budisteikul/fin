@@ -2,7 +2,6 @@
       <hr class="sidebar-divider my-0">
       <li class="nav-item 
       
-        {{ (request()->is('cms/fin/categories*')) ? 'active' : '' }}
         {{ (request()->is('cms/fin/transactions*')) ? 'active' : '' }}
         {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}
       
@@ -10,20 +9,18 @@
       @php
         $collapsed = 'collapsed';
         $show = '';        
-        if(request()->is('cms/fin/categories*') || request()->is('cms/fin/transactions*') || request()->is('cms/fin/profitloss*'))
+        if(request()->is('cms/fin/transactions*') || request()->is('cms/fin/profitloss*'))
         {
           $collapsed = '';
           $show = 'show';
         }
       @endphp
         <a class="nav-link {{$collapsed}}" href="#" data-toggle="collapse" data-target="#menu-fin" aria-expanded="false" aria-controls="menu-fin">
-          <i class="fas fa-tag"></i>
+          <i class="fas fa-balance-scale"></i>
           <span>FINANCIAL</span>
         </a>
         <div id="menu-fin" class="collapse {{$show}}" aria-labelledby="heading1" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            
-            <a class="collapse-item {{ (request()->is('cms/fin/categories*')) ? 'active' : '' }}" href="{{ route('route_fin_categories.index') }}"><i class="far fa-circle"></i> {{ __('Category') }}</a>
             
             <a class="collapse-item {{ (request()->is('cms/fin/transactions*')) ? 'active' : '' }}" href="{{ route('route_fin_transactions.index') }}"><i class="far fa-circle"></i> {{ __('Transaction') }}</a>
             

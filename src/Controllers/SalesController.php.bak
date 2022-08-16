@@ -6,15 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use budisteikul\fin\Models\fin_transactions;
 use budisteikul\fin\Models\fin_categories;
-use budisteikul\toursdk\Models\Shoppingcart;
-use budisteikul\toursdk\Models\ShoppingcartProduct;
 use Illuminate\Database\Eloquent\Builder;
+
+use budisteikul\fin\Classes\FinClass;
 
 class SalesController extends Controller
 {
     
-    
-    /**
+	
+	/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -25,27 +25,10 @@ class SalesController extends Controller
         $tahun = $request->input('year');
         if($tahun=="") $tahun = date("Y");
         
-        /*
-        $shoppingcarts = Shoppingcart::where('booking_status','CONFIRMED')
-                         ->select(['booking_channel'])
-                         ->whereYear('created_at',$tahun)
-                         ->groupBy('booking_channel')
-                         ->get();
-        
-        */
-
-        $shoppingcarts = Shoppingcart::whereHas('shoppingcart_products', function ($query) use ($tahun) {
-                            return $query->whereYear('date',$tahun);
-                         })->where('booking_status','CONFIRMED')
-                         ->select(['booking_channel'])
-                         ->groupBy('booking_channel')
-                         ->get();
-        
-
         $fin_categories_revenues = fin_categories::where('type','Revenue')->whereHas('transactions', function (Builder $query) use ($tahun) {
                 $query->whereYear('date',$tahun);
         })->orderBy('name')->get();
-
+        
         $fin_categories_expenses = fin_categories::where('type','Expenses')->whereHas('transactions', function (Builder $query) use ($tahun) {
                 $query->whereYear('date',$tahun);
         })->orderBy('name')->get();
@@ -57,7 +40,6 @@ class SalesController extends Controller
         
         return view('fin::fin.sales.profitloss',
             [
-                'shoppingcarts'=>$shoppingcarts,
                 'fin_categories_revenues'=>$fin_categories_revenues,
                 'fin_categories_expenses'=>$fin_categories_expenses,
                 'fin_categories_cogs'=>$fin_categories_cogs,

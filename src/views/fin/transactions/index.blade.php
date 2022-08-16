@@ -67,13 +67,22 @@
 <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">transactions</div>
+                <div class="card-header">Transactions</div>
                 <div class="card-body">
+                	<div class="row w-100">
+                	<div class="col  text-left">
+                   		<button type="button" class="btn btn-secondary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Create Transactions</button>
+                    </div>
+                    <div class="col-auto text-right mr-0 pr-0">
+                    	<a type="button" class="btn btn-primary" href="{{ route('route_fin_categories.index') }}">
+                    		<i class="fas fa-list"></i> Transaction Categories</a>
+                    </div>
+                </div>
       
-      	<button type="button" class="btn btn-secondary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Add transactions</button>
+      	
         <hr>
         
-		{!! $dataTable->table(['class'=>'table table-hover table-striped table-responsive w-100 d-block d-md-table']) !!}
+		{!! $dataTable->table(['class'=>'table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table']) !!}
 		
                 </div>
             </div>
