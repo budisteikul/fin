@@ -71,10 +71,10 @@
                 <div class="card-body">
                 	<div class="row w-100">
                 	<div class="col  text-left">
-                   		<button type="button" class="btn btn-secondary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Create Transactions</button>
+                   		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Create Transactions</button>
                     </div>
                     <div class="col-auto text-right mr-0 pr-0">
-                    	<a type="button" class="btn btn-primary" href="{{ route('route_fin_categories.index') }}">
+                    	<a type="button" class="btn btn-secondary" href="{{ route('route_fin_categories.index') }}">
                     		<i class="fas fa-list"></i> Transaction Categories</a>
                     </div>
                 </div>
