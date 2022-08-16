@@ -50,7 +50,7 @@ function UPDATE()
     <div class="row justify-content-center">
         <div class="col-md-12 pr-0 pl-0 pt-0 pb-0">
              <div class="card">
-                <div class="card-header">Edit transactions</div>
+                <div class="card-header">Edit Transactions</div>
                 <div class="card-body">
 				
 <form onSubmit="UPDATE(); return false;">
@@ -93,7 +93,7 @@ function UPDATE()
 </div>
 
 <div class="form-group">
-	<label for="amount">amount :</label>
+	<label for="amount">Amount :</label>
 	<input type="number" step="0.01" id="amount" name="amount" class="form-control" value="{{ $fin_transactions->amount }}" placeholder="amount">
 </div>
 

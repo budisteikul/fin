@@ -50,14 +50,14 @@ function UPDATE()
     <div class="row justify-content-center">
         <div class="col-md-12 pr-0 pl-0 pt-0 pb-0">
              <div class="card">
-                <div class="card-header">Edit categories</div>
+                <div class="card-header">Edit Categories</div>
                 <div class="card-body">
 				
 <form onSubmit="UPDATE(); return false;">
 <div id="result"></div>
 
 <div class="form-group">
-	<label for="name">name :</label>
+	<label for="name">Name :</label>
 	<input type="text" id="name" name="name" class="form-control" placeholder="name" value="{{ $categories->name }}">
 </div>
 

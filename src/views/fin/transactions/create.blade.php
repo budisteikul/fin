@@ -56,7 +56,7 @@ function STORE()
         <div class="col-md-12 pr-0 pl-0 pt-0 pb-0">
              <div class="card">
              
-	<div class="card-header">Add transactions</div>
+	<div class="card-header">Add Transactions</div>
 	<div class="card-body">
 				
 <form onSubmit="STORE(); return false;">
@@ -104,7 +104,7 @@ function STORE()
 </div>
 
 <div class="form-group">
-	<label for="amount">amount :</label>
+	<label for="amount">Amount :</label>
 	<input type="number" step="0.01" id="amount" name="amount" class="form-control" placeholder="amount">
 </div>
        
