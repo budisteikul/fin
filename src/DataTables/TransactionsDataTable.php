@@ -9,6 +9,7 @@ use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use budisteikul\fin\Models\fin_transactions;
 use budisteikul\fin\Models\fin_categories;
+use budisteikul\toursdk\Helpers\GeneralHelper;
 
 class TransactionsDataTable extends DataTable
 {
@@ -26,6 +27,9 @@ class TransactionsDataTable extends DataTable
 				$fin_categories = fin_categories::findOrFail($id->category_id);
 				return $fin_categories->name;
             })
+            ->editColumn('date', function($id){
+                    return GeneralHelper::dateFormat($id->date,4);
+                })
 			->addColumn('action', function ($id) {
 				return '<div class="btn-toolbar justify-content-end"><div class="btn-group mr-2 mb-2" role="group"><button id="btn-edit" type="button" onClick="EDIT(\''.$id->id.'\'); return false;" class="btn btn-sm btn-success"><i class="fa fa-edit"></i> Edit</button><button id="btn-del" type="button" onClick="DELETE(\''. $id->id .'\')" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> Delete</button></div><div class="btn-group mb-2" role="group"></div></div>';
             })
@@ -82,7 +86,7 @@ class TransactionsDataTable extends DataTable
             ["name" => "DT_RowIndex", "title" => "No", "data" => "DT_RowIndex", "orderable" => false, "render" => null,'searchable' => false, 'width' => '30px'],
 			["name" => "category_id", "title" => "Name", "data" => "category_id"],
 			["name" => "date", "title" => "Date", "data" => "date"],
-			["name" => "amount", "title" => "amount", "data" => "amount"]
+			["name" => "amount", "title" => "Amount", "data" => "amount"]
         ];
     }
 
