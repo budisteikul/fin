@@ -27,7 +27,7 @@ class TransactionsDataTable extends DataTable
 				$fin_categories = fin_categories::findOrFail($id->category_id);
 				return $fin_categories->name;
             })
-            ->editColumn('date', function($id){
+            ->addColumn('date_text', function($id){
                     return GeneralHelper::dateFormat($id->date,4);
                 })
 			->addColumn('action', function ($id) {
@@ -69,7 +69,7 @@ class TransactionsDataTable extends DataTable
 							],
 						'pagingType' => 'full_numbers',
 						'responsive' => true,
-						'order' => [3,'desc']
+						'order' => [0,'desc']
                     ])
 					->ajax('/'.request()->path());
     }
@@ -82,10 +82,10 @@ class TransactionsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-			["name" => "created_at", "title" => "created_at", "data" => "created_at", "orderable" => true, "visible" => false,'searchable' => false],
+			["name" => "date", "title" => "date", "data" => "date", "orderable" => true, "visible" => false,'searchable' => false],
             ["name" => "DT_RowIndex", "title" => "No", "data" => "DT_RowIndex", "orderable" => false, "render" => null,'searchable' => false, 'width' => '30px'],
 			["name" => "category_id", "title" => "Name", "data" => "category_id"],
-			["name" => "date", "title" => "Date", "data" => "date"],
+			["name" => "date_text", "title" => "Date", "data" => "date_text"],
 			["name" => "amount", "title" => "Amount", "data" => "amount"]
         ];
     }
