@@ -56,20 +56,6 @@ class TransactionController extends Controller
 		$date =  $request->input('date');
 		$amount =  $request->input('amount');
 		
-		$fin_categories = fin_categories::findOrFail($category_id);
-		if($fin_categories->type=='Revenue')
-		{
-			if($amount<0) $amount = $amount * -1;
-		}
-		else if($fin_categories->type=='Expenses')
-		{
-			if($amount>0) $amount = $amount * -1;
-		}
-		else if($fin_categories->type=='Cost of Goods Sold')
-		{
-			if($amount>0) $amount = $amount * -1;
-		}
-		
 		$fin_transactions = new fin_transactions();
 		$fin_transactions->category_id = $category_id;
 		$fin_transactions->date = $date;
@@ -130,20 +116,6 @@ class TransactionController extends Controller
 		$category_id =  $request->input('category_id');
 		$date =  $request->input('date');
 		$amount =  $request->input('amount');
-		
-		$fin_categories = fin_categories::findOrFail($category_id);
-		if($fin_categories->type=='Revenue')
-		{
-			if($amount<0) $amount = $amount * -1;
-		}
-		else if($fin_categories->type=='Expenses')
-		{
-			if($amount>0) $amount = $amount * -1;
-		}
-		else if($fin_categories->type=='Cost of Goods Sold')
-		{
-			if($amount>0) $amount = $amount * -1;
-		}
 		
 		$fin_transactions = fin_transactions::findOrFail($id);
 		$fin_transactions->category_id = $category_id;

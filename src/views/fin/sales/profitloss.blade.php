@@ -143,7 +143,7 @@
       @endphp
       @for($i=1; $i<=12; $i++)
         @php
-          $fin_categories_cog_per = $fin::total_per_month($fin_categories_cog->id,$tahun,$i) * -1;
+            $fin_categories_cog_per = $fin::total_per_month($fin_categories_cog->id,$tahun,$i);
             $fin_categories_cog_subtotal += $fin_categories_cog_per;
         @endphp
         <td align="right" style="background-color:#FEFEEF">{{ number_format($fin_categories_cog_per, 0, ',', '.') }}</td>
@@ -170,9 +170,9 @@
           $cogs_per = $fin::total_per_month_by_type('Cost of Goods Sold',$tahun,$i);
             $cogs_subtotal += $cogs_per;
         @endphp
-        <td align="right" style="background-color:#FEFEEF">{{ number_format($cogs_per*-1, 0, ',', '.') }}</td>
+        <td align="right" style="background-color:#FEFEEF">{{ number_format($cogs_per, 0, ',', '.') }}</td>
       @endfor
-      <td align="right" class="font-weight-bolder"><i>{{ number_format($cogs_subtotal*-1, 0, ',', '.') }}</i></td>
+      <td align="right" class="font-weight-bolder"><i>{{ number_format($cogs_subtotal, 0, ',', '.') }}</i></td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
@@ -191,7 +191,7 @@
       
         $revenue_per = $fin::total_all_channel_per_month($tahun,$i);
         $cogs_per = $fin::total_per_month_by_type('Cost of Goods Sold',$tahun,$i);
-        $gross_margin = $revenue_per + $cogs_per;
+        $gross_margin = $revenue_per - $cogs_per;
         
         $gross_margin_total += $gross_margin;
         
@@ -229,7 +229,7 @@
       @endphp
       @for($i=1; $i<=12; $i++)
         @php
-          $fin_categories_expense_per = $fin::total_per_month($fin_categories_expense->id,$tahun,$i) * -1;
+            $fin_categories_expense_per = $fin::total_per_month($fin_categories_expense->id,$tahun,$i);
             $fin_categories_expense_subtotal += $fin_categories_expense_per;
         @endphp
         <td align="right" style="background-color:#FEFEEF">{{ number_format($fin_categories_expense_per, 0, ',', '.') }}</td>
@@ -280,9 +280,9 @@
             $expenses_per = $fin::total_expenses_per_month($tahun,$i);
             $expenses_subtotal += $expenses_per;
         @endphp
-        <td align="right" class="font-weight-bolder" style="background-color:#FEFEEF">{{ number_format($expenses_per*-1, 0, ',', '.') }}</td>
+        <td align="right" class="font-weight-bolder" style="background-color:#FEFEEF">{{ number_format($expenses_per, 0, ',', '.') }}</td>
       @endfor
-      <td align="right" class="font-weight-bolder"><i>{{ number_format($expenses_subtotal*-1, 0, ',', '.') }}</i></td>
+      <td align="right" class="font-weight-bolder"><i>{{ number_format($expenses_subtotal, 0, ',', '.') }}</i></td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
@@ -300,12 +300,12 @@
       @php
         $revenue_per = $fin::total_all_channel_per_month($tahun,$i);
         $cogs_per = $fin::total_per_month_by_type('Cost of Goods Sold',$tahun,$i);
-        $gross_margin = $revenue_per + $cogs_per;
+        $gross_margin = $revenue_per - $cogs_per;
         
         $expenses_per = $fin::total_per_month_by_type('Expenses',$tahun,$i);
-        $total_expenses = $expenses_per - $fin::total_tax_per_month($tahun,$i);
+        $total_expenses = $expenses_per + $fin::total_tax_per_month($tahun,$i);
         
-        $profit_loss = $gross_margin + $total_expenses;
+        $profit_loss = $gross_margin - $total_expenses;
         
         $profit_loss_total += $profit_loss;
         

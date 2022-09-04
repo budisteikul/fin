@@ -72,7 +72,7 @@ class FinClass {
 
             $total = 0;
             $total = self::total_per_month_by_type('Expenses',$year,$month);
-            $total = $total - self::total_tax_per_month($year,$month);
+            $total = $total + self::total_tax_per_month($year,$month);
         	return $total;
     }
 }
