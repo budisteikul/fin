@@ -59,5 +59,21 @@ class FinClass {
 
         	return $total;
     }
+
+    public static function total_tax_per_month($year,$month){
+
+            $sales = self::total_all_channel_per_month($year,$month);
+            $tax = $sales * 0.5 / 100;
+
+        	return $tax;
+    }
+
+    public static function total_expenses_per_month($year,$month){
+
+            $total = 0;
+            $total = self::total_per_month_by_type('Expenses',$year,$month);
+            $total = $total - self::total_tax_per_month($year,$month);
+        	return $total;
+    }
 }
 ?>

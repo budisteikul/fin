@@ -104,7 +104,7 @@
       @endphp
       @for($i=1; $i<=12; $i++)
         @php
-          $revenue_per = $fin::total_all_channel_per_month($tahun,$i);
+            $revenue_per = $fin::total_all_channel_per_month($tahun,$i);
             $revenue_subtotal += $revenue_per;
         @endphp
         <td align="right" style="background-color:#FEFEEF">{{ number_format($revenue_per, 0, ',', '.') }}</td>
@@ -239,6 +239,30 @@
       <td>&nbsp;</td>
     </tr>
     @endforeach
+
+
+
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>Pajak PPH Final</td>
+      @php
+          $revenue_tax_subtotal = 0;
+      @endphp
+      @for($i=1; $i<=12; $i++)
+        @php
+            $revenue_tax_per = $fin::total_tax_per_month($tahun,$i);
+            $revenue_tax_subtotal += $revenue_tax_per;
+        @endphp
+        <td align="right" style="background-color:#FEFEEF">{{ number_format($revenue_tax_per, 0, ',', '.') }}</td>
+      @endfor
+      <td align="right" class="font-weight-bolder"><i>{{ number_format($revenue_tax_subtotal, 0, ',', '.') }}</i></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+   
+
+
     <tr>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
@@ -253,7 +277,7 @@
       @endphp
       @for($i=1; $i<=12; $i++)
         @php
-          $expenses_per = $fin::total_per_month_by_type('Expenses',$tahun,$i);
+            $expenses_per = $fin::total_expenses_per_month($tahun,$i);
             $expenses_subtotal += $expenses_per;
         @endphp
         <td align="right" class="font-weight-bolder" style="background-color:#FEFEEF">{{ number_format($expenses_per*-1, 0, ',', '.') }}</td>
@@ -279,8 +303,9 @@
         $gross_margin = $revenue_per + $cogs_per;
         
         $expenses_per = $fin::total_per_month_by_type('Expenses',$tahun,$i);
+        $total_expenses = $expenses_per - $fin::total_tax_per_month($tahun,$i);
         
-        $profit_loss = $gross_margin + $expenses_per;
+        $profit_loss = $gross_margin + $total_expenses;
         
         $profit_loss_total += $profit_loss;
         
