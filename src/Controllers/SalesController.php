@@ -21,19 +21,10 @@ class SalesController extends Controller
      */
     public function index(Request $request)
     {
-        $tahun = date("Y");
+        
         $tahun = $request->input('year');
         if($tahun=="") $tahun = date("Y");
         
-        /*
-        $shoppingcarts = Shoppingcart::where('booking_status','CONFIRMED')
-                         ->select(['booking_channel'])
-                         ->whereYear('created_at',$tahun)
-                         ->groupBy('booking_channel')
-                         ->get();
-        
-        */
-
         $shoppingcarts = Shoppingcart::whereHas('shoppingcart_products', function ($query) use ($tahun) {
                             return $query->whereYear('date',$tahun);
                          })->where('booking_status','CONFIRMED')
