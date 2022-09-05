@@ -10,11 +10,11 @@
                 
                 
                 
-<table border="0" cellspacing="1" cellpadding="2" class="table table-borderless table-responsive" >
+<table border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table" >
   <tbody>
     <tr class="table-active">
-      <td>Date</td>
-      <td>Total</td>
+      <td width="20%"><strong>Date</strong></td>
+      <td><strong>Total</strong></td>
     </tr>
     @php
     $total = 0;

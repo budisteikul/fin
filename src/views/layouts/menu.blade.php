@@ -4,12 +4,13 @@
       
         {{ (request()->is('cms/fin/transactions*')) ? 'active' : '' }}
         {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}
+        {{ (request()->is('cms/fin/revenue*')) ? 'active' : '' }}
       
       ">
       @php
         $collapsed = 'collapsed';
         $show = '';        
-        if(request()->is('cms/fin/transactions*') || request()->is('cms/fin/profitloss*'))
+        if(request()->is('cms/fin/transactions*') || request()->is('cms/fin/profitloss*') || request()->is('cms/fin/revenue*'))
         {
           $collapsed = '';
           $show = 'show';
@@ -25,6 +26,8 @@
             <a class="collapse-item {{ (request()->is('cms/fin/transactions*')) ? 'active' : '' }}" href="{{ route('route_fin_transactions.index') }}"><i class="far fa-circle"></i> {{ __('Transaction') }}</a>
             
             <a class="collapse-item {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}" href="{{ route('route_fin_profitloss.index') }}"><i class="far fa-circle"></i> {{ __('Profit Loss') }}</a>
+
+            <a class="collapse-item {{ (request()->is('cms/fin/revenue*')) ? 'active' : '' }}" href="{{ route('route_fin_revenue.index') }}"><i class="far fa-circle"></i> {{ __('Revenue') }}</a>
 
            
             
