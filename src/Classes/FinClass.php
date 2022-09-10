@@ -6,8 +6,30 @@ use budisteikul\fin\Models\fin_categories;
 use Illuminate\Database\Eloquent\Builder;
 use budisteikul\toursdk\Models\Shoppingcart;
 use budisteikul\toursdk\Models\ShoppingcartProduct;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class FinClass {
+
+    public static function last_month_saldo($tahun,$bulan)
+    {
+        $newDateTime = Carbon::parse($tahun."-".$bulan."-01")->subMonths(1);
+        $tahun = Str::substr($newDateTime, 0,4);
+        $bulan = Str::substr($newDateTime, 5,2);
+
+        
+        
+            $revenue_per = self::total_all_channel_per_month($tahun,$bulan);
+            $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$tahun,$bulan);
+            $gross_margin = $revenue_per - $cogs_per;
+        
+            $expenses_per = self::total_per_month_by_type('Expenses',$tahun,$bulan);
+            $total_expenses = $expenses_per + self::total_tax_per_month($tahun,$bulan);
+        
+            $profit_loss = $gross_margin - $total_expenses;
+        
+        return round($profit_loss);
+    }
 
 	public static function total_per_month($category_id,$year,$month){
 			$total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->whereMonth('date',$month)->sum('amount');
