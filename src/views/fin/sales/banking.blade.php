@@ -28,10 +28,10 @@
       <td><strong>Saldo</strong></td>
     </tr>
     @php
-    $total_revenue = 0;
-    $total_cogs = 0;
-    $total_expenses = 0;
-    $total_tax = 0;
+    //$total_revenue = 0;
+    //$total_cogs = 0;
+    //$total_expenses = 0;
+    //$total_tax = 0;
 
     $total_debit = 0;
     $total_credit = 0;
@@ -40,16 +40,16 @@
     @for($i=1;$i <= date("t",strtotime($tahun."-".$bulan."-01"));$i++)
     @php
       $total_revenue_per_day = $fin::total_all_channel_per_day($tahun,$bulan,$i);
-      $total_revenue += $total_revenue_per_day;
+      //$total_revenue += $total_revenue_per_day;
 
       $total_cogs_per_day = $fin::total_per_day_by_type('Cost of Goods Sold',$tahun,$bulan,$i);
-      $total_cogs += $total_cogs_per_day;
+      //$total_cogs += $total_cogs_per_day;
 
       $total_expenses_per_day = $fin::total_per_day_by_type('Expenses',$tahun,$bulan,$i);
-      $total_expenses += $total_expenses_per_day;
+      //$total_expenses += $total_expenses_per_day;
 
       $total_tax_per_day = $total_revenue_per_day * 0.5 / 100;
-      $total_tax += $total_tax_per_day;
+      //$total_tax += $total_tax_per_day;
 
       $saldo += $total_revenue_per_day;
       $saldo -= $total_cogs_per_day;
