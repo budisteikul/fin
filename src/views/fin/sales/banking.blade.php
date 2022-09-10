@@ -10,6 +10,8 @@
  @php
     $saldo_awal = $fin::last_month_saldo($tahun,$bulan);
     $saldo = $saldo_awal;
+
+    
  @endphp               
                 
 
@@ -34,6 +36,11 @@
     @endphp
     @for($i=1;$i <= date("t",strtotime($tahun."-".$bulan."-01"));$i++)
     @php
+
+      $date1 = \Carbon\Carbon::parse($tahun."-".$bulan."-".$i);
+      if($date1->isPast())
+      {
+
       $total_revenue_per_day = $fin::total_all_channel_per_day($tahun,$bulan,$i);
       //$total_revenue += $total_revenue_per_day;
 
@@ -56,6 +63,8 @@
 
       $credit = $total_cogs_per_day + $total_expenses_per_day + $total_tax_per_day;
       $total_credit += $credit;
+
+      
     @endphp
     <tr>
       <td>{{$i}} {{ date('F', mktime(0, 0, 0, $bulan, 10)); }} {{$tahun}}</td>
@@ -63,6 +72,9 @@
       <td>{{number_format($credit, 0, ',', '.')}}</td>
       <td>{{number_format($saldo, 0, ',', '.')}}</td>
     </tr>
+    @php
+      }
+    @endphp
     @endfor
     
   </tbody>
