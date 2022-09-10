@@ -8,16 +8,11 @@
                 <div class="card-body">
                 
  @php
-    $saldo = $fin::last_month_saldo($tahun,$bulan);
+    $saldo_awal = $fin::last_month_saldo($tahun,$bulan);
+    $saldo = $saldo_awal;
  @endphp               
                 
-<table border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table" >
-  <tbody>
-    <tr class="table-active">
-      <td><strong>Saldo Awal : {{number_format($saldo, 0, ',', '.')}}</strong></td>
-    </tr>
-  </tbody>
-</table>
+
 
 <table border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table" >
   <tbody>
@@ -69,18 +64,22 @@
       <td>{{number_format($saldo, 0, ',', '.')}}</td>
     </tr>
     @endfor
-    <tr>
-      <td><strong>Total</strong></td>
-      <td><strong>{{number_format($total_debit, 0, ',', '.')}}</strong></td>
-      <td><strong>{{number_format($total_credit, 0, ',', '.')}}</strong></td>
-      <td><strong></strong></td>
-    </tr>
+    
   </tbody>
 </table>
 
-<table border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table" >
+<table border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-responsive w-100 d-block d-md-table" >
   <tbody>
-    <tr class="table-active">
+    <tr>
+      <td><strong>Saldo Awal : {{number_format($saldo_awal, 0, ',', '.')}}</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Debit : {{number_format($total_debit, 0, ',', '.')}}</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Credit : {{number_format($total_credit, 0, ',', '.')}}</strong></td>
+    </tr>
+    <tr>
       <td><strong>Saldo Akhir : {{number_format($saldo, 0, ',', '.')}}</strong></td>
     </tr>
   </tbody>
