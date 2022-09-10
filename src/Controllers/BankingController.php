@@ -5,7 +5,7 @@ namespace budisteikul\fin\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class RevenueController extends Controller
+class BankingController extends Controller
 {
 	public function index(Request $request)
     {
@@ -14,7 +14,7 @@ class RevenueController extends Controller
         $bulan = $request->input('month');
         if($bulan=="") $bulan = date("m");
 
-        return view('fin::fin.sales.revenue',
+        return view('fin::fin.sales.banking',
             [
                 'bulan'=>$bulan,
                 'tahun'=>$tahun
