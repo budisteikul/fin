@@ -14,7 +14,7 @@
     
  @endphp               
                 
-
+{!! $fin::select_banking_form($tahun,$bulan)  !!}
 
 <table border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table" >
   <tbody>

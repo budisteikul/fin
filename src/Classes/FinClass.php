@@ -3,6 +3,7 @@ namespace budisteikul\fin\Classes;
 
 use budisteikul\fin\Models\fin_transactions;
 use budisteikul\fin\Models\fin_categories;
+use budisteikul\toursdk\Helpers\GeneralHelper;
 use Illuminate\Database\Eloquent\Builder;
 use budisteikul\toursdk\Models\Shoppingcart;
 use budisteikul\toursdk\Models\ShoppingcartProduct;
@@ -10,6 +11,54 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class FinClass {
+
+
+    public static function select_banking_form($tahun,$bulan)
+    {
+        //print($tahun.'-'. $bulan);
+        $start_year = 2022;
+        $start_month = 8;
+
+        //$newDateTime = Carbon::parse($tahun."-".$bulan."-01")->subMonths(1);
+        $tahun_now = date('Y');
+        $bulan_now = date('m');
+
+        $option = '';
+        for($i=$tahun_now;$i>=$start_year;$i--)
+        {
+            $xbulan = $start_month;
+            if($i!=$start_year) $xbulan = 1;
+
+            $ybulan = $bulan_now;
+            if($i!=date('Y')) $ybulan = 12;
+
+            for($j=$ybulan;$j>=$xbulan;$j--)
+            {
+                
+                if($i .'-'. GeneralHelper::digitFormat($j,2) == $tahun .'-'. $bulan)
+                {
+                    $option .= '<option value="'.$i .'-'. $j.'" selected>'.date('F', mktime(0, 0, 0, $j, 10)).' '.$i.'</option>';
+                }
+                else
+                {
+                    $option .= '<option value="'.$i .'-'. $j.'">'. date('F', mktime(0, 0, 0, $j, 10)) .' '.$i.'</option>';
+                }
+                
+            }
+        }
+
+        $string = '
+                   <form class="form-inline mb-2" method="GET">
+                   <div class="form-group">
+                        <label class="mr-2" for="date">Date</label>
+                        <select name="date" class="form-control mr-2" id="date">'.$option.'</select>
+                        <button id="submit" type="submit" class="btn btn-primary"> Apply</button>
+                   </div>
+                   
+                   </form>
+                   ';
+        return $string;
+    }
 
     public static function last_month_saldo($tahun,$bulan)
     {
