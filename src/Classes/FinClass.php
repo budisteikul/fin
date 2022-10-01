@@ -13,22 +13,44 @@ class FinClass {
 
     public static function last_month_saldo($tahun,$bulan)
     {
+        $start_year = 2022;
+        $start_month = 7;
+
         $newDateTime = Carbon::parse($tahun."-".$bulan."-01")->subMonths(1);
         $tahun = Str::substr($newDateTime, 0,4);
         $bulan = Str::substr($newDateTime, 5,2);
 
         
+        $total = 0;
+        for($i=$start_year;$i<=$tahun;$i++)
+        {
+            $xbulan = $start_month;
+            if($i!=$start_year) $xbulan = 1;
+
+            $ybulan = $bulan;
+            if($i!=date('Y')) $ybulan = 12;
+
+            for($j=$xbulan;$j<=$ybulan;$j++)
+            {
+                $revenue_per = self::total_all_channel_per_month($i,$j);
+                $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$j);
+                $gross_margin = $revenue_per - $cogs_per;
+
+                $expenses_per = self::total_per_month_by_type('Expenses',$i,$j);
+                $total_expenses = $expenses_per + self::total_tax_per_month($i,$j);
         
-            $revenue_per = self::total_all_channel_per_month($tahun,$bulan);
-            $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$tahun,$bulan);
-            $gross_margin = $revenue_per - $cogs_per;
+                $profit_loss = $gross_margin - $total_expenses;
+                $total += $profit_loss;
+                //print_r($i .'-'. $j .'<br />');
+            }
+        }
+
+
         
-            $expenses_per = self::total_per_month_by_type('Expenses',$tahun,$bulan);
-            $total_expenses = $expenses_per + self::total_tax_per_month($tahun,$bulan);
         
-            $profit_loss = $gross_margin - $total_expenses;
         
-        return round($profit_loss);
+        //$profit_loss = 0;
+        return round($total);
     }
 
 	public static function total_per_month($category_id,$year,$month){
