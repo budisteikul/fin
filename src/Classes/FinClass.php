@@ -48,7 +48,7 @@ class FinClass {
         }
 
         $string = '
-                   <form class="form-inline mb-2" method="GET">
+                   <form class="form-inline mb-4" method="GET">
                    <div class="form-group">
                         <label class="mr-2" for="date">Date</label>
                         <select name="date" class="form-control mr-2" id="date">'.$option.'</select>
