@@ -1,6 +1,13 @@
 @inject('fin', 'budisteikul\fin\Classes\FinClass')
 @extends('coresdk::layouts.app')
 @section('content')
+@push('scripts')
+<script type="text/javascript">
+$(function() {
+    $('#table1').appendTo('#table2');
+});
+</script>
+@endpush
 <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -16,7 +23,7 @@
                 
 {!! $fin::select_banking_form($tahun,$bulan)  !!}
 
-<table border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table" >
+<table id="table1" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table" >
   <tbody>
     <tr class="table-active">
       <td width="20%"><strong>Date</strong></td>
@@ -77,19 +84,25 @@
   </tbody>
 </table>
 
-<table border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-responsive w-100 d-block d-md-table" >
+<table id="table2" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-responsive w-100 d-block d-md-table" >
   <tbody>
-    <tr>
-      <td><strong>Beginning balance : {{number_format($saldo_awal, 0, ',', '.')}}</strong></td>
+    <tr class="table-active">
+      <td><strong>Recapitulation</strong></td>
     </tr>
     <tr>
-      <td><strong>Debit : {{number_format($total_debit, 0, ',', '.')}}</strong></td>
+      <td>Beginning balance : {{number_format($saldo_awal, 0, ',', '.')}}</td>
     </tr>
     <tr>
-      <td><strong>Credit : {{number_format($total_credit, 0, ',', '.')}}</strong></td>
+      <td>Debit : {{number_format($total_debit, 0, ',', '.')}}</td>
     </tr>
     <tr>
-      <td><strong>Ending balance : {{number_format($saldo, 0, ',', '.')}}</strong></td>
+      <td>Credit : {{number_format($total_credit, 0, ',', '.')}}</td>
+    </tr>
+    <tr>
+      <td>Profit/Loss : {{number_format($total_debit - $total_credit, 0, ',', '.')}}</td>
+    </tr>
+    <tr>
+      <td>Ending balance : {{number_format($saldo, 0, ',', '.')}}</td>
     </tr>
   </tbody>
 </table>
