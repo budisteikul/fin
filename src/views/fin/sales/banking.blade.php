@@ -96,6 +96,7 @@ $(function() {
       else
       {
           $pph_25 = 0;
+          
       }
     @endphp
     <tr>
