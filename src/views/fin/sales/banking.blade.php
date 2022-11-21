@@ -87,7 +87,17 @@ $(function() {
 
 <table id="table2" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-borderless table-responsive w-100 d-block d-md-table" >
   <tbody>
-    
+    @php
+      $profit_loss = $total_debit - $total_credit;
+      if($profit_loss > 0)
+      {
+          $pph_25 = $profit_loss * 22 / 100;
+      }
+      else
+      {
+          $pph_25 = 0;
+      }
+    @endphp
     <tr>
       <td><b>Beginning balance :</b> {{number_format($saldo_awal, 0, ',', '.')}}</td>
     </tr>
@@ -108,6 +118,9 @@ $(function() {
     </tr>
     <tr>
       <td><b>Tax PP23 :</b> {{number_format($total_tax, 0, ',', '.')}}</td>
+    </tr>
+    <tr>
+      <td><b>Tax PPH25 :</b> {{number_format($pph_25, 0, ',', '.')}}</td>
     </tr>
   </tbody>
 </table>
