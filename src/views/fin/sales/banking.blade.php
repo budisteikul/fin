@@ -36,6 +36,7 @@ $(function() {
 
     $total_debit = 0;
     $total_credit = 0;
+    $total_tax = 0;
 
     @endphp
     @for($i=1;$i <= date("t",strtotime($tahun."-".$bulan."-01"));$i++)
@@ -60,7 +61,7 @@ $(function() {
       $saldo += $total_revenue_per_day;
       $saldo -= $total_cogs_per_day;
       $saldo -= $total_expenses_per_day;
-      $saldo -= $total_tax_per_day;
+      // $saldo -= $total_tax_per_day;
 
       $debit = $total_revenue_per_day;
       $total_debit += $debit;
@@ -68,7 +69,7 @@ $(function() {
       $credit = $total_cogs_per_day + $total_expenses_per_day + $total_tax_per_day;
       $total_credit += $credit;
 
-      
+      $total_tax += $total_tax_per_day;
     @endphp
     <tr>
       <td>{{$i}} {{ date('F', mktime(0, 0, 0, $bulan, 10)); }} {{$tahun}}</td>
@@ -101,6 +102,9 @@ $(function() {
     </tr>
     <tr>
       <td><b>Ending balance :</b> {{number_format($saldo, 0, ',', '.')}}</td>
+    </tr>
+    <tr>
+      <td><b>Tax PP23 :</b> {{number_format($total_tax, 0, ',', '.')}}</td>
     </tr>
   </tbody>
 </table>
