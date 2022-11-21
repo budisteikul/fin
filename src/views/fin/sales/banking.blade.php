@@ -104,6 +104,9 @@ $(function() {
       <td><b>Ending balance :</b> {{number_format($saldo, 0, ',', '.')}}</td>
     </tr>
     <tr>
+      <td><hr /></td>
+    </tr>
+    <tr>
       <td><b>Tax PP23 :</b> {{number_format($total_tax, 0, ',', '.')}}</td>
     </tr>
   </tbody>
