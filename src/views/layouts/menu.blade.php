@@ -25,7 +25,7 @@
             
             <a class="collapse-item {{ (request()->is('cms/fin/transactions*')) ? 'active' : '' }}" href="{{ route('route_fin_transactions.index') }}"><i class="far fa-circle"></i> {{ __('Transaction') }}</a>
             
-            <a class="collapse-item {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}" href="{{ route('route_fin_profitloss.index') }}"><i class="far fa-circle"></i> {{ __('Profit Loss') }}</a>
+            <!-- a class="collapse-item {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}" href="{{ route('route_fin_profitloss.index') }}"><i class="far fa-circle"></i> {{ __('Profit Loss') }}</a -->
 
             <a class="collapse-item {{ (request()->is('cms/fin/banking*')) ? 'active' : '' }}" href="{{ route('route_fin_banking.index') }}"><i class="far fa-circle"></i> {{ __('Banking') }}</a>
 
