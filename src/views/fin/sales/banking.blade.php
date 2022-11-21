@@ -23,7 +23,7 @@ $(function() {
                 
 {!! $fin::select_banking_form($tahun,$bulan)  !!}
 
-<table id="table1" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table" >
+<table id="table1" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table mt-4" >
   <tbody>
     <tr class="table-active">
       <td width="20%"><strong>Date</strong></td>
@@ -84,25 +84,23 @@ $(function() {
   </tbody>
 </table>
 
-<table id="table2" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-responsive w-100 d-block d-md-table" >
+<table id="table2" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-borderless table-responsive w-100 d-block d-md-table" >
   <tbody>
-    <tr class="table-active">
-      <td><strong>Recapitulation</strong></td>
+    
+    <tr>
+      <td><b>Beginning balance :</b> {{number_format($saldo_awal, 0, ',', '.')}}</td>
     </tr>
     <tr>
-      <td>Beginning balance : {{number_format($saldo_awal, 0, ',', '.')}}</td>
+      <td><b>Debit :</b> {{number_format($total_debit, 0, ',', '.')}}</td>
     </tr>
     <tr>
-      <td>Debit : {{number_format($total_debit, 0, ',', '.')}}</td>
+      <td><b>Credit :</b> {{number_format($total_credit, 0, ',', '.')}}</td>
     </tr>
     <tr>
-      <td>Credit : {{number_format($total_credit, 0, ',', '.')}}</td>
+      <td><b>Profit/Loss :</b> {{number_format($total_debit - $total_credit, 0, ',', '.')}}</td>
     </tr>
     <tr>
-      <td>Profit/Loss : {{number_format($total_debit - $total_credit, 0, ',', '.')}}</td>
-    </tr>
-    <tr>
-      <td>Ending balance : {{number_format($saldo, 0, ',', '.')}}</td>
+      <td><b>Ending balance :</b> {{number_format($saldo, 0, ',', '.')}}</td>
     </tr>
   </tbody>
 </table>
