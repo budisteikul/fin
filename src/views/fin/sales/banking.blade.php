@@ -91,7 +91,7 @@ $(function() {
       $profit_loss = $total_debit - $total_credit;
       if($profit_loss > 0)
       {
-          $pph_25 = $profit_loss * 22 / 100;
+          $pph_25 = $profit_loss * 11 / 100;
       }
       else
       {
