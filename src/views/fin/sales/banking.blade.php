@@ -66,7 +66,8 @@ $(function() {
       $debit = $total_revenue_per_day;
       $total_debit += $debit;
 
-      $credit = $total_cogs_per_day + $total_expenses_per_day + $total_tax_per_day;
+      //$credit = $total_cogs_per_day + $total_expenses_per_day + $total_tax_per_day;
+      $credit = $total_cogs_per_day + $total_expenses_per_day;
       $total_credit += $credit;
 
       $total_tax += $total_tax_per_day;
