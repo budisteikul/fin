@@ -10,65 +10,42 @@ class CurrencyController extends Controller
 {
 	public function index()
     {
-        $data = array();
-        
-        return view('fin::fin.currencies.index',
-            [
-                'data'=>$data,
-                'amount'=>'400000'
-            ]);
+        return view('fin::fin.currencies.index');
     }
 
     public function store(Request $request)
     {
-        $data = array();
-        
         $targetAmount = $request->input('amount');
-        //$targetAmount = 800000;
         if($targetAmount!="" && $targetAmount>=50000)
         {
+            $message = '';
+            
             $tw = new WiseHelper();
             $data_tw = $tw->getTempQuote($targetAmount);
             foreach($data_tw->paymentOptions as $paymentOption)
             {
-                if($paymentOption->payIn=="BALANCE")
-                {
-
-                    $data[] = [
-                        'type' => $paymentOption->payIn,
-                        'value' => $paymentOption->sourceAmount,
-                    ];
-                    
-                }
+                
                 if($paymentOption->payIn=="MC_DEBIT_OR_PREPAID")
                 {
                     
-                    $data[] = [
-                        'type' => $paymentOption->payIn,
-                        'value' => $paymentOption->sourceAmount,
-                    ];
-
+                    $message = $paymentOption->sourceAmount .' USD';
                 }
-                if($paymentOption->payIn=="MC_BUSINESS_DEBIT")
-                {
-                    
-                    $data[] = [
-                        'type' => $paymentOption->payIn,
-                        'value' => $paymentOption->sourceAmount,
-                    ];
-
-                }
+                
             
                 
             }
+
+            return response()->json([
+                    "id" => "1",
+                    "message" => number_format($targetAmount, 0, ',', '.') .' IDR = '. $message
+                ]);
+            
         }
 
+        return response()->json([
+                    'amount' => 'Amount must higher than 50.000'
+                ]);
         
-        return view('fin::fin.currencies.index',
-            [
-                'data'=>$data,
-                'amount'=>$targetAmount
-            ]);
     }
 }
 
