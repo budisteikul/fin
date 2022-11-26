@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('temp_fin', function (Blueprint $table) {
-            $table->id();
+        Schema::create('fin_temps', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type')->nullable();
+            $table->integer('year')->nullable();
+            $table->integer('month')->nullable();
+            //$table->date('date')->nullable();
+            $table->float('amount', 8, 2);
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('temp_fin');
+        Schema::dropIfExists('fin_temps');
     }
 };

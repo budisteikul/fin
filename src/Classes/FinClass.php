@@ -3,6 +3,7 @@ namespace budisteikul\fin\Classes;
 
 use budisteikul\fin\Models\fin_transactions;
 use budisteikul\fin\Models\fin_categories;
+use budisteikul\fin\Models\fin_temps;
 use budisteikul\toursdk\Helpers\GeneralHelper;
 use Illuminate\Database\Eloquent\Builder;
 use budisteikul\toursdk\Models\Shoppingcart;
@@ -81,15 +82,33 @@ class FinClass {
 
             for($j=$xbulan;$j<=$ybulan;$j++)
             {
-                $revenue_per = self::total_all_channel_per_month($i,$j);
-                $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$j);
-                $gross_margin = $revenue_per - $cogs_per;
 
-                $expenses_per = self::total_per_month_by_type('Expenses',$i,$j);
-                $total_expenses = $expenses_per + self::total_tax_per_month($i,$j);
+                $check_temp = fin_temps::where('type','balance')->where('month',$j)->where('year',$i)->first();
+                if($check_temp)
+                {
+                    $total = $check_temp->amount;
+                }
+                else
+                {
+                    $revenue_per = self::total_all_channel_per_month($i,$j);
+                    $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$j);
+                    $gross_margin = $revenue_per - $cogs_per;
+
+                    //$expenses_per = self::total_per_month_by_type('Expenses',$i,$j);
+                    $total_expenses = self::total_per_month_by_type('Expenses',$i,$j);
+                    //$total_expenses = $expenses_per + self::total_tax_per_month($i,$j);
         
-                $profit_loss = $gross_margin - $total_expenses;
-                $total += $profit_loss;
+                    $profit_loss = $gross_margin - $total_expenses;
+                    $total += $profit_loss;
+
+                    $fin_temp = New fin_temps();
+                    $fin_temp->type = 'balance';
+                    $fin_temp->year = $i;
+                    $fin_temp->month = $j;
+                    $fin_temp->amount = $total;
+                    $fin_temp->save();
+                }
+                
             }
         }
 
