@@ -90,7 +90,6 @@ class FinClass {
         
                 $profit_loss = $gross_margin - $total_expenses;
                 $total += $profit_loss;
-                //print_r($i .'-'. $j .'<br />');
             }
         }
 

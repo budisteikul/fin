@@ -17,8 +17,6 @@ $(function() {
  @php
     $saldo_awal = $fin::last_month_saldo($tahun,$bulan);
     $saldo = $saldo_awal;
-
-    
  @endphp               
                 
 {!! $fin::select_banking_form($tahun,$bulan)  !!}
