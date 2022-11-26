@@ -75,7 +75,7 @@
                     </div>
                     <div class="col-auto text-right mr-0 pr-0">
                     	<a type="button" class="btn btn-secondary" href="{{ route('route_fin_categories.index') }}">
-                    		<i class="fas fa-list"></i> Transaction Categories</a>
+                    		<i class="fas fa-list"></i> Categories</a>
                     </div>
                 </div>
       

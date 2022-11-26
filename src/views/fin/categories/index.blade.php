@@ -62,8 +62,16 @@
             <div class="card">
                 <div class="card-header">Categories</div>
                 <div class="card-body">
-      
-      	<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Add categories</button>
+                	<div class="row w-100">
+                	<div class="col  text-left">
+                   		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Add categories</button>
+                    </div>
+                    <div class="col-auto text-right mr-0 pr-0">
+                    	<a type="button" class="btn btn-secondary" href="{{ route('route_fin_transactions.index') }}">
+                    		<i class="fas fa-list"></i> Transaction</a>
+                    </div>
+                </div>
+      	
         <hr>
         
 		{!! $dataTable->table(['class'=>'table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table']) !!}
