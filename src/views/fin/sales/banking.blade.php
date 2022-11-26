@@ -115,12 +115,12 @@ $(function() {
     <tr>
       <td><hr /></td>
     </tr>
-    <tr>
-      <td><b>Tax PP23 :</b> {{number_format($total_tax, 0, ',', '.')}}</td>
-    </tr>
-    <tr>
-      <td><b>Tax PPH25 :</b> {{number_format($pph_25, 0, ',', '.')}}</td>
-    </tr>
+    <tr><td>
+      <div class="alert alert-warning" role="alert">
+            <b>Tax PP23 :</b> {{number_format($total_tax, 0, ',', '.')}}<br />
+            <b>Tax PPH25 :</b> {{number_format($pph_25, 0, ',', '.')}}
+      </div>
+    </td></tr>
   </tbody>
 </table>
 

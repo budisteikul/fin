@@ -26,7 +26,7 @@ function CHECK_CURRENCY()
             
             if(data.id=="1")
             {
-                    $("#result").empty().append('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+ data.message +'</div>').hide().fadeIn();
+                    $("#result").empty().append('<div class="alert alert-secondary alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+ data.message +'</div>').hide().fadeIn();
                     $("#submit").attr("disabled", false);
                     $('#submit').html('{{ __('Check') }}');
             }
