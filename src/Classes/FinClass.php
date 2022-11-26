@@ -82,7 +82,7 @@ class FinClass {
 
             for($j=$xbulan;$j<=$ybulan;$j++)
             {
-
+                /*
                 $check_temp = fin_temps::where('type','balance')->where('month',$j)->where('year',$i)->first();
                 if($check_temp)
                 {
@@ -108,7 +108,14 @@ class FinClass {
                     $fin_temp->amount = $total;
                     $fin_temp->save();
                 }
-                
+                */
+                    $revenue_per = self::total_all_channel_per_month($i,$j);
+                    $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$j);
+                    $gross_margin = $revenue_per - $cogs_per;
+                    $total_expenses = self::total_per_month_by_type('Expenses',$i,$j);
+                    
+                    $profit_loss = $gross_margin - $total_expenses;
+                    $total += $profit_loss;
             }
         }
 
