@@ -110,8 +110,21 @@ $(function() {
     <tr>
       <td><b>Credit :</b> {{number_format($total_credit, 0, ',', '.')}}</td>
     </tr>
+    @php
+      $profit_loss = $total_debit - $total_credit;
+
+      if($profit_loss<0)
+      {
+        $profit_loss = $profit_loss * -1;
+        $profit_loss_text = '('. number_format($profit_loss, 0, ',', '.') .')';
+      }
+      else
+      {
+        $profit_loss_text = number_format($total_debit - $total_credit, 0, ',', '.');
+      }
+    @endphp
     <tr>
-      <td><b>Profit/Loss :</b> {{number_format($total_debit - $total_credit, 0, ',', '.')}}</td>
+      <td><b>Profit/Loss :</b> {{$profit_loss_text}}</td>
     </tr>
     <tr>
       <td><b>Ending balance :</b> {{number_format($saldo, 0, ',', '.')}}</td>
@@ -121,8 +134,8 @@ $(function() {
     </tr>
     <tr><td>
       <div class="alert alert-warning" role="alert">
-            <b>Tax PP23 :</b> {{number_format($pph_23, 0, ',', '.')}}<br />
-            <b>Tax PPH25 :</b> {{number_format($pph_25, 0, ',', '.')}}
+            <b>Tax PPh 23 FINAL :</b> {{number_format($pph_23, 0, ',', '.')}}<br />
+            <b>Tax PPh Pasal 25 :</b> {{number_format($pph_25, 0, ',', '.')}}
       </div>
     </td></tr>
   </tbody>
