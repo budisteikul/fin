@@ -242,24 +242,7 @@
 
 
 
-    <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>Pajak PPH Final</td>
-      @php
-          $revenue_tax_subtotal = 0;
-      @endphp
-      @for($i=1; $i<=12; $i++)
-        @php
-            $revenue_tax_per = $fin::total_tax_per_month($tahun,$i);
-            $revenue_tax_subtotal += $revenue_tax_per;
-        @endphp
-        <td align="right" style="background-color:#FEFEEF">{{ number_format($revenue_tax_per, 0, ',', '.') }}</td>
-      @endfor
-      <td align="right" class="font-weight-bolder"><i>{{ number_format($revenue_tax_subtotal, 0, ',', '.') }}</i></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
+    
    
 
 
@@ -303,7 +286,7 @@
         $gross_margin = $revenue_per - $cogs_per;
         
         $expenses_per = $fin::total_per_month_by_type('Expenses',$tahun,$i);
-        $total_expenses = $expenses_per + $fin::total_tax_per_month($tahun,$i);
+        $total_expenses = $expenses_per;
         
         $profit_loss = $gross_margin - $total_expenses;
         
