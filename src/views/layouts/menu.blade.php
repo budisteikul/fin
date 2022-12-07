@@ -30,7 +30,7 @@
 
             <a class="collapse-item {{ (request()->is('cms/fin/banking*')) ? 'active' : '' }}" href="{{ route('route_fin_banking.index') }}"><i class="far fa-circle"></i> {{ __('Banking') }}</a>
 
-            <a class="collapse-item {{ (request()->is('cms/fin/currency*')) ? 'active' : '' }}" href="{{ route('route_fin_currency.index') }}"><i class="far fa-circle"></i> {{ __('Currency') }}</a>
+            <a class="collapse-item {{ (request()->is('cms/fin/currency*')) ? 'active' : '' }}" href="{{ route('route_fin_currency.index') }}"><i class="far fa-circle"></i> {{ __('Currency Converter') }}</a>
 
            
             
