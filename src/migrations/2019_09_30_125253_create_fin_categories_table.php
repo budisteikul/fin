@@ -14,12 +14,12 @@ class CreateFinCategoriesTable extends Migration
     public function up()
     {
         Schema::create('fin_categories', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
 			
 			$table->string('name')->nullable();
 			$table->enum('type', ['Expenses', 'Revenue', 'Cost of Goods Sold']);
 			
-            $table->timestamps();
+            $table->timestamps(6);
 			$table->softDeletes();
         });
     }

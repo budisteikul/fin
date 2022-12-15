@@ -14,18 +14,23 @@ class CreateFinTransactionsTable extends Migration
     public function up()
     {
         Schema::create('fin_transactions', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
 			
-			
-			$table->uuid('category_id');
+			$table->foreignId('category_id');
+            $table->foreign('category_id')
+                ->references('id')->on('fin_categories')
+                ->onDelete('cascade')->onUpdate('cascade');
+			/*
+            $table->uuid('category_id');
 			$table->foreign('category_id')
       			->references('id')->on('fin_categories')
       			->onDelete('cascade')->onUpdate('cascade');
+            */
 			$table->date('date');
 			$table->float('amount', 8, 2);
 			
-            $table->timestamps();
-			$table->softDeletes();
+            $table->timestamps(6);
+            $table->softDeletes();
         });
     }
 
