@@ -20,7 +20,6 @@ class CreateFinCategoriesTable extends Migration
 			$table->enum('type', ['Expenses', 'Revenue', 'Cost of Goods Sold']);
 			
             $table->timestamps(6);
-			$table->softDeletes();
         });
     }
 

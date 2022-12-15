@@ -30,7 +30,6 @@ class CreateFinTransactionsTable extends Migration
 			$table->float('amount', 8, 2);
 			
             $table->timestamps(6);
-            $table->softDeletes();
         });
     }
 
