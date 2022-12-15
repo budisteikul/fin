@@ -35,7 +35,7 @@ class CategoriesDataTable extends DataTable
      */
     public function query(fin_categories $model)
     {
-        return fin_categories::get();
+        return $model->newQuery();
     }
 
     /**
