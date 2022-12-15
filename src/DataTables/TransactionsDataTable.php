@@ -47,7 +47,7 @@ class TransactionsDataTable extends DataTable
      */
     public function query(fin_transactions $model)
     {
-        return fin_transactions::get();
+        return $model->newQuery();
     }
 
     /**
