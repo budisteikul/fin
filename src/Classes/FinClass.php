@@ -226,13 +226,7 @@ class FinClass {
 
 
 
-    public static function total_tax_per_month($year,$month){
-
-            $sales = self::total_all_channel_per_month($year,$month);
-            $tax = $sales * 0.5 / 100;
-
-        	return $tax;
-    }
+    
 
     public static function total_expenses_per_month($year,$month){
 
