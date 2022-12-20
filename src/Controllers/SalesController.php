@@ -21,8 +21,11 @@ class SalesController extends Controller
      */
     public function index(Request $request)
     {
-        
+        $fin_date_start = env('FIN_DATE_START');
+        $fin_date_end = date('Y-m-d') .' 23:59:00';
+
         $tahun = $request->input('year');
+
         if($tahun=="") $tahun = date("Y");
         
         $shoppingcarts = Shoppingcart::whereHas('shoppingcart_products', function ($query) use ($tahun) {
@@ -33,16 +36,16 @@ class SalesController extends Controller
                          ->get();
         
 
-        $fin_categories_revenues = fin_categories::where('type','Revenue')->whereHas('transactions', function (Builder $query) use ($tahun) {
-                $query->whereYear('date',$tahun);
+        $fin_categories_revenues = fin_categories::where('type','Revenue')->whereHas('transactions', function (Builder $query) use ($tahun,$fin_date_start,$fin_date_end) {
+                $query->whereYear('date',$tahun)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end );
         })->orderBy('name')->get();
 
-        $fin_categories_expenses = fin_categories::where('type','Expenses')->whereHas('transactions', function (Builder $query) use ($tahun) {
-                $query->whereYear('date',$tahun);
+        $fin_categories_expenses = fin_categories::where('type','Expenses')->whereHas('transactions', function (Builder $query) use ($tahun,$fin_date_start,$fin_date_end) {
+                $query->whereYear('date',$tahun)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end );
         })->orderBy('name')->get();
         
-        $fin_categories_cogs = fin_categories::where('type','Cost of Goods Sold')->whereHas('transactions', function (Builder $query) use ($tahun) {
-                $query->whereYear('date',$tahun);
+        $fin_categories_cogs = fin_categories::where('type','Cost of Goods Sold')->whereHas('transactions', function (Builder $query) use ($tahun,$fin_date_start,$fin_date_end) {
+                $query->whereYear('date',$tahun)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end );
         })->orderBy('name')->get();
         
         
