@@ -8,9 +8,9 @@
                 <div class="card-body">
                 
                 
+{!! $fin::select_profitloss_form($tahun)  !!}                
                 
-                
-<table border="0" cellspacing="1" cellpadding="2" class="table table-borderless table-responsive" >
+<table border="0" cellspacing="1" cellpadding="2" class="table table-borderless table-responsive w-100 d-block d-md-table" >
   <tbody>
     
     <tr class="table-active">
@@ -19,11 +19,10 @@
       <td align="center" class="font-weight-bolder">{{ Carbon\Carbon::createFromFormat('m', $i)->formatLocalized('%b') }}</td>
       @endfor
       <td align="center" class="font-weight-bolder"><i>Total YTD</i></td>
-      <td align="center" class="font-weight-bolder">Growth Rate</td>
-      <td align="center" class="font-weight-bolder">Projected</td>
+      
     </tr>
     <tr>
-      <td colspan="18" class="font-weight-bolder">
+      <td colspan="16" class="font-weight-bolder">
       <hr>
       Income
       <hr>
@@ -46,8 +45,8 @@
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      
+      <!-- #### -->
     </tr>
     
     @foreach($shoppingcarts as $shoppingcart)
@@ -66,8 +65,7 @@
         <td align="right" style="background-color:#FEFEEF">{{  number_format($fin_categories_revenue_per, 0, ',', '.') }}</td>
       @endfor
       <td align="right" class="font-weight-bolder"><i>{{ number_format($fin_categories_revenue_subtotal, 0, ',', '.') }}</i></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <!-- #### -->
     </tr>
     @endforeach
     @foreach($fin_categories_revenues as $fin_categories_revenue)
@@ -86,8 +84,7 @@
         <td align="right" style="background-color:#FEFEEF">{{  number_format($fin_categories_revenue_per, 0, ',', '.') }}</td>
       @endfor
       <td align="right" class="font-weight-bolder"><i>{{ number_format($fin_categories_revenue_subtotal, 0, ',', '.') }}</i></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <!-- #### -->
     </tr>
     @endforeach
     <tr>
@@ -110,8 +107,7 @@
         <td align="right" style="background-color:#FEFEEF">{{ number_format($revenue_per, 0, ',', '.') }}</td>
       @endfor
       <td align="right" class="font-weight-bolder"><i>{{ number_format($revenue_subtotal, 0, ',', '.') }}</i></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <!-- #### -->
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -130,8 +126,7 @@
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <!-- #### -->
     </tr>
     @foreach($fin_categories_cogs as $fin_categories_cog)
     <tr>
@@ -149,8 +144,7 @@
         <td align="right" style="background-color:#FEFEEF">{{ number_format($fin_categories_cog_per, 0, ',', '.') }}</td>
       @endfor
       <td align="right" class="font-weight-bolder"><i>{{ number_format($fin_categories_cog_subtotal, 0, ',', '.') }}</i></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <!-- #### -->
     </tr>
     @endforeach
     <tr>
@@ -173,11 +167,10 @@
         <td align="right" style="background-color:#FEFEEF">{{ number_format($cogs_per, 0, ',', '.') }}</td>
       @endfor
       <td align="right" class="font-weight-bolder"><i>{{ number_format($cogs_subtotal, 0, ',', '.') }}</i></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <!-- #### -->
     </tr>
     <tr>
-      <td colspan="18">&nbsp;</td>
+      <td colspan="16">&nbsp;</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -206,14 +199,13 @@
         if($gross_margin_total<0) $gross_margin_total_print = '('. number_format($gross_margin_total*-1, 0, ',', '.') .')';
       @endphp
       <td align="right" class="font-weight-bolder"><i>{{ $gross_margin_total_print }}</i></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <!-- #### -->
     </tr>
     <tr>
-      <td colspan="18">&nbsp;</td>
+      <td colspan="16">&nbsp;</td>
     </tr>
     <tr>
-      <td colspan="18" class="font-weight-bolder">
+      <td colspan="16" class="font-weight-bolder">
       <hr>
       Expenses
       <hr>
@@ -235,8 +227,7 @@
         <td align="right" style="background-color:#FEFEEF">{{ number_format($fin_categories_expense_per, 0, ',', '.') }}</td>
       @endfor
       <td align="right" class="font-weight-bolder"><i>{{ number_format($fin_categories_expense_subtotal, 0, ',', '.') }}</i></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <!-- #### -->
     </tr>
     @endforeach
 
@@ -266,11 +257,10 @@
         <td align="right" class="font-weight-bolder" style="background-color:#FEFEEF">{{ number_format($expenses_per, 0, ',', '.') }}</td>
       @endfor
       <td align="right" class="font-weight-bolder"><i>{{ number_format($expenses_subtotal, 0, ',', '.') }}</i></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <!-- #### -->
     </tr>
     <tr>
-      <td colspan="18">&nbsp;</td>
+      <td colspan="16">&nbsp;</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -302,11 +292,10 @@
         if($profit_loss_total<0) $profit_loss_total_print = '('. number_format($profit_loss_total*-1, 0, ',', '.') .')';
       @endphp
       <td align="right" class="font-weight-bolder"><i>{{ $profit_loss_total_print }}</i></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <!-- #### -->
     </tr>
     <tr>
-      <td colspan="18">&nbsp;</td>
+      <td colspan="16">&nbsp;</td>
     </tr>
   </tbody>
 </table>
