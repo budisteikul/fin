@@ -51,7 +51,9 @@
       
       <!-- #### -->
     </tr>
-    
+    @php
+      $total_sales_arr = Array();
+    @endphp
     @foreach($shoppingcarts as $shoppingcart)
     <tr>
       <td>&nbsp;</td>
@@ -64,6 +66,8 @@
         @php
             $fin_categories_revenue_per = $fin::total_shoppingcart_per_month($shoppingcart->booking_channel,$tahun,$i);
             $fin_categories_revenue_subtotal += $fin_categories_revenue_per;
+
+            $total_sales_arr[$i] += $fin_categories_revenue_per;
         @endphp
         <td align="right" style="background-color:#FEFEEF">{{  number_format($fin_categories_revenue_per, 0, ',', '.') }}</td>
       @endfor
@@ -81,8 +85,10 @@
       @endphp
       @for($i=1; $i<=12; $i++)
         @php
-          $fin_categories_revenue_per = $fin::total_per_month($fin_categories_revenue->id,$tahun,$i);
+            $fin_categories_revenue_per = $fin::total_per_month($fin_categories_revenue->id,$tahun,$i);
             $fin_categories_revenue_subtotal += $fin_categories_revenue_per;
+
+            $total_sales_arr[$i] += $fin_categories_revenue_per;
         @endphp
         <td align="right" style="background-color:#FEFEEF">{{  number_format($fin_categories_revenue_per, 0, ',', '.') }}</td>
       @endfor
@@ -104,7 +110,7 @@
       @endphp
       @for($i=1; $i<=12; $i++)
         @php
-            $revenue_per = $fin::total_all_channel_per_month($tahun,$i);
+            $revenue_per = $total_sales_arr[$i];
             $revenue_subtotal += $revenue_per;
         @endphp
         <td align="right" style="background-color:#FEFEEF">{{ number_format($revenue_per, 0, ',', '.') }}</td>
@@ -131,6 +137,9 @@
       <td>&nbsp;</td>
       <!-- #### -->
     </tr>
+    @php
+      $total_cogs_arr = Array();
+    @endphp
     @foreach($fin_categories_cogs as $fin_categories_cog)
     <tr>
       <td>&nbsp;</td>
@@ -143,6 +152,8 @@
         @php
             $fin_categories_cog_per = $fin::total_per_month($fin_categories_cog->id,$tahun,$i);
             $fin_categories_cog_subtotal += $fin_categories_cog_per;
+
+            $total_cogs_arr[$i] += $fin_categories_cog_per;
         @endphp
         <td align="right" style="background-color:#FEFEEF">{{ number_format($fin_categories_cog_per, 0, ',', '.') }}</td>
       @endfor
@@ -164,7 +175,7 @@
       @endphp
       @for($i=1; $i<=12; $i++)
         @php
-          $cogs_per = $fin::total_per_month_by_type('Cost of Goods Sold',$tahun,$i);
+            $cogs_per = $total_cogs_arr[$i];
             $cogs_subtotal += $cogs_per;
         @endphp
         <td align="right" style="background-color:#FEFEEF">{{ number_format($cogs_per, 0, ',', '.') }}</td>
@@ -185,8 +196,8 @@
       @for($i=1; $i<=12; $i++)
       @php
       
-        $revenue_per = $fin::total_all_channel_per_month($tahun,$i);
-        $cogs_per = $fin::total_per_month_by_type('Cost of Goods Sold',$tahun,$i);
+        $revenue_per = $total_sales_arr[$i];
+        $cogs_per = $total_cogs_arr[$i];
         $gross_margin = $revenue_per - $cogs_per;
         
         $gross_margin_total += $gross_margin;
@@ -214,6 +225,9 @@
       <hr>
       </td>
     </tr>
+     @php
+      $total_expenses_arr = Array();
+     @endphp
      @foreach($fin_categories_expenses as $fin_categories_expense)
     <tr>
       <td>&nbsp;</td>
@@ -226,6 +240,8 @@
         @php
             $fin_categories_expense_per = $fin::total_per_month($fin_categories_expense->id,$tahun,$i);
             $fin_categories_expense_subtotal += $fin_categories_expense_per;
+
+            $total_expenses_arr[$i] += $fin_categories_expense_per;
         @endphp
         <td align="right" style="background-color:#FEFEEF">{{ number_format($fin_categories_expense_per, 0, ',', '.') }}</td>
       @endfor
@@ -254,7 +270,7 @@
       @endphp
       @for($i=1; $i<=12; $i++)
         @php
-            $expenses_per = $fin::total_expenses_per_month($tahun,$i);
+            $expenses_per = $total_expenses_arr[$i];
             $expenses_subtotal += $expenses_per;
         @endphp
         <td align="right" class="font-weight-bolder" style="background-color:#FEFEEF">{{ number_format($expenses_per, 0, ',', '.') }}</td>
@@ -274,15 +290,14 @@
       @endphp
       @for($i=1; $i<=12; $i++)
       @php
-        $revenue_per = $fin::total_all_channel_per_month($tahun,$i);
-        $cogs_per = $fin::total_per_month_by_type('Cost of Goods Sold',$tahun,$i);
+        $revenue_per = $total_sales_arr[$i];
+        $cogs_per = $total_cogs_arr[$i];
         $gross_margin = $revenue_per - $cogs_per;
         
-        $expenses_per = $fin::total_per_month_by_type('Expenses',$tahun,$i);
+        $expenses_per = $total_expenses_arr[$i];
         $total_expenses = $expenses_per;
         
         $profit_loss = $gross_margin - $total_expenses;
-        
         $profit_loss_total += $profit_loss;
         
         $profit_loss_print = number_format($profit_loss, 0, ',', '.');
