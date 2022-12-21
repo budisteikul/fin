@@ -10,7 +10,7 @@
 <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Remittance</div>
+                <div class="card-header">Payment</div>
                 <div class="card-body">
 
 {!! $fin::select_profitloss_form($tahun)  !!}

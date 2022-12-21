@@ -33,7 +33,7 @@
 
             <a class="collapse-item {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}" href="{{ route('route_fin_profitloss.index') }}"><i class="far fa-circle"></i> {{ __('Profit Loss') }}</a>
 
-            <a class="collapse-item {{ (request()->is('cms/fin/payment*')) ? 'active' : '' }}" href="{{ route('route_fin_payment.index') }}"><i class="far fa-circle"></i> {{ __('Remittance') }}</a>
+            <a class="collapse-item {{ (request()->is('cms/fin/payment*')) ? 'active' : '' }}" href="{{ route('route_fin_payment.index') }}"><i class="far fa-circle"></i> {{ __('Payment') }}</a>
             
            
           </div>
