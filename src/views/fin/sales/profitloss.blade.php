@@ -192,18 +192,19 @@
       <td>&nbsp;</td>
       @php
         $gross_margin_total = 0;
+        $total_gross_arr = Array();
       @endphp
       @for($i=1; $i<=12; $i++)
       @php
       
         $revenue_per = $total_sales_arr[$i];
         $cogs_per = $total_cogs_arr[$i];
-        $gross_margin = $revenue_per - $cogs_per;
+        $total_gross_arr[$i] += $revenue_per - $cogs_per;
+
+        $gross_margin_total += $total_gross_arr[$i];
         
-        $gross_margin_total += $gross_margin;
-        
-        $gross_margin_print = number_format($gross_margin, 0, ',', '.');
-        if($gross_margin<0) $gross_margin_print = '('. number_format($gross_margin*-1, 0, ',', '.') .')';
+        $gross_margin_print = number_format($total_gross_arr[$i], 0, ',', '.');
+        if($total_gross_arr[$i]<0) $gross_margin_print = '('. number_format($total_gross_arr[$i]*-1, 0, ',', '.') .')';
         
       @endphp
       <td align="right" class="font-weight-bolder" style="background-color:#FEFEEF">{{ $gross_margin_print }}</td>
@@ -290,14 +291,10 @@
       @endphp
       @for($i=1; $i<=12; $i++)
       @php
-        $revenue_per = $total_sales_arr[$i];
-        $cogs_per = $total_cogs_arr[$i];
-        $gross_margin = $revenue_per - $cogs_per;
         
-        $expenses_per = $total_expenses_arr[$i];
-        $total_expenses = $expenses_per;
         
-        $profit_loss = $gross_margin - $total_expenses;
+        
+        $profit_loss = $total_gross_arr[$i] - $total_expenses_arr[$i];
         $profit_loss_total += $profit_loss;
         
         $profit_loss_print = number_format($profit_loss, 0, ',', '.');
