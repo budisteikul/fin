@@ -13,6 +13,34 @@ use Illuminate\Support\Str;
 
 class FinClass {
 
+    public static function payment_total($tahun,$bulan,$payment_provider,$currency)
+    {
+        $fin_date_start = env('FIN_DATE_START');
+        $fin_date_end = date('Y-m-d') .' 23:59:00';
+
+        $total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
+
+        $ShoppingcartProduct = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($payment_provider,$currency) {
+                $query = $query->whereHas('shoppingcart_payment', function ($query) use ($payment_provider,$currency) {
+                    return $query->where('payment_provider',$payment_provider)->where('currency',$currency);
+                })->where('booking_status','CONFIRMED')->where('booking_channel','WEBSITE');
+                return $query;
+        })->whereYear('date',$tahun)->whereMonth('date',$bulan)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->get();
+
+        $value = 0;
+
+        foreach($ShoppingcartProduct as $id)
+        {
+            if(isset($id->shoppingcart->shoppingcart_payment->amount) && isset($id->shoppingcart->shoppingcart_payment->currency) && $id->shoppingcart->shoppingcart_payment->payment_provider==$payment_provider)
+            {
+                $amount = $id->due_now;
+                $amount = $amount / $id->shoppingcart->shoppingcart_payment->rate;
+                $value += $amount;
+            }
+        }
+        
+        return number_format((float)$value, 2, '.', '');
+    }
 
     public static function select_banking_form($tahun,$bulan)
     {

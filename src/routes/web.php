@@ -11,3 +11,4 @@ Route::resource('/cms/fin/transactions','budisteikul\fin\Controllers\Transaction
 Route::resource('/cms/fin/profitloss', 'budisteikul\fin\Controllers\SalesController',[ 'names' => 'route_fin_profitloss' ])->middleware(['web','auth','verified','CoreMiddleware']);
 Route::resource('/cms/fin/banking', 'budisteikul\fin\Controllers\BankingController',[ 'names' => 'route_fin_banking' ])->middleware(['web','auth','verified','CoreMiddleware']);
 Route::resource('/cms/fin/currency', 'budisteikul\fin\Controllers\CurrencyController',[ 'names' => 'route_fin_currency' ])->middleware(['web','auth','verified','CoreMiddleware']);
+Route::resource('/cms/fin/payment', 'budisteikul\fin\Controllers\PaymentController',[ 'names' => 'route_fin_payment' ])->middleware(['web','auth','verified','CoreMiddleware']);
