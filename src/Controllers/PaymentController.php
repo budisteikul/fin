@@ -55,7 +55,7 @@ class PaymentController extends Controller
 
                 return $query;
 
-        })->where('amount','>',0)->groupBy('currency')->groupBy('payment_provider')->get();
+        })->where('amount','>',0)->where('payment_provider', '!=', 'none')->groupBy('currency')->groupBy('payment_provider')->orderBy('payment_provider','ASC')->get();
         
         return view('fin::fin.sales.payment',['date'=>$date_arr,'shoppingcart_payments'=>$ShoppingcartPayments]);
     }
