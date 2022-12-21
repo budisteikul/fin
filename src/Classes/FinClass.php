@@ -52,12 +52,11 @@ class FinClass {
 
         $string = '
                    <form class="form-inline mb-4" method="GET">
-                   <div class="form-group">
+                    <div class="form-group">
                         <label class="mr-2" for="date">Date</label>
                         <select name="date" class="form-control mr-2" id="date">'.$option.'</select>
                         <button id="submit" type="submit" class="btn btn-primary"> Apply</button>
-                   </div>
-                   
+                    </div>
                    </form>
                    ';
         return $string;
@@ -81,12 +80,11 @@ class FinClass {
 
         $string = '
                    <form class="form-inline mb-4" method="GET">
-                   <div class="form-group">
-                        <label class="mr-2" for="date">Date</label>
+                    <div class="form-group">
+                        <label class="mr-2" for="date">Year</label>
                         <select name="year" class="form-control mr-2" id="year">'.$option.'</select>
                         <button id="submit" type="submit" class="btn btn-primary"> Apply</button>
-                   </div>
-                   
+                    </div>
                    </form>
                    ';
         return $string;

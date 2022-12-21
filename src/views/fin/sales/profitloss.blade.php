@@ -11,8 +11,7 @@
 {!! $fin::select_profitloss_form($tahun)  !!}                
                 
 <table border="0" cellspacing="1" cellpadding="2" class="table table-borderless table-responsive w-100 d-block d-md-table" >
-  <tbody>
-    
+  <thead>
     <tr class="table-active">
       <th colspan="3" class="font-weight-bolder">{{ $tahun }}</th>
       @for($i=1; $i<=12; $i++)
@@ -21,6 +20,10 @@
       <td align="center" class="font-weight-bolder"><i>Total YTD</i></td>
       
     </tr>
+  </thead>
+  <tbody>
+    
+    
     <tr>
       <td colspan="16" class="font-weight-bolder">
       <hr>

@@ -22,13 +22,16 @@ $(function() {
 {!! $fin::select_banking_form($tahun,$bulan)  !!}
 
 <table id="table1" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table mt-4" >
-  <tbody>
-    <tr class="table-success">
+  <thead>
+    <tr>
       <td width="20%"><strong>Date</strong></td>
       <td><strong>Debit</strong></td>
       <td><strong>Credit</strong></td>
       <td><strong>Balance</strong></td>
     </tr>
+  </thead>
+  <tbody>
+    
     @php
     
 
@@ -79,6 +82,9 @@ $(function() {
 
 <table id="table2" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-borderless table-responsive w-100 d-block d-md-table" >
   <tbody>
+    <tr>
+      <td><hr /></td>
+    </tr>
     @php
       //PP23
       if($total_debit > 0)
