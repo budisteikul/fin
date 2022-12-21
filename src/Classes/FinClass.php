@@ -143,7 +143,7 @@ class FinClass {
             for($j=$xbulan;$j<=$ybulan;$j++)
             {
                 
-                    $revenue_per = self::total_all_channel_per_month($i,$j);
+                    $revenue_per = self::total_revenue_per_month($i,$j);
                     $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$j);
                     $gross_margin = $revenue_per - $cogs_per;
                     $total_expenses = self::total_per_month_by_type('Expenses',$i,$j);
@@ -153,11 +153,6 @@ class FinClass {
             }
         }
 
-
-        
-        
-        
-        //$profit_loss = 0;
         return round($total);
     }
 
@@ -184,7 +179,26 @@ class FinClass {
 		return $total;
 	}
 
-    public static function total_all_channel_per_month($year,$month){
+    public static function total_shoppingcart_per_month($booking_channel,$year,$month){
+            
+            $fin_date_start = env('FIN_DATE_START');
+            $fin_date_end = date('Y-m-d') .' 23:59:00';
+
+            $total = 0;
+
+            $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($booking_channel) {
+                            return $query->where('booking_status','CONFIRMED')->where('booking_channel',$booking_channel);
+                         })->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->get();
+
+            foreach($sub_totals as $sub_total)
+            {
+                $total += $sub_total->total;
+            }
+            
+            return $total;
+    }
+    
+    public static function total_revenue_per_month($year,$month){
             
             $fin_date_start = env('FIN_DATE_START');
             $fin_date_end = date('Y-m-d') .' 23:59:00';
@@ -213,7 +227,7 @@ class FinClass {
         return $total;
     }
 
-    public static function total_all_channel_per_day($year,$month,$day){
+    public static function total_revenue_per_day($year,$month,$day){
 
             $total = 0;
             $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($booking_channel) {
@@ -229,37 +243,7 @@ class FinClass {
             return $total;
     }
 
-	public static function total_shoppingcart_per_month($booking_channel,$year,$month){
-            
-            $fin_date_start = env('FIN_DATE_START');
-            $fin_date_end = date('Y-m-d') .' 23:59:00';
+	
 
-            $total = 0;
-
-            $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($booking_channel) {
-                            return $query->where('booking_status','CONFIRMED')->where('booking_channel',$booking_channel);
-                         })->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->get();
-
-            foreach($sub_totals as $sub_total)
-            {
-            	$total += $sub_total->total;
-            }
-            
-        	return $total;
-    }
-
-    
-
-
-
-    
-
-    public static function total_expenses_per_month($year,$month){
-
-            $total = 0;
-            $total = self::total_per_month_by_type('Expenses',$year,$month);
-            //$total = $total + self::total_tax_per_month($year,$month);
-        	return $total;
-    }
 }
 ?>

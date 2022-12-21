@@ -47,7 +47,7 @@ $(function() {
       if($date1->isPast())
       {
 
-      $total_revenue_per_day = $fin::total_all_channel_per_day($tahun,$bulan,$i);
+      $total_revenue_per_day = $fin::total_revenue_per_day($tahun,$bulan,$i);
       
 
       $total_cogs_per_day = $fin::total_per_day_by_type('Cost of Goods Sold',$tahun,$bulan,$i);
