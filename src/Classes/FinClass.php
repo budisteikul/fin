@@ -118,32 +118,7 @@ class FinClass {
     }
 
     
-    public static function cache_saldo_forget($date)
-    {
-        
-                $fin_date_start = env('FIN_DATE_START');
-
-                $start_year = Str::substr($fin_date_start, 0,4);
-                $start_month = Str::substr($fin_date_start, 5,2);
-
-                $newDateTime = Carbon::parse($date)->subMonths(1);
-                $tahun = Str::substr($newDateTime, 0,4);
-                $bulan = Str::substr($newDateTime, 5,2);
-
-                for($i=$start_year;$i<=$tahun;$i++)
-                {
-                    $xbulan = $start_month;
-                    if($i!=$start_year) $xbulan = 1;
-
-                    $ybulan = $bulan;
-                    if($i!=date('Y')) $ybulan = 12;
-
-                    for($j=$xbulan;$j<=$ybulan;$j++)
-                    {
-                            Cache::forget('_finLastMonthSaldo_'. $i .'_'. GeneralHelper::digitFormat($j,2));
-                    }
-                }
-    }
+    
     
 
     public static function last_month_saldo($tahun,$bulan)
