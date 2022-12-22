@@ -9,6 +9,7 @@ use budisteikul\fin\DataTables\TransactionsDataTable;
 use Illuminate\Support\Facades\Validator;
 use budisteikul\fin\Models\fin_transactions;
 use budisteikul\fin\Models\fin_categories;
+use budisteikul\toursdk\Helpers\GeneralHelper;
 
 class TransactionController extends Controller
 {
@@ -62,6 +63,8 @@ class TransactionController extends Controller
 		$fin_transactions->amount = $amount;
 		$fin_transactions->save();
 		
+        GeneralHelper::cache_saldo_forget();
+
 		return response()->json([
 					"id" => "1",
 					"message" => 'Success'

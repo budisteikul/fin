@@ -64,14 +64,14 @@ class FinClass {
 
             for($j=$ybulan;$j>=$xbulan;$j--)
             {
-                
-                if($i .'-'. GeneralHelper::digitFormat($j,2) == $tahun .'-'. $bulan)
+                $jbulan = GeneralHelper::digitFormat($j,2);
+                if($i .'-'. GeneralHelper::digitFormat($jbulan,2) == $tahun .'-'. $bulan)
                 {
-                    $option .= '<option value="'.$i .'-'. $j.'" selected>'.date('F', mktime(0, 0, 0, $j, 10)).' '.$i.'</option>';
+                    $option .= '<option value="'.$i .'-'. $jbulan.'" selected>'.date('F', mktime(0, 0, 0, $jbulan, 10)).' '.$i.'</option>';
                 }
                 else
                 {
-                    $option .= '<option value="'.$i .'-'. $j.'">'. date('F', mktime(0, 0, 0, $j, 10)) .' '.$i.'</option>';
+                    $option .= '<option value="'.$i .'-'. $jbulan.'">'. date('F', mktime(0, 0, 0, $jbulan, 10)) .' '.$i.'</option>';
                 }
                 
             }
@@ -117,10 +117,39 @@ class FinClass {
         return $string;
     }
 
+    
+    public static function cache_saldo_forget($date)
+    {
+        
+                $fin_date_start = env('FIN_DATE_START');
+
+                $start_year = Str::substr($fin_date_start, 0,4);
+                $start_month = Str::substr($fin_date_start, 5,2);
+
+                $newDateTime = Carbon::parse($date)->subMonths(1);
+                $tahun = Str::substr($newDateTime, 0,4);
+                $bulan = Str::substr($newDateTime, 5,2);
+
+                for($i=$start_year;$i<=$tahun;$i++)
+                {
+                    $xbulan = $start_month;
+                    if($i!=$start_year) $xbulan = 1;
+
+                    $ybulan = $bulan;
+                    if($i!=date('Y')) $ybulan = 12;
+
+                    for($j=$xbulan;$j<=$ybulan;$j++)
+                    {
+                            Cache::forget('_finLastMonthSaldo_'. $i .'_'. GeneralHelper::digitFormat($j,2));
+                    }
+                }
+    }
+    
+
     public static function last_month_saldo($tahun,$bulan)
     {
-        $value = Cache::rememberForever('_finLastMonthSaldo_'. $tahun .'_'. $bulan, function() use ($tahun,$bulan) 
-        {
+        //$value = Cache::rememberForever('_finLastMonthSaldo_'. $tahun .'_'. $bulan, function() use ($tahun,$bulan) 
+        //{
                 $fin_date_start = env('FIN_DATE_START');
 
                 $start_year = Str::substr($fin_date_start, 0,4);
@@ -143,20 +172,27 @@ class FinClass {
                     for($j=$xbulan;$j<=$ybulan;$j++)
                     {
                 
-                            $revenue_per = self::total_revenue_per_month($i,$j);
-                            $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$j);
+                            
+                        $jbulan = GeneralHelper::digitFormat($j,2);
+                        $total = Cache::rememberForever('_finLastMonthSaldo_'. $i .'_'. $jbulan, function() use ($i,$jbulan) 
+                        {
+                            $revenue_per = self::total_revenue_per_month($i,$jbulan);
+                            $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$jbulan);
                             $gross_margin = $revenue_per - $cogs_per;
-                            $total_expenses = self::total_per_month_by_type('Expenses',$i,$j);
+                            $total_expenses = self::total_per_month_by_type('Expenses',$i,$jbulan);
                     
                             $profit_loss = $gross_margin - $total_expenses;
                             $total += $profit_loss;
+
+                            return $total;
+                        });
                     }
                 }
 
                 return round($total);
-        });
+        //});
 
-        return $value;        
+        //return $value;        
     }
 
 	public static function total_per_month($category_id,$year,$month){
