@@ -123,8 +123,7 @@ class FinClass {
 
     public static function last_month_saldo($tahun,$bulan)
     {
-        //$value = Cache::rememberForever('_finLastMonthSaldo_'. $tahun .'_'. $bulan, function() use ($tahun,$bulan) 
-        //{
+        
                 $fin_date_start = env('FIN_DATE_START');
 
                 $start_year = Str::substr($fin_date_start, 0,4);
@@ -147,10 +146,7 @@ class FinClass {
                     for($j=$xbulan;$j<=$ybulan;$j++)
                     {
                 
-                            
-                        $jbulan = GeneralHelper::digitFormat($j,2);
-                        $total = Cache::rememberForever('_finLastMonthSaldo_'. $i .'_'. $jbulan, function() use ($i,$jbulan) 
-                        {
+                            $jbulan = GeneralHelper::digitFormat($j,2);
                             $revenue_per = self::total_revenue_per_month($i,$jbulan);
                             $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$jbulan);
                             $gross_margin = $revenue_per - $cogs_per;
@@ -159,38 +155,49 @@ class FinClass {
                             $profit_loss = $gross_margin - $total_expenses;
                             $total += $profit_loss;
 
-                            return $total;
-                        });
                     }
+
+                    
                 }
 
-                return round($total);
-        //});
+                
+                
 
-        //return $value;        
+                return round($total);
+               
     }
 
 	public static function total_per_month($category_id,$year,$month){
 
-        $fin_date_start = env('FIN_DATE_START');
-        $fin_date_end = date('Y-m-d') .' 23:59:00';
-
-        $total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
-		return $total;
-	}
-	
-	public static function total_per_month_by_type($type,$year,$month){
-			
+        //$total = Cache::rememberForever('total_per_month'. $category_id .'_'. $year .'_'. $month, function() use ($category_id,$year,$month) 
+        //{
             $fin_date_start = env('FIN_DATE_START');
             $fin_date_end = date('Y-m-d') .' 23:59:00';
 
-            $total = 0;
-			$fin_categories = fin_categories::where('type',$type)->get();
-			foreach($fin_categories as $fin_categorie)
-			{
-				$total += fin_transactions::where('category_id',$fin_categorie->id)->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
-			}
-		return $total;
+            $total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
+		  return $total;
+        //});
+        //return $total;
+	}
+	
+	public static function total_per_month_by_type($type,$year,$month){
+		
+            //$total = Cache::rememberForever('_total_per_month_by_type_'. $type .'_'. $year .'_'. $month, function() use ($type,$year,$month) 
+            //{
+                $fin_date_start = env('FIN_DATE_START');
+                $fin_date_end = date('Y-m-d') .' 23:59:00';
+
+                $total = 0;
+                $fin_categories = fin_categories::where('type',$type)->get();
+                foreach($fin_categories as $fin_categorie)
+                {
+                    $total += fin_transactions::where('category_id',$fin_categorie->id)->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
+                }
+                return $total;
+            //});
+
+            
+		//return $total;
 	}
 
     public static function total_shoppingcart_per_month($booking_channel,$year,$month){
@@ -214,21 +221,26 @@ class FinClass {
     
     public static function total_revenue_per_month($year,$month){
             
-            $fin_date_start = env('FIN_DATE_START');
-            $fin_date_end = date('Y-m-d') .' 23:59:00';
+            //$total = Cache::rememberForever('_total_revenue_per_month_'. $year .'_'. $month, function() use ($year,$month) 
+            //{
+                $fin_date_start = env('FIN_DATE_START');
+                $fin_date_end = date('Y-m-d') .' 23:59:00';
 
-            $total = 0;
-            $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($booking_channel) {
+                $total = 0;
+                $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($booking_channel) {
                             return $query->where('booking_status','CONFIRMED');
                          })->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->get();
-            foreach($sub_totals as $sub_total)
-            {
-                $total += $sub_total->total;
-            }
+                foreach($sub_totals as $sub_total)
+                {
+                    $total += $sub_total->total;
+                }
             
-            $total += self::total_per_month_by_type('Revenue',$year,$month);
+                $total += self::total_per_month_by_type('Revenue',$year,$month);
+                return $total;
+            //});
+            
 
-            return $total;
+            //return $total;
     }
 
 	public static function total_per_day_by_type($type,$year,$month,$day){
