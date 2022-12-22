@@ -3,13 +3,12 @@ namespace budisteikul\fin\Classes;
 
 use budisteikul\fin\Models\fin_transactions;
 use budisteikul\fin\Models\fin_categories;
-use budisteikul\fin\Models\fin_temps;
 use budisteikul\toursdk\Helpers\GeneralHelper;
-use Illuminate\Database\Eloquent\Builder;
 use budisteikul\toursdk\Models\Shoppingcart;
 use budisteikul\toursdk\Models\ShoppingcartProduct;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class FinClass {
 
@@ -120,40 +119,44 @@ class FinClass {
 
     public static function last_month_saldo($tahun,$bulan)
     {
+        $value = Cache::rememberForever('_finLastMonthSaldo_'. $tahun .'_'. $bulan, function() use ($tahun,$bulan) 
+        {
+                $fin_date_start = env('FIN_DATE_START');
 
-        $fin_date_start = env('FIN_DATE_START');
+                $start_year = Str::substr($fin_date_start, 0,4);
+                $start_month = Str::substr($fin_date_start, 5,2);
 
-        $start_year = Str::substr($fin_date_start, 0,4);
-        $start_month = Str::substr($fin_date_start, 5,2);
-
-        $newDateTime = Carbon::parse($tahun."-".$bulan."-01")->subMonths(1);
-        $tahun = Str::substr($newDateTime, 0,4);
-        $bulan = Str::substr($newDateTime, 5,2);
+                $newDateTime = Carbon::parse($tahun."-".$bulan."-01")->subMonths(1);
+                $tahun = Str::substr($newDateTime, 0,4);
+                $bulan = Str::substr($newDateTime, 5,2);
 
     
-        $total = 0;
-        for($i=$start_year;$i<=$tahun;$i++)
-        {
-            $xbulan = $start_month;
-            if($i!=$start_year) $xbulan = 1;
+                $total = 0;
+                for($i=$start_year;$i<=$tahun;$i++)
+                {
+                    $xbulan = $start_month;
+                    if($i!=$start_year) $xbulan = 1;
 
-            $ybulan = $bulan;
-            if($i!=date('Y')) $ybulan = 12;
+                    $ybulan = $bulan;
+                    if($i!=date('Y')) $ybulan = 12;
 
-            for($j=$xbulan;$j<=$ybulan;$j++)
-            {
+                    for($j=$xbulan;$j<=$ybulan;$j++)
+                    {
                 
-                    $revenue_per = self::total_revenue_per_month($i,$j);
-                    $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$j);
-                    $gross_margin = $revenue_per - $cogs_per;
-                    $total_expenses = self::total_per_month_by_type('Expenses',$i,$j);
+                            $revenue_per = self::total_revenue_per_month($i,$j);
+                            $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$j);
+                            $gross_margin = $revenue_per - $cogs_per;
+                            $total_expenses = self::total_per_month_by_type('Expenses',$i,$j);
                     
-                    $profit_loss = $gross_margin - $total_expenses;
-                    $total += $profit_loss;
-            }
-        }
+                            $profit_loss = $gross_margin - $total_expenses;
+                            $total += $profit_loss;
+                    }
+                }
 
-        return round($total);
+                return round($total);
+        });
+
+        return $value;        
     }
 
 	public static function total_per_month($category_id,$year,$month){
