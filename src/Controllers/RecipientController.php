@@ -91,8 +91,12 @@ class RecipientController extends Controller
         {
             Recipient::query()->update(['auto_transfer' => 0]);
             $recipient = Recipient::findOrFail($id);
-            $recipient->auto_transfer = $status;
-            $recipient->save();
+            if($status==1)
+            {
+                $recipient->auto_transfer = 1;
+                $recipient->save();
+            }
+            
         }
 
         return response()->json([
