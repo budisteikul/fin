@@ -24,11 +24,11 @@ class RecipientDataTable extends DataTable
             ->editColumn('auto_transfer', function($id){
                 if($id->auto_transfer==1)
                 {
-                    return '<i class="fas fa-check-circle text-success"></i>';
+                    return '<a href="#" onClick="UPDATE(\''. $id->id .'\',0)"><i class="fas fa-check-circle text-success"></i></a>';
                 }
                 else
                 {
-                    return '<a href="#" onClick="UPDATE(\''. $id->id .'\')"><i class="fas fa-times-circle text-danger"></i></a>';
+                    return '<a href="#" onClick="UPDATE(\''. $id->id .'\',1)"><i class="fas fa-times-circle text-danger"></i></a>';
                 }
             })
 			->addColumn('action', function ($id) {

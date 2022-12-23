@@ -76,6 +76,7 @@ class RecipientController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'action' => 'required',
+            'status' => 'required',
         ]);
         
         if ($validator->fails()) {
@@ -84,13 +85,13 @@ class RecipientController extends Controller
         }
         
         $action =  $request->input('action');
+        $status =  $request->input('status');
 
         if($action=="update")
         {
             Recipient::query()->update(['auto_transfer' => 0]);
-
             $recipient = Recipient::findOrFail($id);
-            $recipient->auto_transfer = 1;
+            $recipient->auto_transfer = $status;
             $recipient->save();
         }
 

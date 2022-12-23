@@ -2,7 +2,7 @@
 @section('content')
 @push('scripts')
 <script type="text/javascript">
-	function UPDATE(id)
+	function UPDATE(id,status)
 	{
 		$.confirm({
     		title: 'Warning',
@@ -19,7 +19,8 @@
 						$.ajax({
   						data: {
         					"_token": $("meta[name=csrf-token]").attr("content"),
-							"action": 'update'
+							"action": 'update',
+							"status": status
         				},
 						type: 'PUT',
 						url: '{{ route('route_fin_recipient.index') }}/'+ id
