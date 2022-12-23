@@ -43,13 +43,13 @@ class FinClass {
 
     public static function select_banking_form($tahun,$bulan)
     {
-        //print($tahun.'-'. $bulan);
+        
         $fin_date_start = env('FIN_DATE_START');
         
         $start_year = Str::substr($fin_date_start, 0,4);
         $start_month = Str::substr($fin_date_start, 5,2);
 
-        //$newDateTime = Carbon::parse($tahun."-".$bulan."-01")->subMonths(1);
+        
         $tahun_now = date('Y');
         $bulan_now = date('m');
 
@@ -91,12 +91,11 @@ class FinClass {
 
     public static function select_profitloss_form($tahun)
     {
-        //print($tahun.'-'. $bulan);
+        
         $fin_date_start = env('FIN_DATE_START');
         
         $start_year = Str::substr($fin_date_start, 0,4);
 
-        //$newDateTime = Carbon::parse($tahun."-".$bulan."-01")->subMonths(1);
         $tahun_now = date('Y');
 
         $option = '';
@@ -119,11 +118,8 @@ class FinClass {
 
     
     
-    
-
-    public static function last_month_saldo($tahun,$bulan)
+    public static function calculate_saldo($tahun,$bulan)
     {
-        
                 $fin_date_start = env('FIN_DATE_START');
 
                 $start_year = Str::substr($fin_date_start, 0,4);
@@ -132,7 +128,6 @@ class FinClass {
                 $newDateTime = Carbon::parse($tahun."-".$bulan."-01")->subMonths(1);
                 $tahun = Str::substr($newDateTime, 0,4);
                 $bulan = Str::substr($newDateTime, 5,2);
-
     
                 $total = 0;
                 for($i=$start_year;$i<=$tahun;$i++)
@@ -160,30 +155,33 @@ class FinClass {
                     
                 }
 
-                
-                
-
                 return round($total);
-               
+    }
+
+    public static function last_month_saldo($tahun,$bulan)
+    {
+        $total = Cache::rememberForever('_saldo_'. $tahun .'_'. $bulan, function() use ($tahun,$bulan) 
+        {
+            $saldo = self::calculate_saldo($tahun,$bulan);
+            return $saldo;
+        });
+        return $total;
     }
 
 	public static function total_per_month($category_id,$year,$month){
 
-        //$total = Cache::rememberForever('total_per_month'. $category_id .'_'. $year .'_'. $month, function() use ($category_id,$year,$month) 
-        //{
+        
             $fin_date_start = env('FIN_DATE_START');
             $fin_date_end = date('Y-m-d') .' 23:59:00';
 
             $total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
 		  return $total;
-        //});
-        //return $total;
+        
 	}
 	
 	public static function total_per_month_by_type($type,$year,$month){
 		
-            //$total = Cache::rememberForever('_total_per_month_by_type_'. $type .'_'. $year .'_'. $month, function() use ($type,$year,$month) 
-            //{
+            
                 $fin_date_start = env('FIN_DATE_START');
                 $fin_date_end = date('Y-m-d') .' 23:59:00';
 
@@ -194,10 +192,10 @@ class FinClass {
                     $total += fin_transactions::where('category_id',$fin_categorie->id)->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
                 }
                 return $total;
-            //});
+            
 
             
-		//return $total;
+		
 	}
 
     public static function total_shoppingcart_per_month($booking_channel,$year,$month){
@@ -221,8 +219,7 @@ class FinClass {
     
     public static function total_revenue_per_month($year,$month){
             
-            //$total = Cache::rememberForever('_total_revenue_per_month_'. $year .'_'. $month, function() use ($year,$month) 
-            //{
+            
                 $fin_date_start = env('FIN_DATE_START');
                 $fin_date_end = date('Y-m-d') .' 23:59:00';
 
@@ -237,10 +234,7 @@ class FinClass {
             
                 $total += self::total_per_month_by_type('Revenue',$year,$month);
                 return $total;
-            //});
             
-
-            //return $total;
     }
 
 	public static function total_per_day_by_type($type,$year,$month,$day){

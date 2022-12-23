@@ -24,18 +24,52 @@
     </tr>
   </thead>
   <tbody>
+    @php
+        $total = Array();
+        $i = 0;
+    @endphp
     @foreach($date as $bulan)
     <tr>
       <td>{{ $bulan->tahun }} {{ $bulan->nama_bulan }}</td>
+      @php
+        $j = 0;
+      @endphp
       @foreach($shoppingcart_payments as $shoppingcart_payment)
-        @if($shoppingcart_payment->currency=="IDR")
-          <td><strong>{{ $general_helper->numberFormat($fin->payment_total($bulan->tahun,$bulan->bulan,$shoppingcart_payment->payment_provider,$shoppingcart_payment->currency)) }}</strong></td>
-        @else
-          <td><strong>{{ $fin->payment_total($bulan->tahun,$bulan->bulan,$shoppingcart_payment->payment_provider,$shoppingcart_payment->currency) }}</strong></td>
-        @endif
+        @php
+            $amount = $fin->payment_total($bulan->tahun,$bulan->bulan,$shoppingcart_payment->payment_provider,$shoppingcart_payment->currency);
+            $total[$i][$j] = $amount;
+            $j++;
+        @endphp
+        
+          <td>{{ $general_helper->numberFormat($amount,'USD') }}</td>
+        
       @endforeach
+      @php
+        $i++;
+      @endphp
     </tr>
     @endforeach
+    @php
+      $total_payment = Array();
+      for($j=0; $j < count($total); $j++)
+      {
+        for($i=0; $i < count($total); $i++)
+        {
+          $total_payment[$j] += $total[$i][$j];
+        }
+      }
+    @endphp
+    <tr>
+      <td><strong>TOTAL</strong></td>
+      @for($i=0; $i < count($total_payment); $i++)
+        @php
+          $amount = $total_payment[$i];
+        @endphp
+
+          <td><strong>{{ $general_helper->numberFormat($amount,'USD') }}</strong></td>
+        
+      @endfor
+    </tr>
   </tbody>
 </table>
 

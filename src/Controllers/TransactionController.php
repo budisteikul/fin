@@ -64,7 +64,7 @@ class TransactionController extends Controller
 		$fin_transactions->amount = $amount;
 		$fin_transactions->save();
 		
-        //CMSHelper::cache_saldo_forget($date);
+        CMSHelper::cache_saldo_forget($date);
 
 		return response()->json([
 					"id" => "1",
@@ -127,7 +127,7 @@ class TransactionController extends Controller
 		$fin_transactions->amount = $amount;
 		$fin_transactions->save();
 		
-        //CMSHelper::cache_saldo_forget($date);
+        CMSHelper::cache_saldo_forget($date);
 
 		return response()->json([
 					"id" => "1",
@@ -143,7 +143,7 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        //CMSHelper::cache_saldo_forget($id->date);
+        CMSHelper::cache_saldo_forget($id->date);
         fin_transactions::find($id)->delete();
     }
 }
