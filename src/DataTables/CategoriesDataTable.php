@@ -17,7 +17,7 @@ class CategoriesDataTable extends DataTable
      * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
-    public function dataTable($query)
+    public function dataTable($query): EloquentDataTable
     {
         return datatables($query)
             ->addIndexColumn()
@@ -33,7 +33,7 @@ class CategoriesDataTable extends DataTable
      * @param \App\Fin/CategoriesDataTable $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(fin_categories $model)
+    public function query(fin_categories $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -43,7 +43,7 @@ class CategoriesDataTable extends DataTable
      *
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html()
+    public function html(): HtmlBuilder
     {
         return $this->builder()
                     ->columns($this->getColumns())
@@ -70,7 +70,7 @@ class CategoriesDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns()
+    protected function getColumns(): array
     {
         return [
 			["name" => "created_at", "title" => "created_at", "data" => "created_at", "orderable" => true, "visible" => false,'searchable' => false],
@@ -85,7 +85,7 @@ class CategoriesDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'Fin/Categories_' . date('YmdHis');
     }

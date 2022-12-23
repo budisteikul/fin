@@ -19,7 +19,7 @@ class TransactionsDataTable extends DataTable
      * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
-    public function dataTable($query)
+    public function dataTable($query): EloquentDataTable
     {
         return datatables($query)
             ->addIndexColumn()
@@ -45,7 +45,7 @@ class TransactionsDataTable extends DataTable
      * @param \App\Fin/TransactionsDataTable $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(fin_transactions $model)
+    public function query(fin_transactions $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -55,7 +55,7 @@ class TransactionsDataTable extends DataTable
      *
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html()
+    public function html(): HtmlBuilder
     {
         return $this->builder()
                     ->columns($this->getColumns())
@@ -82,7 +82,7 @@ class TransactionsDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns()
+    protected function getColumns(): array
     {
         return [
 			["name" => "date", "title" => "date", "data" => "date", "orderable" => true, "visible" => false,'searchable' => false],
@@ -98,7 +98,7 @@ class TransactionsDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'Fin/Transactions_' . date('YmdHis');
     }
