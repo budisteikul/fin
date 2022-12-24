@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use budisteikul\fin\DataTables\RecipientDataTable;
 use Illuminate\Support\Facades\Validator;
 use budisteikul\toursdk\Models\Recipient;
-use budisteikul\fin\Classes\FinClass;
+use budisteikul\toursdk\Helpers\WiseHelper;
 
 class RecipientController extends Controller
 {
@@ -113,7 +113,7 @@ class RecipientController extends Controller
      */
     public function destroy($id)
     {
-        CMSHelper::cache_saldo_forget($id->date);
-        fin_transactions::find($id)->delete();
+        WiseHelper::deleteRecipient($id->wise_id);
+        Recipient::find($id)->delete();
     }
 }
