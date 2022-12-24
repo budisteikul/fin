@@ -85,12 +85,12 @@ class RecipientDataTable extends DataTable
     {
         return [
 			["name" => "id", "title" => "created_at", "data" => "created_at", "orderable" => true, "visible" => false,'searchable' => false],
-            ["name" => "DT_RowIndex", "title" => "No", "data" => "DT_RowIndex", "orderable" => false, "render" => null,'searchable' => false, 'width' => '30px'],
-            ["name" => "wise_id", "title" => "ID", "data" => "wise_id", "orderable" => false],
-            ["name" => "bank_name", "title" => "Bank Name", "data" => "bank_name", "orderable" => false],
-			["name" => "account_holder", "title" => "Account Holder", "data" => "account_holder", "orderable" => false],
-			["name" => "account_number", "title" => "Account Number", "data" => "account_number", "orderable" => false],
-            ["name" => "auto_transfer", "title" => "Auto Transfer", "data" => "auto_transfer", "orderable" => false,'class' => 'text-center']
+            ["name" => "DT_RowIndex", "title" => "No", "data" => "DT_RowIndex", "orderable" => false, "render" => null,'searchable' => false, 'width' => '30px', "class" => "align-middle text-center"],
+            ["name" => "wise_id", "title" => "ID", "data" => "wise_id", "orderable" => false, "class" => "align-middle"],
+            ["name" => "bank_name", "title" => "Bank Name", "data" => "bank_name", "orderable" => false, "class" => "align-middle"],
+			["name" => "account_holder", "title" => "Account Holder", "data" => "account_holder", "orderable" => false, "class" => "align-middle"],
+			["name" => "account_number", "title" => "Account Number", "data" => "account_number", "orderable" => false, "class" => "align-middle"],
+            ["name" => "auto_transfer", "title" => "Auto Transfer", "data" => "auto_transfer", "orderable" => false,'class' => 'text-center align-middle']
         ];
     }
 
