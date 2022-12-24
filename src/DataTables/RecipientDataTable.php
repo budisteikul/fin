@@ -59,7 +59,7 @@ class RecipientDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->addAction(['title' => '','width' => '220px','class' => 'text-center'])
+                    ->addAction(['title' => '','width' => '220px','class' => 'text-center'])
                     ->parameters([
 						'language' => [
 							'paginate' => [
@@ -87,7 +87,7 @@ class RecipientDataTable extends DataTable
 			["name" => "id", "title" => "created_at", "data" => "created_at", "orderable" => true, "visible" => false,'searchable' => false],
             ["name" => "DT_RowIndex", "title" => "No", "data" => "DT_RowIndex", "orderable" => false, "render" => null,'searchable' => false, 'width' => '30px'],
             ["name" => "wise_id", "title" => "ID", "data" => "wise_id", "orderable" => false],
-            ["name" => "nickname", "title" => "Nickname", "data" => "nickname", "orderable" => false],
+            ["name" => "bank_name", "title" => "Bank Name", "data" => "bank_name", "orderable" => false],
 			["name" => "account_holder", "title" => "Account Holder", "data" => "account_holder", "orderable" => false],
 			["name" => "account_number", "title" => "Account Number", "data" => "account_number", "orderable" => false],
             ["name" => "auto_transfer", "title" => "Auto Transfer", "data" => "auto_transfer", "orderable" => false,'class' => 'text-center']
