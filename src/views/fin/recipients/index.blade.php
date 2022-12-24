@@ -104,7 +104,10 @@
                 	<div class="col  text-left">
                    		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Add Recipients</button>
                     </div>
-                    
+                    <div class="col-auto text-right mr-0 pr-0">
+                    	<a type="button" class="btn btn-secondary" href="{{ route('route_fin_currency.index') }}">
+                    		<i class="fas fa-search-dollar"></i> Currency</a>
+                    </div>
                 </div>
       	
         <hr>

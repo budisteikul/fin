@@ -61,7 +61,7 @@ function CHECK_CURRENCY()
 	<label for="amount">Amount :</label>
 	<input type="number" id="amount" name="amount" class="form-control" placeholder="Amount" autocomplete="off" value="">
 </div>
-<button id="submit" type="submit" class="btn btn-primary">Check</button> 
+<button id="submit" type="submit" class="btn btn-primary"><i class="fas fa-search-dollar"></i> Check</button> 
 </form>
 <br />
                 </div>
