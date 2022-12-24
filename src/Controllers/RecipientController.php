@@ -29,7 +29,10 @@ class RecipientController extends Controller
      */
     public function create()
     {
-        
+        $tw = new WiseHelper();
+        $banks = $tw->getBank();
+
+        return view('fin::fin.recipients.create',['banks'=>$banks]);
     }
 
     /**
@@ -40,7 +43,37 @@ class RecipientController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'account_number' => 'required|string|max:255',
+            'account_holder' => 'required|string|max:255',
+            'bank_code' => 'required|string|max:255',
+            'bank_name' => 'required|string|max:255',
+        ]);
         
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return response()->json($errors);
+        }
+        
+        $account_number =  $request->input('account_number');
+        $account_holder =  $request->input('account_holder');
+        $bank_code =  $request->input('bank_code');
+        $bank_name =  $request->input('bank_name');
+
+        $tw = new WiseHelper();
+        $wise = $tw->createRecipient($account_holder,$bank_code,$account_number);
+
+        $recipient = new Recipient();
+        $recipient->wise_id = $wise->id;
+        $recipient->account_number = $account_number;
+        $recipient->account_holder = $account_holder;
+        $recipient->bank_name = $bank_name;
+        $recipient->save();
+        
+        return response()->json([
+                    "id" => "1",
+                    "message" => 'Success'
+                ]);
     }
 
     /**
@@ -113,7 +146,8 @@ class RecipientController extends Controller
      */
     public function destroy($id)
     {
-        WiseHelper::deleteRecipient($id->wise_id);
+        $tw = new WiseHelper();
+        $tw->deleteRecipient($id->wise_id);
         Recipient::find($id)->delete();
     }
 }

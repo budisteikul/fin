@@ -83,6 +83,16 @@
 		});
 		
 	}
+
+	function CREATE()
+	{
+		$.fancybox.open({
+        	type: 'ajax',
+       	 	src: '{{ route('route_fin_recipient.create') }}',
+			touch: false,
+			modal: true,
+   		});	
+	}
 </script>
 @endpush
 <div class="row justify-content-center">
@@ -91,9 +101,9 @@
                 <div class="card-header">Recipients</div>
                 <div class="card-body">
                 	<div class="row w-100">
-                	<!-- div class="col  text-left">
+                	<div class="col  text-left">
                    		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Add Recipients</button>
-                    </div -->
+                    </div>
                     
                 </div>
       	
