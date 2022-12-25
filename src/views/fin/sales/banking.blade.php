@@ -129,21 +129,25 @@ $(function() {
         $profit_loss_text = number_format($total_debit - $total_credit, 0, ',', '.');
       }
     @endphp
-    <tr>
-      <td><b>Profit/Loss :</b> {{$profit_loss_text}}</td>
-    </tr>
+    
     <tr>
       <td><b>Ending balance :</b> {{number_format($saldo, 0, ',', '.')}}</td>
     </tr>
     <tr>
       <td><hr /></td>
     </tr>
-    <tr><td>
+    <tr>
+      <td><b>Profit/Loss :</b> {{$profit_loss_text}}</td>
+    </tr>
+    <tr>
+      <td><hr /></td>
+    </tr>
+    <!-- tr><td>
       <div class="alert alert-warning" role="alert">
             <b>Tax PPh 23 FINAL :</b> {{number_format($pph_23, 0, ',', '.')}}<br />
             <b>Tax PPh Pasal 25 :</b> {{number_format($pph_25, 0, ',', '.')}}
       </div>
-    </td></tr>
+    </td></tr -->
   </tbody>
 </table>
 
