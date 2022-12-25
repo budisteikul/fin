@@ -25,9 +25,9 @@ $(function() {
   <thead>
     <tr>
       <td width="20%"><strong>Date</strong></td>
-      <td><strong>Debit</strong></td>
-      <td><strong>Credit</strong></td>
-      <td><strong>Balance</strong></td>
+      <td align="right"><strong>Debit</strong></td>
+      <td align="right"><strong>Credit</strong></td>
+      <td align="right"><strong>Balance</strong></td>
     </tr>
   </thead>
   <tbody>
@@ -68,9 +68,9 @@ $(function() {
     @endphp
     <tr>
       <td>{{$i}} {{ date('F', mktime(0, 0, 0, $bulan, 10)); }} {{$tahun}}</td>
-      <td>{{number_format($debit, 0, ',', '.')}}</td>
-      <td>{{number_format($credit, 0, ',', '.')}}</td>
-      <td>{{number_format($saldo, 0, ',', '.')}}</td>
+      <td align="right">{{number_format($debit, 0, ',', '.')}}</td>
+      <td align="right">{{number_format($credit, 0, ',', '.')}}</td>
+      <td align="right">{{number_format($saldo, 0, ',', '.')}}</td>
     </tr>
     @php
       }

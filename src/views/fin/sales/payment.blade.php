@@ -19,7 +19,7 @@
     <tr>
       <td><strong>DATE</strong></td>
       @foreach($shoppingcart_payments as $shoppingcart_payment)
-      <td><strong>{{ strtoupper($shoppingcart_payment->payment_provider) }} ({{ strtoupper($shoppingcart_payment->currency) }})</strong></td>
+      <td align="right"><strong>{{ strtoupper($shoppingcart_payment->payment_provider) }} ({{ strtoupper($shoppingcart_payment->currency) }})</strong></td>
       @endforeach
     </tr>
   </thead>
@@ -41,7 +41,7 @@
             $j++;
         @endphp
         
-          <td>{{ $general_helper->numberFormat($amount,'USD') }}</td>
+          <td align="right">{{ $general_helper->numberFormat($amount,'USD') }}</td>
         
       @endforeach
       @php
@@ -66,7 +66,7 @@
           $amount = $total_payment[$i];
         @endphp
 
-          <td><strong>{{ $general_helper->numberFormat($amount,'USD') }}</strong></td>
+          <td align="right"><strong>{{ $general_helper->numberFormat($amount,'USD') }}</strong></td>
         
       @endfor
     </tr>

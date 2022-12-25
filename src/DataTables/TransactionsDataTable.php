@@ -60,7 +60,6 @@ class TransactionsDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->addAction(['title' => '','width' => '220px','class' => 'text-center'])
                     ->parameters([
 						'language' => [
 							'paginate' => [
@@ -85,12 +84,29 @@ class TransactionsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-			["name" => "date", "title" => "date", "data" => "date", "orderable" => true, "visible" => false,'searchable' => false],
-            ["name" => "DT_RowIndex", "title" => "No", "data" => "DT_RowIndex", "orderable" => false, "render" => null,'searchable' => false, 'width' => '30px', "class" => "align-middle text-center"],
-			["name" => "category_id", "title" => "Name", "data" => "category_id", "orderable" => false, "class" => "align-middle"],
-			["name" => "date_text", "title" => "Date", "data" => "date_text", "orderable" => false, "class" => "align-middle"],
-			["name" => "amount", "title" => "Amount", "data" => "amount", "orderable" => false, "class" => "align-middle"]
+            Column::make('created_at')
+                  ->visible(false)
+                  ->searchable(false),
+            Column::computed('DT_RowIndex')
+                  ->width(30)
+                  ->title('No')
+                  ->orderable(false)
+                  ->searchable(false)
+                  ->render(null)
+                  ->addClass('text-center align-middle'),
+
+            Column::make('category_id')->title('Name')->orderable(false)->addClass('align-middle'),
+            Column::make('date_text')->title('Date')->orderable(false)->addClass('align-middle'),
+            Column::make('amount')->title('Amount')->orderable(false)->addClass('align-middle'),
+            /*
+            Column::computed('action')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(220)
+                  ->addClass('text-center align-middle'),
+            */
         ];
+
     }
 
     /**

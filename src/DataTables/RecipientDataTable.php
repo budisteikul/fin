@@ -59,7 +59,6 @@ class RecipientDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->addAction(['title' => '','width' => '220px','class' => 'text-center'])
                     ->parameters([
 						'language' => [
 							'paginate' => [
@@ -84,14 +83,30 @@ class RecipientDataTable extends DataTable
     protected function getColumns()
     {
         return [
-			["name" => "id", "title" => "created_at", "data" => "created_at", "orderable" => true, "visible" => false,'searchable' => false],
-            ["name" => "DT_RowIndex", "title" => "No", "data" => "DT_RowIndex", "orderable" => false, "render" => null,'searchable' => false, 'width' => '30px', "class" => "align-middle text-center"],
-            ["name" => "wise_id", "title" => "ID", "data" => "wise_id", "orderable" => false, "class" => "align-middle"],
-            ["name" => "bank_name", "title" => "Bank Name", "data" => "bank_name", "orderable" => false, "class" => "align-middle"],
-			["name" => "account_holder", "title" => "Account Holder", "data" => "account_holder", "orderable" => false, "class" => "align-middle"],
-			["name" => "account_number", "title" => "Account Number", "data" => "account_number", "orderable" => false, "class" => "align-middle"],
-            ["name" => "auto_transfer", "title" => "Auto Transfer", "data" => "auto_transfer", "orderable" => false,'class' => 'text-center align-middle']
+            Column::make('created_at')
+                  ->visible(false)
+                  ->searchable(false),
+            Column::computed('DT_RowIndex')
+                  ->width(30)
+                  ->title('No')
+                  ->orderable(false)
+                  ->searchable(false)
+                  ->render(null)
+                  ->addClass('text-center align-middle'),
+            Column::make('wise_id')->title('ID')->orderable(false)->addClass('align-middle'),
+            Column::make('bank_name')->title('Bank Name')->orderable(false)->addClass('align-middle'),
+            Column::make('account_holder')->title('Account Holder')->orderable(false)->addClass('align-middle'),
+            Column::make('account_number')->title('Account Number')->orderable(false)->addClass('align-middle'),
+            Column::make('auto_transfer')->title('Auto Transfer')->orderable(false)->addClass('text-center align-middle'),
+            /*
+            Column::computed('action')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(220)
+                  ->addClass('text-center'),
+            */
         ];
+
     }
 
     /**
