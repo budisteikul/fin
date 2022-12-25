@@ -91,7 +91,6 @@ class RecipientDataTable extends DataTable
                   ->title('No')
                   ->orderable(false)
                   ->searchable(false)
-                  ->render(null)
                   ->addClass('text-center align-middle'),
             Column::make('wise_id')->title('ID')->orderable(false)->addClass('align-middle'),
             Column::make('bank_name')->title('Bank Name')->orderable(false)->addClass('align-middle'),

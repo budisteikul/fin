@@ -80,7 +80,6 @@ class CategoriesDataTable extends DataTable
                   ->title('No')
                   ->orderable(false)
                   ->searchable(false)
-                  ->render(null)
                   ->addClass('text-center align-middle'),
             Column::make('name')->title('Name')->orderable(false)->addClass('align-middle'),
             Column::make('type')->title('Type')->orderable(false)->addClass('align-middle'),
