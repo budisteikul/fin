@@ -59,7 +59,7 @@ class RecipientDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->addAction(['title' => '','width' => '220px','class' => 'text-center'])
+                    //->addAction(['title' => '','width' => '220px','class' => 'text-center'])
                     ->parameters([
 						'language' => [
 							'paginate' => [
