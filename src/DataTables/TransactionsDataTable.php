@@ -26,10 +26,6 @@ class TransactionsDataTable extends DataTable
     {
         return datatables($query)
             ->addIndexColumn()
-			->editColumn('category_id', function ($id) {
-				$fin_categories = fin_categories::findOrFail($id->category_id);
-				return $fin_categories->name;
-            })
             ->addColumn('date_text', function($id){
                     return GeneralHelper::dateFormat($id->date,4);
                 })
@@ -50,7 +46,7 @@ class TransactionsDataTable extends DataTable
      */
     public function query(fin_transactions $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->with('categories');
     }
 
     /**
@@ -97,7 +93,7 @@ class TransactionsDataTable extends DataTable
                   ->searchable(false)
                   ->addClass('text-center align-middle'),
 
-            Column::make('category_id')->title('Name')->orderable(false)->addClass('align-middle'),
+            Column::make('categories.name')->title('Name')->orderable(false)->addClass('align-middle'),
             Column::make('date_text')->title('Date')->orderable(false)->addClass('align-middle'),
             Column::make('amount')->title('Amount')->orderable(false)->addClass('align-middle'),
             /*

@@ -13,7 +13,7 @@ class fin_transactions extends Model
 	
 	public function categories()
     {
-        return $this->belongsTo('budisteikul\fin\Models\fin_categories','category_id');
+        return $this->belongsTo(fin_categories::class,'category_id');
     }
 	
 }
