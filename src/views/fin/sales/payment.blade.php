@@ -51,7 +51,11 @@
     @endforeach
     @php
       $total_payment = [];
-      if ($total_payment ?? false)
+      for($j=0; $j < count($total); $j++)
+      {
+         $total_payment[$j] = 0;
+      }
+
       for($j=0; $j < count($total); $j++)
       {
         for($i=0; $i < count($total); $i++)

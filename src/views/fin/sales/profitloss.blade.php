@@ -69,7 +69,6 @@
 
       @for($i=1; $i<=12; $i++)
         @php
-            if ($total_sales_arr ?? false);
             $fin_categories_revenue_per = $fin::total_shoppingcart_per_month($shoppingcart->booking_channel,$tahun,$i);
             $fin_categories_revenue_subtotal += $fin_categories_revenue_per;
 
