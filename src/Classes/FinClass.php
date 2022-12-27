@@ -17,7 +17,7 @@ class FinClass {
         $fin_date_start = env('FIN_DATE_START');
         $fin_date_end = date('Y-m-d') .' 23:59:00';
 
-        $total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
+        $total = fin_transactions::whereYear('date',$tahun)->whereMonth('date',$bulan)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
 
         $ShoppingcartProduct = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($payment_provider,$currency) {
                 $query = $query->whereHas('shoppingcart_payment', function ($query) use ($payment_provider,$currency) {
@@ -224,7 +224,7 @@ class FinClass {
                 $fin_date_end = date('Y-m-d') .' 23:59:00';
 
                 $total = 0;
-                $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($booking_channel) {
+                $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) {
                             return $query->where('booking_status','CONFIRMED');
                          })->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->get();
                 foreach($sub_totals as $sub_total)
@@ -250,7 +250,7 @@ class FinClass {
     public static function total_revenue_per_day($year,$month,$day){
 
             $total = 0;
-            $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($booking_channel) {
+            $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) {
                             return $query->where('booking_status','CONFIRMED');
                          })->whereYear('date',$year)->whereMonth('date',$month)->whereDay('date',$day)->get();
             foreach($sub_totals as $sub_total)

@@ -25,7 +25,7 @@
   </thead>
   <tbody>
     @php
-        $total = Array();
+        $total = [];
         $i = 0;
     @endphp
     @foreach($date as $bulan)
@@ -50,7 +50,8 @@
     </tr>
     @endforeach
     @php
-      $total_payment = Array();
+      $total_payment = [];
+      if ($total_payment ?? false)
       for($j=0; $j < count($total); $j++)
       {
         for($i=0; $i < count($total); $i++)

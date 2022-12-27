@@ -10,6 +10,8 @@ use budisteikul\toursdk\Models\Shoppingcart;
 use budisteikul\toursdk\Models\ShoppingcartProduct;
 use Illuminate\Database\Eloquent\Builder;
 
+use budisteikul\fin\Classes\FinClass;
+
 class SalesController extends Controller
 {
     
@@ -35,6 +37,25 @@ class SalesController extends Controller
                          ->groupBy('booking_channel')
                          ->get();
         
+        /*
+        $total_sales_arr = [];
+        for($i=1; $i<=12; $i++)
+        {
+            $total_sales_arr[$i] = 0;
+        }
+
+
+        foreach($shoppingcarts as $shoppingcart)
+        {
+            $fin_categories_revenue_subtotal = 0;
+            for($i=1; $i<=12; $i++)
+            {
+                $fin_categories_revenue_per = FinClass::total_shoppingcart_per_month($shoppingcart->booking_channel,$tahun,$i);
+                $fin_categories_revenue_subtotal += $fin_categories_revenue_per;
+                $total_sales_arr[$i] += $fin_categories_revenue_per;
+            }
+        }
+        */
 
         $fin_categories_revenues = fin_categories::where('type','Revenue')->whereHas('transactions', function (Builder $query) use ($tahun,$fin_date_start,$fin_date_end) {
                 $query->whereYear('date',$tahun)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end );

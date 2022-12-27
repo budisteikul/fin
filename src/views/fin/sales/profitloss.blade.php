@@ -52,7 +52,11 @@
       <!-- #### -->
     </tr>
     @php
-      $total_sales_arr = Array();
+      $total_sales_arr = [];
+      for($i=1; $i<=12; $i++)
+      {
+            $total_sales_arr[$i] = 0;
+      }
     @endphp
     @foreach($shoppingcarts as $shoppingcart)
     <tr>
@@ -62,8 +66,10 @@
       @php
           $fin_categories_revenue_subtotal = 0;
       @endphp
+
       @for($i=1; $i<=12; $i++)
         @php
+            if ($total_sales_arr ?? false);
             $fin_categories_revenue_per = $fin::total_shoppingcart_per_month($shoppingcart->booking_channel,$tahun,$i);
             $fin_categories_revenue_subtotal += $fin_categories_revenue_per;
 
@@ -75,6 +81,9 @@
       <!-- #### -->
     </tr>
     @endforeach
+    @php
+      
+    @endphp
     @foreach($fin_categories_revenues as $fin_categories_revenue)
     <tr>
       <td>&nbsp;</td>
@@ -138,7 +147,11 @@
       <!-- #### -->
     </tr>
     @php
-      $total_cogs_arr = Array();
+      $total_cogs_arr = [];
+      for($i=1; $i<=12; $i++)
+      {
+            $total_cogs_arr[$i] = 0;
+      }
     @endphp
     @foreach($fin_categories_cogs as $fin_categories_cog)
     <tr>
@@ -191,8 +204,12 @@
       <td class="font-weight-bolder">Gross Margin</td>
       <td>&nbsp;</td>
       @php
-        $gross_margin_total = 0;
-        $total_gross_arr = Array();
+      $gross_margin_total = 0;
+      $total_gross_arr = [];
+      for($i=1; $i<=12; $i++)
+      {
+            $total_gross_arr[$i] = 0;
+      }
       @endphp
       @for($i=1; $i<=12; $i++)
       @php
@@ -226,9 +243,13 @@
       <hr>
       </td>
     </tr>
-     @php
-      $total_expenses_arr = Array();
-     @endphp
+      @php
+      $total_expenses_arr = [];
+      for($i=1; $i<=12; $i++)
+      {
+            $total_expenses_arr[$i] = 0;
+      }
+      @endphp
      @foreach($fin_categories_expenses as $fin_categories_expense)
     <tr>
       <td>&nbsp;</td>
