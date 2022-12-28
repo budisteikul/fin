@@ -9,7 +9,11 @@ use budisteikul\fin\Models\fin_transactions;
 
 class TestController extends Controller
 {
-    
+    public function test()
+    {
+        print_r(config('filesystems.disks.local.root'));
+    }
+
     public function test___()
     {
         $tw = new WiseHelper();
