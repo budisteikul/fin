@@ -8,19 +8,26 @@ $(function() {
 });
 </script>
 @endpush
+
+@php
+    $saldo_awal = $fin::last_month_saldo($tahun,$bulan);
+    $saldo = $saldo_awal;
+@endphp 
 <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Banking</div>
                 <div class="card-body">
                 
- @php
-    $saldo_awal = $fin::last_month_saldo($tahun,$bulan);
-    $saldo = $saldo_awal;
- @endphp               
-                
-{!! $fin::select_banking_form($tahun,$bulan)  !!}
-
+                    <div class="row w-100">
+                    <div class="col text-left">
+                    {!! $fin::select_banking_form($tahun,$bulan)  !!}
+                    </div>
+                    <div class="col-auto text-right mr-0 pr-0">
+                      <a type="button" class="btn btn-secondary" href="{{ route('route_fin_currency.index') }}">
+                        <i class="fas fa-search-dollar"></i> Currency</a>
+                    </div>
+                    </div>
 <table id="table1" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table mt-4" >
   <thead>
     <tr>
