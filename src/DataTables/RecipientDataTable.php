@@ -95,7 +95,7 @@ class RecipientDataTable extends DataTable
                   ->orderable(false)
                   ->searchable(false)
                   ->addClass('text-center align-middle'),
-            Column::make('wise_id')->title('ID')->orderable(false)->addClass('align-middle'),
+            //Column::make('wise_id')->title('ID')->orderable(false)->addClass('align-middle'),
             Column::make('bank_name')->title('Bank Name')->orderable(false)->addClass('align-middle'),
             Column::make('account_holder')->title('Account Holder')->orderable(false)->addClass('align-middle'),
             Column::make('account_number')->title('Account Number')->orderable(false)->addClass('align-middle'),
