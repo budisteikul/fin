@@ -193,11 +193,11 @@ class FinClass {
                     for($j=$xbulan;$j<=$ybulan;$j++)
                     {
                             
-
-                            $total = Cache::rememberForever('saldo_'. $i .'_'. $j, function() use ($i,$j,$total) 
+                            $jbulan = GeneralHelper::digitFormat($j,2);
+                            $total = Cache::rememberForever('saldo_'. $i .'_'. $jbulan, function() use ($i,$jbulan,$total) 
                             {
                                 
-                                $jbulan = GeneralHelper::digitFormat($j,2);
+                                
                                 $revenue_per = self::total_revenue_per_month($i,$jbulan);
                                 $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$jbulan);
                                 $gross_margin = $revenue_per - $cogs_per;
