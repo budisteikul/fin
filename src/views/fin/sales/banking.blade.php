@@ -10,7 +10,7 @@ $(function() {
 @endpush
 
 @php
-    $saldo_awal = $fin::last_month_saldo($tahun,$bulan);
+    $saldo_awal = $fin::calculate_saldo($tahun,$bulan);
     $saldo = $saldo_awal;
 @endphp 
 <div class="row justify-content-center">

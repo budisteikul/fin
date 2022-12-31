@@ -101,9 +101,18 @@ class FinClass {
         $option = '';
         for($i=$tahun_now;$i>=$start_year;$i--)
         {
-            $option .= '<option value="'.$i .'" selected>'.$i.'</option>';
+            if($i==$tahun)
+            {
+                $option .= '<option value="'.$i .'" selected>'.$i.'</option>';
+            }
+            else 
+            {
+                $option .= '<option value="'.$i .'">'.$i.'</option>';
+            }
+            
         }
 
+        
         $string = '
                    <form class="form-inline mb-4" method="GET">
                     <div class="form-group">
@@ -125,47 +134,100 @@ class FinClass {
                 $start_year = Str::substr($fin_date_start, 0,4);
                 $start_month = Str::substr($fin_date_start, 5,2);
 
+                $newDateTime = Carbon::parse($start_year."-".$start_month."-01")->subMonths(1);
+                $tahun_past = Str::substr($newDateTime, 0,4);
+                $bulan_past = Str::substr($newDateTime, 5,2);
+
+                $tahun_req = $tahun;
+                $bulan_req = $bulan;
+
                 $newDateTime = Carbon::parse($tahun."-".$bulan."-01")->subMonths(1);
                 $tahun = Str::substr($newDateTime, 0,4);
                 $bulan = Str::substr($newDateTime, 5,2);
-    
+                
+                
+                //print($bulan);
                 $total = 0;
                 for($i=$start_year;$i<=$tahun;$i++)
                 {
-                    $xbulan = $start_month;
-                    if($i!=$start_year) $xbulan = 1;
-
+                    
+                    $xbulan = $bulan_past;
                     $ybulan = $bulan;
-                    if($i!=date('Y')) $ybulan = 12;
+                    
+                    if(($tahun_req>$start_year))
+                    {
+                        
+                        if($i==$start_year)
+                        {
+                            $xbulan = $bulan_past;
+                            $ybulan = 12;
+                        }
+                        else if($i<$tahun_req)
+                        {
+                            $xbulan = 1;
+                            $ybulan = 12;
+                        }
+                        else
+                        {   
+                            $xbulan = 1;
+                            $ybulan = $bulan;
+                        }
+                        
+                    }
 
+                    
+
+                    
+
+                    //$ybulan = $bulan;
+                    //if($tahun>$start_year) $ybulan = date('m');
+
+                    //exit($bulan);
+                    //$xbulan = $start_month;
+                    //if($i!=$start_year) $xbulan = 1;
+
+                    //$ybulan = $bulan;
+                    //if($i!=$start_year) $ybulan = date('m');
+
+                    
                     for($j=$xbulan;$j<=$ybulan;$j++)
                     {
-                
-                            $jbulan = GeneralHelper::digitFormat($j,2);
-                            $revenue_per = self::total_revenue_per_month($i,$jbulan);
-                            $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$jbulan);
-                            $gross_margin = $revenue_per - $cogs_per;
-                            $total_expenses = self::total_per_month_by_type('Expenses',$i,$jbulan);
-                    
-                            $profit_loss = $gross_margin - $total_expenses;
-                            $total += $profit_loss;
+                            
 
+                            $total = Cache::rememberForever('saldo_'. $i .'_'. $j, function() use ($i,$j,$total) 
+                            {
+                                
+                                $jbulan = GeneralHelper::digitFormat($j,2);
+                                $revenue_per = self::total_revenue_per_month($i,$jbulan);
+                                $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$jbulan);
+                                $gross_margin = $revenue_per - $cogs_per;
+                                $total_expenses = self::total_per_month_by_type('Expenses',$i,$jbulan);
+                    
+                                $profit_loss = $gross_margin - $total_expenses;
+                                $total += $profit_loss;
+                                return $total;
+                            });
+
+                            
+                            
+                            //print_r('_saldo_'. $i .'_'. $j .'_'. $total .'<br >');
                     }
 
                     
                 }
 
+                
                 return round($total);
     }
 
     public static function last_month_saldo($tahun,$bulan)
     {
-        $total = Cache::rememberForever('_saldo_'. $tahun .'_'. $bulan, function() use ($tahun,$bulan) 
-        {
+        //$total = Cache::rememberForever('_saldo_'. $tahun .'_'. $bulan, function() use ($tahun,$bulan) 
+        //{
             $saldo = self::calculate_saldo($tahun,$bulan);
             return $saldo;
-        });
-        return $total;
+        //});
+        //return $total;
     }
 
 	public static function total_per_month($category_id,$year,$month){

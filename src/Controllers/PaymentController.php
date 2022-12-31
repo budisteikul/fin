@@ -15,6 +15,8 @@ class PaymentController extends Controller
         $tahun = $request->input('year');
         if($tahun=="") $tahun = date("Y");
 
+        if($tahun>date("Y")) $tahun = date("Y");
+
         $bulan = date('m');
 
         $fin_date_start = env('FIN_DATE_START');
@@ -23,29 +25,25 @@ class PaymentController extends Controller
         $start_year = Str::substr($fin_date_start, 0,4);
         $start_month = Str::substr($fin_date_start, 5,2);
 
-        $newDateTime = Carbon::parse($tahun."-".$bulan."-01");
-        $tahun = Str::substr($newDateTime, 0,4);
-        $bulan = Str::substr($newDateTime, 5,2);
+            $total = 0;
 
-        $total = 0;
-
-        for($i=$start_year;$i<=$tahun;$i++)
-        {
             $xbulan = $start_month;
-            if($i!=$start_year) $xbulan = 1;
+            if($tahun!=$start_year) $xbulan = 1;
 
-            $ybulan = $bulan;
-            if($i!=date('Y')) $ybulan = 12;
-
+            $ybulan = 12;
+            if($tahun!=$start_year) $ybulan = $bulan;
+            
             for($j=$xbulan;$j<=$ybulan;$j++)
             {
+
                     $date_arr[] = (object)[
                         'nama_bulan' => date('F', mktime(0, 0, 0, $j, 10)),
                         'bulan' => date('m', mktime(0, 0, 0, $j, 10)),
                         'tahun' => $tahun
                     ];
+                
             }
-        }
+        
 
         $ShoppingcartPayments = ShoppingcartPayment::select(['payment_provider','currency'])->whereHas('shoppingcart', function ($query) use ($fin_date_start,$fin_date_end) {
                 
@@ -57,6 +55,8 @@ class PaymentController extends Controller
 
         })->where('amount','>',0)->where('payment_provider', '!=', 'none')->groupBy('currency')->groupBy('payment_provider')->orderBy('payment_provider','ASC')->get();
         
+        //print_r($date_arr);
+        //exit();
         return view('fin::fin.sales.payment',['tahun'=>$tahun,'date'=>$date_arr,'shoppingcart_payments'=>$ShoppingcartPayments]);
     }
 }
