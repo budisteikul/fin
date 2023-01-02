@@ -63,19 +63,6 @@ function STORE()
 
 <div id="result"></div>
 
-
-
-
-<div class="form-group">
-	<label for="category_id">Name :</label>
-    <select class="form-control" id="category_id" data-live-search="true">
-       @foreach($fin_categories as $fin_category)
-       	<option value="{{ $fin_category->id }}">{{ $fin_category->name }}</option>
-       @endforeach
-	</select>
-</div>
-
-
 <div class="form-group">   
 				 <label for="datetimepicker1">Date :</label>           
                 <div class='input-group' id='datetimepicker1'>
@@ -102,6 +89,19 @@ function STORE()
             });
         </script>    
 </div>
+
+
+<div class="form-group">
+	<label for="category_id">Name :</label>
+    <select class="form-control" id="category_id" data-live-search="true">
+       @foreach($fin_categories as $fin_category)
+       	<option value="{{ $fin_category->id }}">{{ $fin_category->name }}</option>
+       @endforeach
+	</select>
+</div>
+
+
+
 
 <div class="form-group">
 	<label for="amount">Amount :</label>

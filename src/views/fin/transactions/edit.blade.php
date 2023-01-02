@@ -56,15 +56,6 @@ function UPDATE()
 <form onSubmit="UPDATE(); return false;">
 <div id="result"></div>
 
-<div class="form-group">
-	<label for="category_id">Name :</label>
-    <select class="form-control" id="category_id">
-       @foreach($fin_categories as $fin_category)
-       	<option value="{{ $fin_category->id }}" {{ ($fin_category->id==$fin_transactions->category_id) ? 'selected' : '' }}>{{ $fin_category->name }}</option>
-       @endforeach
-	</select>
-</div>
-
 <div class="form-group">   
 				 <label for="datetimepicker1">Date :</label>           
                 <div class='input-group' id='datetimepicker1'>
@@ -91,6 +82,17 @@ function UPDATE()
             });
         </script>    
 </div>
+
+<div class="form-group">
+	<label for="category_id">Name :</label>
+    <select class="form-control" id="category_id">
+       @foreach($fin_categories as $fin_category)
+       	<option value="{{ $fin_category->id }}" {{ ($fin_category->id==$fin_transactions->category_id) ? 'selected' : '' }}>{{ $fin_category->name }}</option>
+       @endforeach
+	</select>
+</div>
+
+
 
 <div class="form-group">
 	<label for="amount">Amount :</label>
