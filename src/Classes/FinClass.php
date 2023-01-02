@@ -81,7 +81,7 @@ class FinClass {
                    <form class="form-inline mb-4" method="GET">
                     <div class="form-group">
                         <label class="mr-2" for="date">Date</label>
-                        <select name="date" class="form-control mr-2" id="date">'.$option.'</select>
+                        <select name="date" class="form-control mr-2" id="date_filter">'.$option.'</select>
                         <button id="filter" type="submit" class="btn btn-primary"> Apply</button>
                     </div>
                    </form>
@@ -117,7 +117,7 @@ class FinClass {
                    <form class="form-inline mb-4" method="GET">
                     <div class="form-group">
                         <label class="mr-2" for="date">Year</label>
-                        <select name="year" class="form-control mr-2" id="year">'.$option.'</select>
+                        <select name="year" class="form-control mr-2" id="year_filter">'.$option.'</select>
                         <button id="filter" type="submit" class="btn btn-primary"> Apply</button>
                     </div>
                    </form>
