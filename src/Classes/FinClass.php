@@ -82,7 +82,7 @@ class FinClass {
                     <div class="form-group">
                         <label class="mr-2" for="date">Date</label>
                         <select name="date" class="form-control mr-2" id="date">'.$option.'</select>
-                        <button id="submit" type="submit" class="btn btn-primary"> Apply</button>
+                        <button id="filter" type="submit" class="btn btn-primary"> Apply</button>
                     </div>
                    </form>
                    ';
@@ -118,7 +118,7 @@ class FinClass {
                     <div class="form-group">
                         <label class="mr-2" for="date">Year</label>
                         <select name="year" class="form-control mr-2" id="year">'.$option.'</select>
-                        <button id="submit" type="submit" class="btn btn-primary"> Apply</button>
+                        <button id="filter" type="submit" class="btn btn-primary"> Apply</button>
                     </div>
                    </form>
                    ';
