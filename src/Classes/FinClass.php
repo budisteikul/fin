@@ -41,7 +41,7 @@ class FinClass {
         return number_format((float)$value, 2, '.', '');
     }
 
-    public static function select_banking_form($tahun,$bulan)
+    public static function select_yearmonth_form($tahun,$bulan)
     {
         
         $fin_date_start = env('FIN_DATE_START');

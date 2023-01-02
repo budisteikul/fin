@@ -1,3 +1,4 @@
+@inject('fin', 'budisteikul\fin\Classes\FinClass')
 @extends('coresdk::layouts.app')
 @section('content')
 @push('scripts')
@@ -69,6 +70,14 @@
             <div class="card">
                 <div class="card-header">Transactions</div>
                 <div class="card-body">
+                	
+                	<div class="row w-100">
+                	<div class="col  text-left">
+                   		{!! $fin::select_yearmonth_form($tahun,$bulan)  !!}
+                    </div>
+                    
+                	</div>
+                	<hr />
                 	<div class="row w-100">
                 	<div class="col  text-left">
                    		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Create Transactions</button>
@@ -77,7 +86,7 @@
                     	<a type="button" class="btn btn-secondary" href="{{ route('route_fin_categories.index') }}">
                     		<i class="fas fa-list"></i> Categories</a>
                     </div>
-                </div>
+                	</div>
       
       	
         <hr>

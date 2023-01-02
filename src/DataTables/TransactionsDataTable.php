@@ -46,7 +46,9 @@ class TransactionsDataTable extends DataTable
      */
     public function query(fin_transactions $model): QueryBuilder
     {
-        return $model->with('categories');
+        $tahun = $this->tahun;
+        $bulan = $this->bulan;
+        return $model->with('categories')->whereYear('date',$tahun)->whereMonth('date',$bulan)->newQuery();
     }
 
     /**
@@ -71,8 +73,7 @@ class TransactionsDataTable extends DataTable
 						'pagingType' => 'full_numbers',
 						'responsive' => true,
 						'order' => [0,'desc']
-                    ])
-					->ajax('/'.request()->path());
+                    ]);
     }
 
     /**

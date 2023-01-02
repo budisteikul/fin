@@ -11,6 +11,9 @@ use budisteikul\fin\Models\fin_transactions;
 use budisteikul\fin\Models\fin_categories;
 use budisteikul\fin\Classes\FinClass;
 use budisteikul\tourcms\Helpers\CMSHelper;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use budisteikul\toursdk\Helpers\GeneralHelper;
 
 class TransactionController extends Controller
 {
@@ -19,9 +22,22 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(TransactionsDataTable $dataTable)
+    public function index(TransactionsDataTable $dataTable,Request $request)
     {
-        return $dataTable->render('fin::fin.transactions.index');
+        $date = $request->input('date');
+
+        if($date=="") $date = date('Y-m');
+
+        $newDateTime = Carbon::parse($date."-01");
+        $tahun = Str::substr($newDateTime, 0,4);
+        $bulan = Str::substr($newDateTime, 5,2);
+        $bulan = GeneralHelper::digitFormat($bulan,2);
+        
+        return $dataTable->with([
+                'tahun' => $tahun,
+                'bulan' => $bulan
+           ])->render('fin::fin.transactions.index',['tahun' => $tahun,
+                'bulan' => $bulan]);
     }
 
     /**

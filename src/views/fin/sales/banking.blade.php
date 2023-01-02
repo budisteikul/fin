@@ -21,7 +21,7 @@ $(function() {
                 
                     <div class="row w-100">
                     <div class="col text-left">
-                    {!! $fin::select_banking_form($tahun,$bulan)  !!}
+                    {!! $fin::select_yearmonth_form($tahun,$bulan)  !!}
                     </div>
                     <div class="col-auto text-right mr-0 pr-0">
                       <a type="button" class="btn btn-secondary" href="{{ route('route_fin_currency.index') }}">
