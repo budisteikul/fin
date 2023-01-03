@@ -47,7 +47,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-		$fin_categories = fin_categories::orderBy('name')->get();
+		$fin_categories = fin_categories::whereYear('created_at',date('Y'))->orderBy('name')->get();
         return view('fin::fin.transactions.create',['fin_categories'=>$fin_categories]);
     }
 
@@ -107,7 +107,7 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        $fin_categories = fin_categories::orderBy('name')->get();
+        $fin_categories = fin_categories::whereYear('created_at',date('Y'))->orderBy('name')->get();
 		$fin_transactions = fin_transactions::with('categories')->findOrFail($id);
 		if($fin_transactions->amount<0) $fin_transactions->amount = $fin_transactions->amount * -1;
         return view('fin::fin.transactions.edit',['fin_transactions'=>$fin_transactions,'fin_categories'=>$fin_categories]);

@@ -38,7 +38,7 @@ class CategoriesDataTable extends DataTable
      */
     public function query(fin_categories $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->whereYear('created_at',date('Y'))->newQuery();
     }
 
     /**
