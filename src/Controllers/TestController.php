@@ -10,8 +10,6 @@ use budisteikul\fin\Models\fin_transactions;
 use budisteikul\toursdk\Models\ShoppingcartProduct;
 use Ramsey\Uuid\Uuid;
 
-use budisteikul\toursdk\Helpers\WiseHelper;
-
 class TestController extends Controller
 {
     public function test(Request $request)
