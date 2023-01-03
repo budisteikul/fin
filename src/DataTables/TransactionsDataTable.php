@@ -97,13 +97,13 @@ class TransactionsDataTable extends DataTable
             Column::make('categories.name')->title('Name')->orderable(false)->addClass('align-middle'),
             Column::make('date_text')->title('Date')->orderable(false)->addClass('align-middle'),
             Column::make('amount')->title('Amount')->orderable(false)->addClass('align-middle'),
-            /*
+            
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(220)
                   ->addClass('text-center align-middle'),
-            */
+            
         ];
 
     }
