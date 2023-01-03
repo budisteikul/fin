@@ -10,20 +10,15 @@ use budisteikul\fin\Models\fin_transactions;
 use budisteikul\toursdk\Models\ShoppingcartProduct;
 use Ramsey\Uuid\Uuid;
 
+use budisteikul\toursdk\Helpers\WiseHelper;
+
 class TestController extends Controller
 {
-    public function test()
+    public function test(Request $request)
     {
-        $shoppingcart_products = ShoppingcartProduct::whereHas('shoppingcart', function ($query) {
-                return $query->where('booking_status','CONFIRMED');
-        })->whereNotNull('date')->where('date', '<', date('Y-m-d H:i:s') )->orderBy('date', 'DESC')->get();
-        foreach($shoppingcart_products as $shoppingcart_product)
-        {
-            print_r($shoppingcart_product->shoppingcart->confirmation_code .'<br />');
-            print_r($shoppingcart_product->shoppingcart->session_id .'<br />');
-            $shoppingcart_product->shoppingcart->session_id = Uuid::uuid4()->toString();
-            $shoppingcart_product->shoppingcart->save();
-        }
+        $amount = $request->input('amount');
+        $tw = new WiseHelper();
+        $tw->simulateAddFund($amount,'USD');
     }
 
     public function test___()
