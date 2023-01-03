@@ -2,7 +2,7 @@
 
 namespace budisteikul\fin\DataTables;
 
-use budisteikul\fin\Models\Transfer;
+use budisteikul\toursdk\Models\Transfer;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;

@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 
 use budisteikul\fin\Requests\StoreTransferRequest;
 use budisteikul\fin\Requests\UpdateTransferRequest;
-use budisteikul\fin\Models\Transfer;
+use budisteikul\toursdk\Models\Transfer;
 
 use budisteikul\fin\DataTables\TransferDataTable;
 use budisteikul\toursdk\Helpers\WiseHelper;
