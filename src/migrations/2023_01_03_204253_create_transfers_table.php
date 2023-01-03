@@ -15,9 +15,13 @@ return new class extends Migration
     {
         Schema::create('transfers', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->float('idr', 8, 2);
+            $table->float('usd', 8, 2);
+            $table->tinyText('status')->default(0);
+            $table->timestamps(6);
         });
     }
+
 
     /**
      * Reverse the migrations.

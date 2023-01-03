@@ -7,12 +7,13 @@
         {{ (request()->is('cms/fin/banking*')) ? 'active' : '' }}
         {{ (request()->is('cms/fin/payment*')) ? 'active' : '' }}
         {{ (request()->is('cms/fin/recipient*')) ? 'active' : '' }}
+        {{ (request()->is('cms/fin/transfer*')) ? 'active' : '' }}
       
       ">
       @php
         $collapsed = 'collapsed';
         $show = '';        
-        if(request()->is('cms/fin/transactions*') || request()->is('cms/fin/profitloss*') || request()->is('cms/fin/banking*') || request()->is('cms/fin/payment*') || request()->is('cms/fin/recipient*'))
+        if(request()->is('cms/fin/transactions*') || request()->is('cms/fin/profitloss*') || request()->is('cms/fin/banking*') || request()->is('cms/fin/payment*') || request()->is('cms/fin/recipient*') || request()->is('cms/fin/transfer*'))
         {
           $collapsed = '';
           $show = 'show';
@@ -36,6 +37,8 @@
             <a class="collapse-item {{ (request()->is('cms/fin/payment*')) ? 'active' : '' }}" href="{{ route('route_fin_payment.index') }}"><i class="far fa-circle"></i> {{ __('Payment') }}</a>
 
             <a class="collapse-item {{ (request()->is('cms/fin/recipient*')) ? 'active' : '' }}" href="{{ route('route_fin_recipient.index') }}"><i class="far fa-circle"></i> {{ __('Recipient') }}</a>
+
+            <a class="collapse-item {{ (request()->is('cms/fin/transfer*')) ? 'active' : '' }}" href="{{ route('route_fin_transfer.index') }}"><i class="far fa-circle"></i> {{ __('Transfer') }}</a>
 
             
             

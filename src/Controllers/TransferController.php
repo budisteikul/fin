@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace budisteikul\fin\Controllers;
+use App\Http\Controllers\Controller;
 
-use App\Http\Requests\StoreTransferRequest;
-use App\Http\Requests\UpdateTransferRequest;
-use App\Models\Transfer;
+use budisteikul\fin\Requests\StoreTransferRequest;
+use budisteikul\fin\Requests\UpdateTransferRequest;
+use budisteikul\fin\Models\Transfer;
+
+use budisteikul\fin\DataTables\TransferDataTable;
+use budisteikul\toursdk\Helpers\WiseHelper;
 
 class TransferController extends Controller
 {
@@ -13,9 +17,9 @@ class TransferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(TransferDataTable $dataTable)
     {
-        //
+        return $dataTable->render('fin::fin.transfer.index');
     }
 
     /**
@@ -25,7 +29,7 @@ class TransferController extends Controller
      */
     public function create()
     {
-        //
+        return view('fin::fin.transfer.create');
     }
 
     /**
@@ -36,7 +40,42 @@ class TransferController extends Controller
      */
     public function store(StoreTransferRequest $request)
     {
-        //
+        $amount = $request->input('amount');
+        $sourceAmount = 0;
+
+        if($amount<50000)
+        {
+            return response()->json([
+                    'errors' => [
+                        'amount' => array('Amount must higher than 50.000')
+                        ] 
+                ],422);
+        }
+
+        
+        $tw = new WiseHelper();
+        $data_tw = $tw->getTempQuote($amount);
+        foreach($data_tw->paymentOptions as $paymentOption)
+        {
+                
+                if($paymentOption->payIn=="MC_DEBIT_OR_PREPAID")
+                {
+                    
+                    $sourceAmount = $paymentOption->sourceAmount;
+                }
+                
+            
+                
+        }
+        
+
+        Transfer::create([
+            'idr' => $amount,
+            'usd' => $sourceAmount,
+            'status' => 0
+        ]);
+
+        response()->json(['success' => 'success'], 200);
     }
 
     /**
@@ -58,7 +97,7 @@ class TransferController extends Controller
      */
     public function edit(Transfer $transfer)
     {
-        //
+        return view('fin::fin.transfer.edit',['transfer'=>$transfer]);
     }
 
     /**
@@ -70,7 +109,37 @@ class TransferController extends Controller
      */
     public function update(UpdateTransferRequest $request, Transfer $transfer)
     {
-        //
+        $amount = $request->input('amount');
+        $sourceAmount = 0;
+
+        if($amount<50000)
+        {
+            return response()->json([
+                    'errors' => [
+                        'amount' => array('Amount must higher than 50.000')
+                        ] 
+                ],422);
+        }
+
+        
+        $tw = new WiseHelper();
+        $data_tw = $tw->getTempQuote($amount);
+        foreach($data_tw->paymentOptions as $paymentOption)
+        {
+                
+                if($paymentOption->payIn=="MC_DEBIT_OR_PREPAID")
+                {
+                    
+                    $sourceAmount = $paymentOption->sourceAmount;
+                }
+                
+            
+                
+        }
+        
+
+        $transfer->update(['idr'=>$amount,'usd'=>$sourceAmount]);
+        response()->json(['success' => 'success'], 200);
     }
 
     /**
@@ -81,6 +150,6 @@ class TransferController extends Controller
      */
     public function destroy(Transfer $transfer)
     {
-        //
+        $transfer->delete();
     }
 }
