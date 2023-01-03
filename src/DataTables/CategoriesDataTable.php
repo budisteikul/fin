@@ -85,13 +85,13 @@ class CategoriesDataTable extends DataTable
                   ->addClass('text-center align-middle'),
             Column::make('name')->title('Name')->orderable(false)->addClass('align-middle'),
             Column::make('type')->title('Type')->orderable(false)->addClass('align-middle'),
-            /*
+            
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(220)
                   ->addClass('text-center'),
-            */
+            
         ];
     }
 
