@@ -26,30 +26,25 @@ class TransferDataTable extends DataTable
             ->editColumn('status',function($id){
                 if($id->status==1)
                 {
-                    return 'Completed';
+                    return '<span class="badge badge-success">Completed</span>';
+                }
+                else if($id->status==3)
+                {
+                    return '<span class="badge badge-danger">Canceled</span>';
                 }
                 else
                 {
-                    return 'Waiting';
+                    return '<span class="badge badge-warning">Waiting</span>';
                 }
             })
             ->addIndexColumn()
             ->addColumn('action', function ($id) {
                 
-                $button_edit = '<button id="btn-edit" type="button" onClick="EDIT(\''.$id->id.'\'); return false;" class="btn btn-sm btn-success"><i class="fa fa-edit"></i> Edit</button>';
-                $button_delete = '<button id="btn-del" type="button" onClick="DELETE(\''. $id->id .'\')" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> Delete</button>';
+                
 
-                if($id->status==1)
-                {
-                    $button = $button_delete;
-                }
-                else
-                {
-                    $button = $button_edit . $button_delete;
-                }
-
-                return '<div class="btn-toolbar justify-content-end"><div class="btn-group mr-2 mb-0" role="group"> '. $button .' </div><div class="btn-group mb-2" role="group"></div></div>';
+                return '<div class="btn-toolbar justify-content-end"><div class="btn-group mr-2 mb-0" role="group"> <button id="btn-del" type="button" onClick="DELETE(\''. $id->id .'\')" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> Delete</button> </div><div class="btn-group mb-2" role="group"></div></div>';
             })
+            ->rawColumns(['action','status'])
             ->setRowId('id');
     }
 
@@ -114,11 +109,13 @@ class TransferDataTable extends DataTable
             Column::make('usd')->title('USD')->addClass('align-middle'),
             Column::make('status'),
 
+            
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(220)
                   ->addClass('text-center'),
+            
         ];
     }
 
