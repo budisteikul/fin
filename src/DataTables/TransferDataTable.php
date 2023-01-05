@@ -72,7 +72,7 @@ class TransferDataTable extends DataTable
      */
     public function query(Transfer $model): QueryBuilder
     {
-        return $model->with('recipient')->newQuery();
+        return $model->with('recipient')->orderBy('created_at','DESC')->newQuery();
     }
 
     /**
@@ -119,22 +119,22 @@ class TransferDataTable extends DataTable
                   ->searchable(false)
                   ->addClass('text-center align-middle'),
             
-            Column::make('created_at')->width(200)
+            Column::make('created_at')->orderable(false)->width(200)
                   ->searchable(false),
             //Column::make('recipient.bank_name')->title('Bank Name')->width(200)->orderable(false)->addClass('align-middle'),
             //Column::make('recipient.account_number')->title('Account Number')->width(200)->orderable(false)->addClass('align-middle'),
-            Column::make('bank')->title('To')->width(400)->orderable(false)->addClass('align-middle'),
+            Column::make('bank')->title('To')->orderable(false)->width(400)->orderable(false)->addClass('align-middle'),
             Column::make('idr')->title('IDR')->orderable(false)->width(200)->addClass('align-middle'),
             Column::make('usd')->title('USD')->orderable(false)->width(200)->addClass('align-middle'),
-            Column::make('status')->width(200),
+            Column::make('status')->width(200)->orderable(false),
 
-            
+            /*
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(220)
                   ->addClass('text-center'),
-            
+            */
         ];
     }
 
