@@ -23,10 +23,7 @@ $(function() {
                     <div class="col text-left">
                     {!! $fin::select_yearmonth_form($tahun,$bulan)  !!}
                     </div>
-                    <div class="col-auto text-right mr-0 pr-0">
-                      <a type="button" class="btn btn-secondary" href="{{ route('route_fin_currency.index') }}">
-                        <i class="fas fa-search-dollar"></i> Currency</a>
-                    </div>
+                    
                     </div>
 <table id="table1" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table mt-4" >
   <thead>
