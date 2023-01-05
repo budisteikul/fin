@@ -38,8 +38,17 @@ class TransferDataTable extends DataTable
                     return '<span class="badge badge-warning">Waiting</span>';
                 }
             })
-            ->addColumn('created_at', function($id){
+            ->editColumn('idr', function($id){
+                return GeneralHelper::numberFormat($id->idr,'IDR');
+            })
+            ->editColumn('usd', function($id){
+                return GeneralHelper::numberFormat($id->usd,'USD');
+            })
+            ->editColumn('created_at', function($id){
                     return GeneralHelper::dateFormat($id->created_at,10);
+                })
+            ->addColumn('bank', function($id){
+                    return $id->recipient->bank_name .' - '. $id->recipient->account_number;
                 })
             ->addIndexColumn()
             ->addColumn('action', function ($id) {
@@ -112,8 +121,9 @@ class TransferDataTable extends DataTable
             
             Column::make('created_at')->width(200)
                   ->searchable(false),
-            Column::make('recipient.bank_name')->title('Bank Name')->width(200)->orderable(false)->addClass('align-middle'),
-            Column::make('recipient.account_number')->title('Account Number')->width(200)->orderable(false)->addClass('align-middle'),
+            //Column::make('recipient.bank_name')->title('Bank Name')->width(200)->orderable(false)->addClass('align-middle'),
+            //Column::make('recipient.account_number')->title('Account Number')->width(200)->orderable(false)->addClass('align-middle'),
+            Column::make('bank')->title('To')->width(400)->orderable(false)->addClass('align-middle'),
             Column::make('idr')->title('IDR')->orderable(false)->width(200)->addClass('align-middle'),
             Column::make('usd')->title('USD')->orderable(false)->width(200)->addClass('align-middle'),
             Column::make('status')->width(200),
