@@ -24,16 +24,6 @@ class RecipientDataTable extends DataTable
     {
         return datatables($query)
             ->addIndexColumn()
-            ->editColumn('auto_transfer', function($id){
-                if($id->auto_transfer==1)
-                {
-                    return '<a href="#" onClick="UPDATE(\''. $id->id .'\',0)"><i class="fas fa-check-circle text-success"></i></a>';
-                }
-                else
-                {
-                    return '<a href="#" onClick="UPDATE(\''. $id->id .'\',1)"><i class="fas fa-times-circle text-danger"></i></a>';
-                }
-            })
 			->addColumn('action', function ($id) {
 				return '<div class="btn-toolbar justify-content-end"><div class="btn-group mr-2 mb-0" role="group">
                 <button id="btn-del" type="button" onClick="DELETE(\''. $id->id .'\')" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> Delete</button></div><div class="btn-group mb-2" role="group"></div></div>';
@@ -98,14 +88,13 @@ class RecipientDataTable extends DataTable
             Column::make('bank_name')->title('Bank Name')->orderable(false)->addClass('align-middle'),
             Column::make('account_holder')->title('Account Holder')->orderable(false)->addClass('align-middle'),
             Column::make('account_number')->title('Account Number')->orderable(false)->addClass('align-middle'),
-            Column::make('auto_transfer')->title('Auto Transfer')->orderable(false)->addClass('text-center align-middle'),
-            /*
+            
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(220)
                   ->addClass('text-center'),
-            */
+            
         ];
 
     }
