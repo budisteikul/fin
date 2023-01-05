@@ -17,7 +17,7 @@ Route::resource('/cms/fin/banking', 'budisteikul\fin\Controllers\BankingControll
 
 Route::resource('/cms/fin/payment', 'budisteikul\fin\Controllers\PaymentController',[ 'names' => 'route_fin_payment' ])->middleware(['web','auth','verified','CoreMiddleware']);
 
-Route::resource('/cms/fin/recipient', 'budisteikul\fin\Controllers\RecipientController',[ 'names' => 'route_fin_recipient' ])->middleware(['web','auth','verified','CoreMiddleware']);
+Route::resource('/cms/fin/transfer/recipient', 'budisteikul\fin\Controllers\RecipientController',[ 'names' => 'route_fin_recipient' ])->middleware(['web','auth','verified','CoreMiddleware']);
 
 Route::resource('/cms/fin/transfer', 'budisteikul\fin\Controllers\TransferController',[ 'names' => 'route_fin_transfer' ])->middleware(['web','auth','verified','CoreMiddleware']);
 
