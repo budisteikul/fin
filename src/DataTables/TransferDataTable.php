@@ -47,7 +47,7 @@ class TransferDataTable extends DataTable
                 
 
                 return '<div class="btn-toolbar justify-content-end"><div class="btn-group mr-2 mb-0" role="group">
-                <button id="btn-edit" type="button" onClick="EDIT(\''.$id->id.'\'); return false;" class="btn btn-sm btn-success"><i class="fa fa-edit"></i> Edit</button> 
+                
                 <button id="btn-del" type="button" onClick="DELETE(\''. $id->id .'\')" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> Delete</button> 
                 </div><div class="btn-group mb-2" role="group"></div></div>';
             })
@@ -110,12 +110,13 @@ class TransferDataTable extends DataTable
                   ->searchable(false)
                   ->addClass('text-center align-middle'),
             
-            Column::make('created_at')
+            Column::make('created_at')->width(200)
                   ->searchable(false),
-            Column::make('recipient.bank_name')->title('Bank Name')->orderable(false)->addClass('align-middle'),
-            Column::make('idr')->title('IDR')->orderable(false)->addClass('align-middle'),
-            Column::make('usd')->title('USD')->orderable(false)->addClass('align-middle'),
-            Column::make('status'),
+            Column::make('recipient.bank_name')->title('Bank Name')->width(200)->orderable(false)->addClass('align-middle'),
+            Column::make('recipient.account_number')->title('Account Number')->width(200)->orderable(false)->addClass('align-middle'),
+            Column::make('idr')->title('IDR')->orderable(false)->width(200)->addClass('align-middle'),
+            Column::make('usd')->title('USD')->orderable(false)->width(200)->addClass('align-middle'),
+            Column::make('status')->width(200),
 
             
             Column::computed('action')
