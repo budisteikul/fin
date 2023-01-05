@@ -24,7 +24,8 @@ class UpdateTransferRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount'   => 'required|numeric'
+            'amount'   => 'required|numeric',
+            'wise_id'   => 'required'
         ];
     }
 }

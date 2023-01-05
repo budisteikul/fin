@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use budisteikul\fin\Requests\StoreTransferRequest;
 use budisteikul\fin\Requests\UpdateTransferRequest;
 use budisteikul\toursdk\Models\Transfer;
-
+use budisteikul\toursdk\Models\Recipient;
 use budisteikul\fin\DataTables\TransferDataTable;
 use budisteikul\toursdk\Helpers\WiseHelper;
 
@@ -29,7 +29,8 @@ class TransferController extends Controller
      */
     public function create()
     {
-        return view('fin::fin.transfer.create');
+        $recipients = Recipient::orderBy('bank_name','ASC')->get();
+        return view('fin::fin.transfer.create',['recipients'=>$recipients]);
     }
 
     /**
@@ -41,6 +42,7 @@ class TransferController extends Controller
     public function store(StoreTransferRequest $request)
     {
         $amount = $request->input('amount');
+        $wise_id = $request->input('wise_id');
         $sourceAmount = 0;
 
         if($amount<50000)
@@ -57,19 +59,16 @@ class TransferController extends Controller
         $data_tw = $tw->getTempQuote($amount);
         foreach($data_tw->paymentOptions as $paymentOption)
         {
-                
                 if($paymentOption->payIn=="MC_DEBIT_OR_PREPAID")
                 {
                     
                     $sourceAmount = $paymentOption->sourceAmount;
                 }
-                
-            
-                
         }
         
 
         Transfer::create([
+            'wise_id' => $wise_id,
             'idr' => $amount,
             'usd' => $sourceAmount,
             'status' => 0
@@ -97,7 +96,8 @@ class TransferController extends Controller
      */
     public function edit(Transfer $transfer)
     {
-        return view('fin::fin.transfer.edit',['transfer'=>$transfer]);
+        $recipients = Recipient::orderBy('bank_name','ASC')->get();
+        return view('fin::fin.transfer.edit',['transfer'=>$transfer,'recipients'=>$recipients]);
     }
 
     /**
@@ -110,7 +110,9 @@ class TransferController extends Controller
     public function update(UpdateTransferRequest $request, Transfer $transfer)
     {
         $amount = $request->input('amount');
+        $wise_id = $request->input('wise_id');
         $sourceAmount = 0;
+        
 
         if($amount<50000)
         {
@@ -126,19 +128,15 @@ class TransferController extends Controller
         $data_tw = $tw->getTempQuote($amount);
         foreach($data_tw->paymentOptions as $paymentOption)
         {
-                
                 if($paymentOption->payIn=="MC_DEBIT_OR_PREPAID")
                 {
                     
                     $sourceAmount = $paymentOption->sourceAmount;
                 }
-                
-            
-                
         }
         
 
-        $transfer->update(['idr'=>$amount,'usd'=>$sourceAmount]);
+        $transfer->update(['idr'=>$amount,'usd'=>$sourceAmount,'wise_id'=>$wise_id]);
         response()->json(['success' => 'success'], 200);
     }
 

@@ -4,7 +4,7 @@ function UPDATE()
 	var error = false;
 	$("#submit").attr("disabled", true);
 	$('#submit').html('<i class="fa fa-spinner fa-spin"></i>');
-	var input = ["amount"];
+	var input = ["amount","wise_id"];
 	
 	$.each(input, function( index, value ) {
   		$('#'+ value).removeClass('is-invalid');
@@ -14,7 +14,8 @@ function UPDATE()
 	$.ajax({
 		data: {
         	"_token": $("meta[name=csrf-token]").attr("content"),
-			"amount": $('#amount').val()
+			"amount": $('#amount').val(),
+			"wise_id": $('#wise_id').val()
         },
 		type: 'PUT',
 		url: '{{ route('route_fin_transfer.update',$transfer->id) }}',
@@ -55,7 +56,14 @@ function UPDATE()
 <div id="result"></div>
 
 
-
+<div class="form-group">
+    <label for="wise_id">Recipients</label>
+    <select class="form-control" id="wise_id">
+      @foreach($recipients as $recipient)
+      <option value="{{ $recipient->wise_id }}" {{  ($recipient->wise_id == $transfer->wise_id) ? "selected" : "" }}>{{ $recipient->bank_name }}</option>
+      @endforeach
+    </select>
+  </div>
 
 
 <div class="form-group">

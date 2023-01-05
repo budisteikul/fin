@@ -6,7 +6,7 @@ function STORE()
 	var error = false;
 	$("#submit").attr("disabled", true);
 	$('#submit').html('<i class="fa fa-spinner fa-spin"></i>');
-	var input = ["amount"];
+	var input = ["amount","wise_id"];
 	
 	$.each(input, function( index, value ) {
   		$('#'+ value).removeClass('is-invalid');
@@ -16,7 +16,8 @@ function STORE()
 	$.ajax({
 		data: {
         	"_token": $("meta[name=csrf-token]").attr("content"),
-			"amount": $('#amount').val()
+			"amount": $('#amount').val(),
+			"wise_id": $('#wise_id').val()
         },
 		type: 'POST',
 		url: '{{ route('route_fin_transfer.store') }}',
@@ -58,6 +59,15 @@ function STORE()
 <form onSubmit="STORE(); return false;">
 
 <div id="result"></div>
+
+<div class="form-group">
+    <label for="wise_id">Recipients</label>
+    <select class="form-control" id="wise_id">
+      @foreach($recipients as $recipient)
+      <option value="{{ $recipient->wise_id }}">{{ $recipient->bank_name }}</option>
+      @endforeach
+    </select>
+</div>
 
 <div class="form-group">
 	<label for="amount">Amount :</label>
