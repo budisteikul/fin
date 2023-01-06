@@ -58,6 +58,64 @@
    		});
 		
 	}
+
+	function CURRENCY()
+	{
+		$.fancybox.open({
+        	type: 'ajax',
+       	 	src: '{{ route('route_fin_currency.index') }}',
+			modal: true,
+			autoFocus: false,
+   		});
+		
+	}
+
+	function CHECK_CURRENCY()
+	{
+    
+    var error = false;
+    $("#check").attr("disabled", true);
+    $('#check').html('<i class="fa fa-spinner fa-spin"></i>');
+    var input = ["amount"];
+    
+    $.each(input, function( index, value ) {
+        $('#'+ value).removeClass('is-invalid');
+        $('#span-'+ value).remove();
+    });
+    
+    
+    $.ajax({
+        data: {
+            "_token": $("meta[name=csrf-token]").attr("content"),
+            "amount": $('#amount').val()
+        },
+        type: 'POST',
+        url: '{{ route('route_fin_currency.index') }}'
+        }).done(function( data ) {
+            
+            if(data.id=="1")
+            {
+                    $("#result").empty().append('<div class="alert alert-secondary alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+ data.message +'</div>').hide().fadeIn();
+                    $("#check").attr("disabled", false);
+                    $('#check').html('{{ __('Check') }}');
+            }
+            else
+            {
+                $.each( data, function( index, value ) {
+                    $('#'+ index).addClass('is-invalid');
+                        if(value!="")
+                        {
+                            $('#'+ index).after('<span id="span-'+ index  +'" class="invalid-feedback" role="alert"><strong>'+ value +'</strong></span>');
+                        }
+                    });
+                $("#submit").attr("disabled", false);
+                $('#submit').html('{{ __('Check') }}');
+            }
+        });
+    
+    
+    return false;
+	}
 	</script>
 @endpush
 
@@ -77,8 +135,8 @@
                     </div>
                     <div class="col-auto text-right mr-0 pr-0">
 
-                    	<a type="button" class="btn btn-secondary" href="{{ route('route_fin_currency.index') }}">
-                    		<i class="fas fa-search-dollar"></i> Check Currency</a>
+                    	<button type="button" class="btn btn-secondary" onclick="CURRENCY(); return false;">
+                    		<i class="fas fa-search-dollar"></i> Check Currency</button>
 
                     	<a type="button" class="btn btn-secondary" href="{{ route('route_fin_recipient.index') }}">
                     		<i class="fas fa-list"></i> Recipients</a>

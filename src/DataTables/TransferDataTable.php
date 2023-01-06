@@ -48,7 +48,7 @@ class TransferDataTable extends DataTable
                     return GeneralHelper::dateFormat($id->created_at,10);
                 })
             ->addColumn('bank', function($id){
-                    return $id->recipient->bank_name .' - '. $id->recipient->account_number;
+                    return $id->recipient->account_holder .' - '. $id->recipient->account_number .' - '. $id->recipient->bank_name;
                 })
             ->addIndexColumn()
             ->addColumn('action', function ($id) {

@@ -1,54 +1,7 @@
-@extends('coresdk::layouts.app')
-@section('content')
-@push('scripts')
-<script language="javascript">
-function CHECK_CURRENCY()
-{
-    var error = false;
-    $("#submit").attr("disabled", true);
-    $('#submit').html('<i class="fa fa-spinner fa-spin"></i>');
-    var input = ["amount"];
-    
-    $.each(input, function( index, value ) {
-        $('#'+ value).removeClass('is-invalid');
-        $('#span-'+ value).remove();
-    });
-    
-    
-    $.ajax({
-        data: {
-            "_token": $("meta[name=csrf-token]").attr("content"),
-            "amount": $('#amount').val()
-        },
-        type: 'POST',
-        url: '{{ route('route_fin_currency.index') }}'
-        }).done(function( data ) {
-            
-            if(data.id=="1")
-            {
-                    $("#result").empty().append('<div class="alert alert-secondary alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+ data.message +'</div>').hide().fadeIn();
-                    $("#submit").attr("disabled", false);
-                    $('#submit').html('{{ __('Check') }}');
-            }
-            else
-            {
-                $.each( data, function( index, value ) {
-                    $('#'+ index).addClass('is-invalid');
-                        if(value!="")
-                        {
-                            $('#'+ index).after('<span id="span-'+ index  +'" class="invalid-feedback" role="alert"><strong>'+ value +'</strong></span>');
-                        }
-                    });
-                $("#submit").attr("disabled", false);
-                $('#submit').html('{{ __('Check') }}');
-            }
-        });
-    
-    
-    return false;
-}
-</script>
-@endpush
+
+
+<div class="h-100" style="width:99%">
+
 <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -61,11 +14,13 @@ function CHECK_CURRENCY()
 	<label for="amount">Amount :</label>
 	<input type="number" id="amount" name="amount" class="form-control" placeholder="Amount" autocomplete="off" value="">
 </div>
-<button id="submit" type="submit" class="btn btn-primary"><i class="fas fa-search-dollar"></i> Check</button> 
+<button  class="btn btn-danger" type="button" onClick="$.fancybox.close();"><i class="fa fa-window-close"></i> Cancel</button>
+<button id="check" type="submit" class="btn btn-primary"><i class="fas fa-search-dollar"></i> Check</button>
 </form>
 <br />
                 </div>
             </div>
         </div>
     </div>
-@endsection
+
+</div>
