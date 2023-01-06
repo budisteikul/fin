@@ -76,6 +76,10 @@
                    		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Create Transfer</button>
                     </div>
                     <div class="col-auto text-right mr-0 pr-0">
+
+                    	<a type="button" class="btn btn-secondary" href="{{ route('route_fin_currency.index') }}">
+                    		<i class="fas fa-search-dollar"></i> Check Currency</a>
+
                     	<a type="button" class="btn btn-secondary" href="{{ route('route_fin_recipient.index') }}">
                     		<i class="fas fa-list"></i> Recipients</a>
                     </div>
