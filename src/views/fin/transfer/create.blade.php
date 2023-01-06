@@ -70,7 +70,7 @@ function STORE()
 </div>
 
 <div class="form-group">
-	<label for="amount">Amount :</label>
+	<label for="amount">Amount (IDR) :</label>
 	<input type="number" step="0.01" id="amount" name="amount" class="form-control" placeholder="amount">
 </div>
        
