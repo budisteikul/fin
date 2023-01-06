@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Validator;
 use budisteikul\fin\Models\fin_transactions;
 use budisteikul\fin\Models\fin_categories;
 use budisteikul\fin\Classes\FinClass;
-use budisteikul\tourcms\Helpers\CMSHelper;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use budisteikul\toursdk\Helpers\GeneralHelper;
@@ -80,8 +79,6 @@ class TransactionController extends Controller
 		$fin_transactions->amount = $amount;
 		$fin_transactions->save();
 		
-        CMSHelper::cache_saldo_forget($date);
-
 		return response()->json([
 					"id" => "1",
 					"message" => 'Success'
@@ -143,8 +140,6 @@ class TransactionController extends Controller
 		$fin_transactions->amount = $amount;
 		$fin_transactions->save();
 		
-        CMSHelper::cache_saldo_forget($date);
-
 		return response()->json([
 					"id" => "1",
 					"message" => 'Success'
@@ -159,7 +154,6 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        CMSHelper::cache_saldo_forget($id->date);
         fin_transactions::find($id)->delete();
     }
 }
