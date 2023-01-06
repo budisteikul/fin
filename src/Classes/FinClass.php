@@ -150,13 +150,11 @@ class FinClass {
                 $total = 0;
                 for($i=$start_year;$i<=$tahun;$i++)
                 {
-                    
                     $xbulan = $bulan_past;
                     $ybulan = $bulan;
                     
                     if(($tahun_req>$start_year))
                     {
-                        
                         if($i==$start_year)
                         {
                             $xbulan = $bulan_past;
@@ -172,32 +170,14 @@ class FinClass {
                             $xbulan = 1;
                             $ybulan = $bulan;
                         }
-                        
                     }
-
-                    
-
-                    
-
-                    //$ybulan = $bulan;
-                    //if($tahun>$start_year) $ybulan = date('m');
-
-                    //exit($bulan);
-                    //$xbulan = $start_month;
-                    //if($i!=$start_year) $xbulan = 1;
-
-                    //$ybulan = $bulan;
-                    //if($i!=$start_year) $ybulan = date('m');
 
                     
                     for($j=$xbulan;$j<=$ybulan;$j++)
                     {
-                            
                             $jbulan = GeneralHelper::digitFormat($j,2);
                             $total = Cache::rememberForever('saldo_'. $i .'_'. $jbulan, function() use ($i,$jbulan,$total) 
                             {
-                                
-                                
                                 $revenue_per = self::total_revenue_per_month($i,$jbulan);
                                 $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$jbulan);
                                 $gross_margin = $revenue_per - $cogs_per;
@@ -207,27 +187,16 @@ class FinClass {
                                 $total += $profit_loss;
                                 return $total;
                             });
-
-                            
-                            
-                            //print_r('_saldo_'. $i .'_'. $j .'_'. $total .'<br >');
                     }
-
-                    
                 }
-
                 
                 return round($total);
     }
 
     public static function last_month_saldo($tahun,$bulan)
     {
-        //$total = Cache::rememberForever('_saldo_'. $tahun .'_'. $bulan, function() use ($tahun,$bulan) 
-        //{
             $saldo = self::calculate_saldo($tahun,$bulan);
             return $saldo;
-        //});
-        //return $total;
     }
 
 	public static function total_per_month($category_id,$year,$month){
