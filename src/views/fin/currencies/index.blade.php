@@ -14,7 +14,7 @@
 	<label for="amount">Amount (IDR) :</label>
 	<input type="number" id="amount" name="amount" class="form-control" placeholder="Amount" autocomplete="off" value="">
 </div>
-<button  class="btn btn-danger" type="button" onClick="$.fancybox.close();"><i class="fa fa-window-close"></i> Cancel</button>
+<button  class="btn btn-danger" type="button" onClick="$.fancybox.close();"><i class="fa fa-window-close"></i> Close</button>
 <button id="check" type="submit" class="btn btn-primary"><i class="fas fa-search-dollar"></i> Check</button>
 </form>
 <br />
