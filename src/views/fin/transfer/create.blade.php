@@ -64,7 +64,7 @@ function STORE()
     <label for="wise_id">Recipients</label>
     <select class="form-control" id="wise_id">
       @foreach($recipients as $recipient)
-      <option value="{{ $recipient->wise_id }}">{{ $recipient->bank_name }}</option>
+      <option value="{{ $recipient->wise_id }}">{{ $recipient->account_holder }} - {{ $recipient->account_number }} - {{ $recipient->bank_name }}</option>
       @endforeach
     </select>
 </div>

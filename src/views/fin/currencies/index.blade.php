@@ -11,7 +11,7 @@
 <form onSubmit="CHECK_CURRENCY(); return false;">
 <div id="result"></div>
 <div class="form-group">
-	<label for="amount">Amount :</label>
+	<label for="amount">Amount (IDR) :</label>
 	<input type="number" id="amount" name="amount" class="form-control" placeholder="Amount" autocomplete="off" value="">
 </div>
 <button  class="btn btn-danger" type="button" onClick="$.fancybox.close();"><i class="fa fa-window-close"></i> Cancel</button>
