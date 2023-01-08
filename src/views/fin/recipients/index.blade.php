@@ -89,8 +89,9 @@
 		$.fancybox.open({
         	type: 'ajax',
        	 	src: '{{ route('route_fin_recipient.create') }}',
-			touch: false,
 			modal: true,
+          touch: false,
+          autoFocus: false
    		});	
 	}
 </script>

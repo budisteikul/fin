@@ -42,9 +42,9 @@
 		$.fancybox.open({
         	type: 'ajax',
        	 	src: '{{ route('route_fin_transactions.create') }}',
-			touch: false,
 			modal: true,
-			autoFocus: false,
+          touch: false,
+          autoFocus: false
    		});	
 	}
 	
@@ -54,7 +54,8 @@
         	type: 'ajax',
        	 	src: '{{ route('route_fin_transactions.index') }}/'+ id +'/edit',
 			modal: true,
-			autoFocus: false,
+          touch: false,
+          autoFocus: false
    		});
 		
 	}
