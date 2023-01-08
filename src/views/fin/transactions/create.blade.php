@@ -56,7 +56,7 @@ function STORE()
         <div class="col-md-12 pr-0 pl-0 pt-0 pb-0">
              <div class="card">
              
-	<div class="card-header"><div class="row align-items-center w-100">
+	<div class="card-header pr-0"><div class="row align-items-center w-100">
                     <div class="col text-left">
                         <div class="d-flex align-self-center">
                         Create Transaction
