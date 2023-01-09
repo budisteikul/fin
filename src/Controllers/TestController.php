@@ -14,6 +14,7 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
+        print(date('Y-m-t'));
         //$amount = $request->input('amount');
         //$tw = new WiseHelper();
         //$tw->simulateAddFund($amount,'USD');

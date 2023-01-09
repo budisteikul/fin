@@ -20,21 +20,21 @@ class PaymentController extends Controller
         $bulan = date('m');
 
         $fin_date_start = env('FIN_DATE_START');
-        $fin_date_end = date('Y-m-d') .' 23:59:00';
+        $fin_date_end = date('Y-m-t') .' 23:59:00';
 
         $start_year = Str::substr($fin_date_start, 0,4);
         $start_month = Str::substr($fin_date_start, 5,2);
 
-            $total = 0;
+        $total = 0;
 
-            $xbulan = $start_month;
-            if($tahun!=$start_year) $xbulan = 1;
+        $xbulan = $start_month;
+        if($tahun!=$start_year) $xbulan = 1;
 
-            $ybulan = 12;
-            if($tahun!=$start_year) $ybulan = $bulan;
+        $ybulan = 12;
+        if($tahun!=$start_year) $ybulan = $bulan;
             
-            for($j=$xbulan;$j<=$ybulan;$j++)
-            {
+        for($j=$xbulan;$j<=$ybulan;$j++)
+        {
 
                     $date_arr[] = (object)[
                         'nama_bulan' => date('F', mktime(0, 0, 0, $j, 10)),
@@ -42,7 +42,7 @@ class PaymentController extends Controller
                         'tahun' => $tahun
                     ];
                 
-            }
+        }
         
 
         $ShoppingcartPayments = ShoppingcartPayment::select(['payment_provider','currency'])->whereHas('shoppingcart', function ($query) use ($fin_date_start,$fin_date_end) {
@@ -55,7 +55,7 @@ class PaymentController extends Controller
 
         })->where('amount','>',0)->where('payment_provider', '!=', 'none')->groupBy('currency')->groupBy('payment_provider')->orderBy('payment_provider','ASC')->get();
         
-        //print_r($date_arr);
+        //print_r($fin_date_end);
         //exit();
         return view('fin::fin.sales.payment',['tahun'=>$tahun,'date'=>$date_arr,'shoppingcart_payments'=>$ShoppingcartPayments]);
     }

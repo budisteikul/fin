@@ -49,30 +49,37 @@
       @endphp
     </tr>
     @endforeach
+
     @php
+
       $total_payment = [];
-      for($j=0; $j < count($total); $j++)
+      for($i=0; $i < count($total); $i++)
       {
-         $total_payment[$j] = 0;
+         for($j=0; $j < count($total[$i]); $j++)
+         {
+            $total_payment[$j] = 0;
+         }
       }
 
-      for($j=0; $j < count($total); $j++)
+      for($i=0; $i < count($total); $i++)
       {
-        for($i=0; $i < count($total); $i++)
-        {
-          $total_payment[$j] += $total[$i][$j];
-        }
+         for($j=0; $j < count($total[$i]); $j++)
+         {
+            $total_payment[$j] += $total[$i][$j];
+         }
       }
+
+
+
+
     @endphp
     <tr>
       <td><strong>TOTAL</strong></td>
-      @for($i=0; $i < count($total_payment); $i++)
+      @for($j=0; $j < count($total_payment); $j++)
         @php
-          $amount = $total_payment[$i];
+          $amount = $total_payment[$j];
         @endphp
-
           <td align="right"><strong>{{ $general_helper->numberFormat($amount,'USD') }}</strong></td>
-        
       @endfor
     </tr>
   </tbody>

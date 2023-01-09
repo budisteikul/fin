@@ -15,7 +15,7 @@ class FinClass {
     public static function payment_total($tahun,$bulan,$payment_provider,$currency)
     {
         $fin_date_start = env('FIN_DATE_START');
-        $fin_date_end = date('Y-m-d') .' 23:59:00';
+        $fin_date_end = date('Y-m-t') .' 23:59:00';
 
         $total = fin_transactions::whereYear('date',$tahun)->whereMonth('date',$bulan)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
 
