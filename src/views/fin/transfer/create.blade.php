@@ -85,7 +85,7 @@ function STORE()
 
 <div class="form-group">
 	<label for="amount">Amount (IDR) :</label>
-	<input type="number" step="0.01" id="amount" name="amount" class="form-control" placeholder="amount">
+	<input type="number" step="1" value="{{ $amount }}" id="amount" name="amount" class="form-control" placeholder="amount">
 </div>
        
 	<button id="submit" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>

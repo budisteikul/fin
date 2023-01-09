@@ -145,7 +145,8 @@
                     </div>
                 	</div>
       
-      	
+      	<hr>
+        The value to be transferred is : {{ $amount }}
         <hr>
         
 		{!! $dataTable->table(['class'=>'table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table']) !!}
