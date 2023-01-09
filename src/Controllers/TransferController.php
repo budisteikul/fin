@@ -20,20 +20,7 @@ class TransferController extends Controller
      */
     public function index(TransferDataTable $dataTable)
     {
-        $last_transfer_date = Transfer::orderBy('created_at','DESC')->first();
-        $last_transfer_date = date('Y-m-d', strtotime($last_transfer_date->created_at));
-
-        $amount = 0;
-        $transactions = fin_transactions::whereHas('categories',function($query){
-            return $query->where('type','Expenses')->orWhere('type','Cost of Goods Sold');
-        })->where('date','>',$last_transfer_date)->get();
-        foreach($transactions as $transaction)
-        {
-            $amount += $transaction->amount;
-        }
-
-        $amount = number_format($amount, 0, ',', '.');
-        return $dataTable->render('fin::fin.transfer.index',['amount' => $amount]);
+        return $dataTable->render('fin::fin.transfer.index');
     }
 
     /**
