@@ -25,7 +25,8 @@ function STORE()
         	$('#dataTableBuilder').DataTable().ajax.reload( null, false );
 			$("#result").empty().append('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><b>Success!</b></div>').hide().fadeIn();
        				setTimeout(function (){
-  						$.fancybox.close();
+  						//$.fancybox.close();
+  						location.reload();
 					}, 1000);
     	},
     	error: function (data) {
@@ -83,10 +84,8 @@ function STORE()
     </select>
 </div>
 
-<div class="form-group">
-	<label for="amount">Amount (IDR) :</label>
-	<input type="number" step="1" value="{{ $amount }}" id="amount" name="amount" class="form-control" placeholder="amount">
-</div>
+<input type="hidden" step="1" value="{{ $amount }}" id="amount" name="amount" class="form-control" placeholder="amount">
+
        
 	<button id="submit" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
 	</form>

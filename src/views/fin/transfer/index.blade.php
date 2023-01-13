@@ -1,4 +1,4 @@
-@inject('fin', 'budisteikul\fin\Classes\FinClass')
+@inject('GeneralHelper', 'budisteikul\toursdk\Helpers\GeneralHelper')
 @extends('coresdk::layouts.app')
 @section('content')
 @push('scripts')
@@ -25,7 +25,8 @@
      						type: 'DELETE',
      						url: '{{ route('route_fin_transfer.index') }}/'+ id
 						}).done(function( msg ) {
-							table.ajax.reload( null, false );
+							//table.ajax.reload( null, false );
+                            location.reload();
 						});	
             		}
         		},
@@ -133,7 +134,9 @@
                 	
                 	<div class="row w-100">
                 	<div class="col  text-left">
-                   		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Create Transfer</button>
+                        @if($amount>0)
+                   		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Create Transfer {{ $GeneralHelper->numberFormat($amount,'IDR') }}</button>
+                        @endif
                     </div>
                     <div class="col-auto text-right mr-0 pr-0">
 
