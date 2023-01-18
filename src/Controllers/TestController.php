@@ -14,12 +14,8 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
-        $tw = new WiseHelper();
-        $aaa = $tw->getRecipientAccounts();
-        print_r($aaa);
-        //$amount = $request->input('amount');
-        //$tw = new WiseHelper();
-        //$tw->simulateAddFund($amount,'USD');
+        
+        
     }
 
     public function test___()
