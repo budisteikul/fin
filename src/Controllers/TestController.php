@@ -17,9 +17,7 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
-        $aaa = BookingHelper::disassembly_qris('some-random-qr-string');
-        //$lenght = substr('some-random-qr-string',2,2);
-        //print_r((int)$lenght);
+        
     }
 
     public function test___()
