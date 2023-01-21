@@ -12,12 +12,18 @@ use Ramsey\Uuid\Uuid;
 use budisteikul\toursdk\Helpers\FirebaseHelper;
 use budisteikul\toursdk\Helpers\XenditHelper;
 use budisteikul\toursdk\Helpers\BookingHelper;
+use Carbon\Carbon;
 
 class TestController extends Controller
 {
     public function test(Request $request)
     {
-        
+        $timestamp = date('Y-m-d H:i:s');
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'Asia/Jakarta');
+        $aaa = $date->setTimezone('UTC')->toIso8601String();
+        print_r($timestamp);
+        print_r('<br />');
+        print($aaa);
     }
 
     public function test___()
