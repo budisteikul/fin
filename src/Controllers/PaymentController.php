@@ -56,7 +56,7 @@ class PaymentController extends Controller
                     }
                     else
                     {
-                        return $query->whereYear('date', '=', '2023' );
+                        return $query->whereYear('date', '=', $tahun );
                     }
                     
                 })->where('booking_status','CONFIRMED')->where('booking_channel','WEBSITE');
