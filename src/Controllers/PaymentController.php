@@ -44,11 +44,21 @@ class PaymentController extends Controller
                 
         }
         
+        $year_fin_date_start = substr($fin_date_start,0,4);
 
-        $ShoppingcartPayments = ShoppingcartPayment::select(['payment_provider','currency'])->whereHas('shoppingcart', function ($query) use ($fin_date_start,$fin_date_end) {
+        $ShoppingcartPayments = ShoppingcartPayment::select(['payment_provider','currency'])->whereHas('shoppingcart', function ($query) use ($fin_date_start,$year_fin_date_start,$tahun) {
                 
-                $query = $query->whereHas('shoppingcart_products', function ($query) use ($fin_date_start,$fin_date_end) {
-                    return $query->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end );
+                $query = $query->whereHas('shoppingcart_products', function ($query) use ($fin_date_start,$year_fin_date_start,$tahun) {
+                    //return $query->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end );
+                    if($year_fin_date_start==$tahun)
+                    {
+                        return $query->where('date', '>=', $fin_date_start )->whereYear('date', '<=', $tahun );
+                    }
+                    else
+                    {
+                        return $query->whereYear('date', '=', '2023' );
+                    }
+                    
                 })->where('booking_status','CONFIRMED')->where('booking_channel','WEBSITE');
 
                 return $query;
