@@ -82,7 +82,8 @@ class TransferController extends Controller
         $data_tw = $tw->getTempQuote($amount);
         foreach($data_tw->paymentOptions as $paymentOption)
         {
-                if($paymentOption->payIn=="MC_DEBIT_OR_PREPAID")
+                //if($paymentOption->payIn=="MC_DEBIT_OR_PREPAID")
+                if($paymentOption->payIn=="BALANCE")
                 {
                     
                     $sourceAmount = $paymentOption->sourceAmount;
