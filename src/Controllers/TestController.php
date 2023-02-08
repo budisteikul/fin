@@ -19,7 +19,9 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
-        
+        $tw = new WiseHelper();
+        $aaa = $tw->getAllCard();
+        print_r($aaa);
     }
     
 }
