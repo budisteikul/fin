@@ -25,7 +25,8 @@ class CurrencyController extends Controller
             foreach($data_tw->paymentOptions as $paymentOption)
             {
                 
-                if($paymentOption->payIn=="MC_DEBIT_OR_PREPAID")
+                //if($paymentOption->payIn=="MC_DEBIT_OR_PREPAID")
+                if($paymentOption->payIn=="BALANCE")
                 {
                     
                     $message = $paymentOption->sourceAmount .' USD';
