@@ -19,7 +19,9 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
-        
+        $a = 45.5;
+        $int = (float)$a;
+        print_r($int);
     }
     
 }
