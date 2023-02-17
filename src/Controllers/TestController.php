@@ -10,7 +10,7 @@ use budisteikul\fin\Models\fin_transactions;
 use budisteikul\toursdk\Models\ShoppingcartProduct;
 use Ramsey\Uuid\Uuid;
 use budisteikul\toursdk\Helpers\FirebaseHelper;
-use budisteikul\toursdk\Helpers\XenditHelper;
+use budisteikul\toursdk\Helpers\TazapayHelper;
 use budisteikul\toursdk\Helpers\BookingHelper;
 use budisteikul\toursdk\Helpers\RapydHelper;
 use Carbon\Carbon;
@@ -19,9 +19,9 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
-        $a = 45.5;
-        $int = (float)$a;
-        print_r($int);
+        $tazapay = new TazapayHelper();
+        $aaa = $tazapay->collections();
+        print_r($aaa);
     }
     
 }
