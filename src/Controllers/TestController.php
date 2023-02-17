@@ -19,9 +19,7 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
-        $tazapay = new TazapayHelper();
-        $aaa = $tazapay->collections();
-        print_r($aaa);
+        
     }
     
 }
