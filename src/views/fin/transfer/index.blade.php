@@ -134,9 +134,9 @@
                 	
                 	<div class="row w-100">
                 	<div class="col  text-left">
-                        @if($amount>0)
-                   		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Create Transfer {{ $GeneralHelper->numberFormat($amount,'IDR') }}</button>
-                        @endif
+                        
+                   		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Create Transfer </button>
+                        
                     </div>
                     <div class="col-auto text-right mr-0 pr-0">
 
