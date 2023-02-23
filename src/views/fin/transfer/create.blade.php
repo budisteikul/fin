@@ -25,8 +25,8 @@ function STORE()
         	$('#dataTableBuilder').DataTable().ajax.reload( null, false );
 			$("#result").empty().append('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><b>Success!</b></div>').hide().fadeIn();
        				setTimeout(function (){
-  						//$.fancybox.close();
-  						location.reload();
+  						$.fancybox.close();
+  						//location.reload();
 					}, 1000);
     	},
     	error: function (data) {
@@ -74,7 +74,6 @@ function STORE()
 <form onSubmit="STORE(); return false;">
 
 <div id="result"></div>
-
 <div class="form-group">
     <label for="wise_id">Recipients</label>
     <select class="form-control" id="wise_id">

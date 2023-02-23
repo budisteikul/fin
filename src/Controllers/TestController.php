@@ -19,7 +19,9 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
-        
+        $tw = New WiseHelper();
+        $aaa = $tw->getBalanceAccounts("USD");
+        print_r($aaa);
     }
     
 }

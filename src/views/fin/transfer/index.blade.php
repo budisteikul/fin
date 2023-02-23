@@ -25,8 +25,8 @@
      						type: 'DELETE',
      						url: '{{ route('route_fin_transfer.index') }}/'+ id
 						}).done(function( msg ) {
-							//table.ajax.reload( null, false );
-                            location.reload();
+							table.ajax.reload( null, false );
+                            //location.reload();
 						});	
             		}
         		},
@@ -140,8 +140,8 @@
                     </div>
                     <div class="col-auto text-right mr-0 pr-0">
 
-                    	<button type="button" class="btn btn-secondary" onclick="CURRENCY(); return false;">
-                    		<i class="fas fa-search-dollar"></i> Check Currency</button>
+                    	<!-- button type="button" class="btn btn-secondary" onclick="CURRENCY(); return false;">
+                    		<i class="fas fa-search-dollar"></i> Check Currency</button -->
 
                     	<a type="button" class="btn btn-secondary" href="{{ route('route_fin_recipient.index') }}">
                     		<i class="fas fa-list"></i> Recipients</a>

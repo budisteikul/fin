@@ -69,10 +69,15 @@ class TransferController extends Controller
         
         $tw = new WiseHelper();
         $data_tw = $tw->getTempQuote($amount);
+
+        $payIn = "BALANCE";
+        $cover_fee = $tw->getBalanceAccounts("USD");
+        if($cover_fee<=3) $payIn = "MC_DEBIT_OR_PREPAID";
+
+
         foreach($data_tw->paymentOptions as $paymentOption)
         {
-                //if($paymentOption->payIn=="MC_DEBIT_OR_PREPAID")
-                if($paymentOption->payIn=="BALANCE")
+                if($paymentOption->payIn==$payIn)
                 {
                     
                     $sourceAmount = $paymentOption->sourceAmount;
