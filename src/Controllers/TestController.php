@@ -19,9 +19,12 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
-        $tw = New WiseHelper();
-        $aaa = $tw->getRecipientAccounts();
-        print_r($aaa);
+        $output = FirebaseHelper::read_payment('3fc1a358-99e5-4073-ae91-29807ec4ba7');
+        if($output=="")
+        {
+            print_r("output");
+        }
+        print_r($output);
     }
     
 }
