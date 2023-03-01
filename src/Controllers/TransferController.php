@@ -72,7 +72,7 @@ class TransferController extends Controller
 
         $payIn = "BALANCE";
         $cover_fee = $tw->getBalanceAccounts("USD");
-        if($cover_fee<=3) $payIn = "MC_DEBIT_OR_PREPAID";
+        if($cover_fee<=5) $payIn = "MC_DEBIT_OR_PREPAID";
 
 
         foreach($data_tw->paymentOptions as $paymentOption)
