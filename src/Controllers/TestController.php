@@ -19,6 +19,15 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
+        $tw = new WiseHelper();
+        
+
+        
+        $quote = $tw->postCreateQuote(null,'USD',100000,'IDR');
+        $transfer = $tw->postCreateTransfer($quote->id,Uuid::uuid4()->toString(),148746146);
+        //print_r($transfer);
+        $fund = $tw->postFundTransfer($transfer->id);
+        print_r($fund);
         
     }
     
