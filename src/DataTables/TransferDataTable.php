@@ -118,7 +118,7 @@ class TransferDataTable extends DataTable
                   ->orderable(false)
                   ->searchable(false)
                   ->addClass('text-center align-middle'),
-            
+            Column::make('transaction_id')->title('Transaction ID')->orderable(false)->width(200)->addClass('align-middle'),
             Column::make('created_at')->orderable(false)->width(200)
                   ->searchable(false),
             //Column::make('recipient.bank_name')->title('Bank Name')->width(200)->orderable(false)->addClass('align-middle'),
@@ -132,7 +132,7 @@ class TransferDataTable extends DataTable
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(220)
+                  ->width(120)
                   ->addClass('text-center'),
             
         ];
