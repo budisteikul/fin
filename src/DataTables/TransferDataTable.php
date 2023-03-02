@@ -51,7 +51,7 @@ class TransferDataTable extends DataTable
                     return $id->recipient->account_holder .' - '. $id->recipient->account_number .' - '. $id->recipient->bank_name;
                 })
             ->addColumn('receipt', function($id){
-                if($id->transaction_id!="")
+                if($id->transaction_id!="" && $id->status==1)
                 {
                     $receipt = '<a href="'. route('route_fin_transfer.index').'/'.$id->id .'">Download</a>';
                     return $receipt;
