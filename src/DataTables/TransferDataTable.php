@@ -51,7 +51,16 @@ class TransferDataTable extends DataTable
                     return $id->recipient->account_holder .' - '. $id->recipient->account_number .' - '. $id->recipient->bank_name;
                 })
             ->addColumn('receipt', function($id){
-                return 'download';
+                if($id->transaction_id!="")
+                {
+                    $receipt = '<a href="'. route('route_fin_transfer.index').'/'.$id->id .'">Download</a>';
+                    return $receipt;
+                }
+                else
+                {
+                    return '';
+                }
+                
             })
             ->addIndexColumn()
             ->addColumn('action', function ($id) {
@@ -63,7 +72,7 @@ class TransferDataTable extends DataTable
                 <button id="btn-del" type="button" onClick="DELETE(\''. $id->id .'\')" class="btn btn-sm btn-danger pt-0 pb-0 pl-1 pr-1"><i class="fa fa-trash-alt"></i> Delete</button> 
                 </div><div class="btn-group mb-2" role="group"></div></div>';
             })
-            ->rawColumns(['action','status'])
+            ->rawColumns(['action','status','receipt'])
             ->setRowId('id');
     }
 

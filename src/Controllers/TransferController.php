@@ -103,7 +103,15 @@ class TransferController extends Controller
      */
     public function show(Transfer $transfer)
     {
-        //
+        //print_r($transfer->transaction_id);
+        $tw = new WiseHelper();
+        $receipt = $tw->getReceipt($transfer->transaction_id);
+        return response($receipt)
+                ->withHeaders([
+                    'Content-Type' => 'application/pdf',
+                    'Cache-Control' => 'no-store, no-cache',
+                    'Content-Disposition' => 'attachment; filename="receipt-'.$transfer->transaction_id.'.pdf',
+                ]);
     }
 
     /**
