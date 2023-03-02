@@ -53,7 +53,7 @@ class TransferDataTable extends DataTable
             ->addColumn('receipt', function($id){
                 if($id->transaction_id!="" && $id->status==1)
                 {
-                    $receipt = '<a href="'. route('route_fin_transfer.index').'/'.$id->id .'">Download</a>';
+                    $receipt = '<a href="'. route('route_fin_transfer.index').'/'.$id->id .'"><i class="fa fa-download" aria-hidden="true"></i></a>';
                     return $receipt;
                 }
                 else
@@ -138,7 +138,7 @@ class TransferDataTable extends DataTable
             Column::make('bank')->title('To')->orderable(false)->width(400)->orderable(false)->addClass('align-middle'),
             Column::make('idr')->title('IDR')->orderable(false)->width(200)->addClass('align-middle'),
             Column::make('usd')->title('USD')->orderable(false)->width(200)->addClass('align-middle'),
-            Column::make('receipt')->title('Receipt')->orderable(false)->width(200)->addClass('align-middle'),
+            Column::make('receipt')->title('Receipt')->orderable(false)->width(80)->addClass('align-middle text-center'),
             Column::make('status')->width(200)->orderable(false),
 
             
