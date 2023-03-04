@@ -41,7 +41,7 @@ class TransferController extends Controller
             $amount += $transaction->amount;
         }
 
-        $recipients = Recipient::orderBy('bank_name','ASC')->get();
+        $recipients = Recipient::orderBy('id','ASC')->get();
         return view('fin::fin.transfer.create',['recipients'=>$recipients,'amount'=>$amount]);
     }
 
