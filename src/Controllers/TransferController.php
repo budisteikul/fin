@@ -83,7 +83,7 @@ class TransferController extends Controller
         $cover_fee = $cover_fee - 5;
         $sourceAmount = $sourceAmount - $cover_fee;
 
-        if($sourceAmount<=2) $sourceAmount = 5;
+        if($sourceAmount<=5) $sourceAmount = 5;
 
         Transfer::create([
             'wise_id' => $wise_id,
