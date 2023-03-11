@@ -71,19 +71,17 @@ class TransferController extends Controller
         $data_tw = $tw->getTempQuote($amount);
 
         $payIn = "BALANCE";
-        $cover_fee = $tw->getBalanceAccounts("USD");
-        if($cover_fee<=5) $payIn = "MC_DEBIT_OR_PREPAID";
-
-
         foreach($data_tw->paymentOptions as $paymentOption)
         {
                 if($paymentOption->payIn==$payIn)
                 {
-                    
                     $sourceAmount = $paymentOption->sourceAmount;
                 }
         }
         
+        $cover_fee = $tw->getBalanceAccounts("USD");
+        $cover_fee = $cover_fee - 5;
+        $sourceAmount = $sourceAmount - $cover_fee;
 
         Transfer::create([
             'wise_id' => $wise_id,
