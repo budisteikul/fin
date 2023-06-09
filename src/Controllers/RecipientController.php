@@ -118,8 +118,8 @@ class RecipientController extends Controller
      */
     public function destroy($id)
     {
-        $tw = new WiseHelper();
-        $tw->deleteRecipient($id->wise_id);
+        //$tw = new WiseHelper();
+        //$tw->deleteRecipient($id->wise_id);
         Recipient::find($id)->delete();
     }
 }
