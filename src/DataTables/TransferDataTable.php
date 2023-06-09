@@ -47,11 +47,15 @@ class TransferDataTable extends DataTable
             ->editColumn('created_at', function($id){
                     return GeneralHelper::dateFormat($id->created_at,10);
                 })
-            /*
+            
             ->addColumn('bank', function($id){
-                    return $id->recipient->account_holder .' - '. $id->recipient->account_number .' - '. $id->recipient->bank_name;
+                    if($id->recipient()->exists())
+                    {
+                        return $id->recipient->account_holder .' - '. $id->recipient->account_number .' - '. $id->recipient->bank_name;
+                    }
+                    return '';
                 })
-            */
+            
             ->addColumn('receipt', function($id){
                 if($id->transaction_id!="" && $id->status==1)
                 {
@@ -137,7 +141,7 @@ class TransferDataTable extends DataTable
                   ->searchable(false),
             //Column::make('recipient.bank_name')->title('Bank Name')->width(200)->orderable(false)->addClass('align-middle'),
             //Column::make('recipient.account_number')->title('Account Number')->width(200)->orderable(false)->addClass('align-middle'),
-            //Column::make('bank')->title('To')->orderable(false)->width(400)->orderable(false)->addClass('align-middle'),
+            Column::make('bank')->title('To')->orderable(false)->width(400)->orderable(false)->addClass('align-middle'),
             Column::make('idr')->title('IDR')->orderable(false)->width(200)->addClass('align-middle'),
             Column::make('usd')->title('USD')->orderable(false)->width(200)->addClass('align-middle'),
             Column::make('receipt')->title('Receipt')->orderable(false)->width(80)->addClass('align-middle text-center'),
