@@ -17,7 +17,7 @@ class FinClass {
         $fin_date_start = env('FIN_DATE_START');
         $fin_date_end = date('Y-m-t') .' 23:59:00';
 
-        $total = fin_transactions::whereYear('date',$tahun)->whereMonth('date',$bulan)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
+        //$total = fin_transactions::whereYear('date',$tahun)->whereMonth('date',$bulan)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
 
         $ShoppingcartProduct = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($payment_provider,$currency) {
                 $query = $query->whereHas('shoppingcart_payment', function ($query) use ($payment_provider,$currency) {
@@ -34,11 +34,21 @@ class FinClass {
             {
                 $amount = $id->due_now;
                 $amount = $amount / $id->shoppingcart->shoppingcart_payment->rate;
+
+                
+                    $amount = $amount - ($amount * 10/100);
+                
+
                 $value += $amount;
             }
         }
         
-        return number_format((float)$value, 2, '.', '');
+        $value = number_format((float)$value, 2, '.', '');
+
+        //if($payment_provider=="paypal") $value = $value - ($value * 5/100);
+        //if($payment_provider=="stripe") $value = $value - ($value * 15/100);
+
+        return $value;
     }
 
     public static function select_yearmonth_form($tahun,$bulan)
@@ -244,29 +254,20 @@ class FinClass {
             {
                 $total += $sub_total->total;
             }
+
+            $date1 = new \DateTime($year.'-'.$month.'-01');
+            $date2    = new \DateTime("2023-06-30");
+
+            if($date1>$date2)
+            {
+                if($booking_channel=="WEBSITE") $total = $total - ($total*10/100);
+            }
+            
             
             return $total;
     }
     
-    public static function total_revenue_per_month($year,$month){
-            
-            
-                $fin_date_start = env('FIN_DATE_START');
-                $fin_date_end = date('Y-m-d') .' 23:59:00';
-
-                $total = 0;
-                $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) {
-                            return $query->where('booking_status','CONFIRMED');
-                         })->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->get();
-                foreach($sub_totals as $sub_total)
-                {
-                    $total += $sub_total->total;
-                }
-            
-                $total += self::total_per_month_by_type('Revenue',$year,$month);
-                return $total;
-            
-    }
+    
 
 	public static function total_per_day_by_type($type,$year,$month,$day){
             $total = 0;
@@ -286,7 +287,17 @@ class FinClass {
                          })->whereYear('date',$year)->whereMonth('date',$month)->whereDay('date',$day)->get();
             foreach($sub_totals as $sub_total)
             {
-                $total += $sub_total->total;
+                
+                $totalNya = $sub_total->total;
+                $date1 = new \DateTime($year.'-'.$month.'-01');
+                $date2    = new \DateTime("2023-06-30");
+
+                if($date1>$date2)
+                {
+                    if($sub_total->shoppingcart->booking_channel=="WEBSITE") $totalNya = $totalNya - ($totalNya*10/100);
+                }
+
+                $total += $totalNya;
             }
             
             $total += self::total_per_day_by_type('Revenue',$year,$month,$day);
