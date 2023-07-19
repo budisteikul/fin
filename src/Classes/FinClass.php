@@ -260,7 +260,8 @@ class FinClass {
 
             if($date1>$date2)
             {
-                if($booking_channel=="WEBSITE") $total = $total - ($total*10/100);
+                //if($booking_channel=="WEBSITE") $total = $total - ($total*10/100);
+                $total = $total - ($total*10/100);
             }
 
             $total += self::total_per_month_by_type('Revenue',$year,$month);
@@ -288,7 +289,8 @@ class FinClass {
 
             if($date1>$date2)
             {
-                if($booking_channel=="WEBSITE") $total = $total - ($total*10/100);
+                //if($booking_channel=="WEBSITE") $total = $total - ($total*10/100);
+                $total = $total - ($total*10/100);
             }
             
             return $total;
@@ -321,7 +323,8 @@ class FinClass {
 
                 if($date1>$date2)
                 {
-                    if($sub_total->shoppingcart->booking_channel=="WEBSITE") $totalNya = $totalNya - ($totalNya*10/100);
+                    //if($sub_total->shoppingcart->booking_channel=="WEBSITE") $totalNya = $totalNya - ($totalNya*10/100);
+                    $totalNya = $totalNya - ($totalNya*10/100);
                 }
 
                 $total += $totalNya;
