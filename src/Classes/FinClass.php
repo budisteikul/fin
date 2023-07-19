@@ -11,6 +11,13 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 
 class FinClass {
+    
+    public static function payment_calculate($amount,$provider)
+    {
+        if($provider=="paypal") $amount = $amount - (($amount * 4.4 / 100) + 0.30);
+        if($provider=="stripe") $amount = $amount - ($amount * 2.9/100) - ($amount * 0.5/100) - ($amount * 1/100) - ($amount * 1/100) - 0.30;
+        return $amount;
+    }
 
     public static function payment_total($tahun,$bulan,$payment_provider,$currency)
     {
@@ -239,6 +246,34 @@ class FinClass {
 		
 	}
 
+    public static function total_revenue_per_month($year,$month){
+
+
+            $fin_date_start = env('FIN_DATE_START');
+            $fin_date_end = date('Y-m-d') .' 23:59:00';
+
+            $total = 0;
+            $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) {
+                            return $query->where('booking_status','CONFIRMED');
+                         })->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->get();
+            
+            foreach($sub_totals as $sub_total)
+            {
+                $total += $sub_total->total;
+            }
+            
+            $date1 = new \DateTime($year.'-'.$month.'-01');
+            $date2    = new \DateTime("2023-06-30");
+
+            if($date1>$date2)
+            {
+                if($booking_channel=="WEBSITE") $total = $total - ($total*10/100);
+            }
+
+            $total += self::total_per_month_by_type('Revenue',$year,$month);
+            return $total;
+    }
+
     public static function total_shoppingcart_per_month($booking_channel,$year,$month){
             
             $fin_date_start = env('FIN_DATE_START');
@@ -262,7 +297,6 @@ class FinClass {
             {
                 if($booking_channel=="WEBSITE") $total = $total - ($total*10/100);
             }
-            
             
             return $total;
     }
