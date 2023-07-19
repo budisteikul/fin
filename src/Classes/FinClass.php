@@ -24,8 +24,6 @@ class FinClass {
         $fin_date_start = env('FIN_DATE_START');
         $fin_date_end = date('Y-m-t') .' 23:59:00';
 
-        //$total = fin_transactions::whereYear('date',$tahun)->whereMonth('date',$bulan)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
-
         $ShoppingcartProduct = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($payment_provider,$currency) {
                 $query = $query->whereHas('shoppingcart_payment', function ($query) use ($payment_provider,$currency) {
                     return $query->where('payment_provider',$payment_provider)->where('currency',$currency);
@@ -42,18 +40,13 @@ class FinClass {
                 $amount = $id->due_now;
                 $amount = $amount / $id->shoppingcart->shoppingcart_payment->rate;
 
+                //$amount = $amount - ($amount * 10/100);
                 
-                    $amount = $amount - ($amount * 10/100);
-                
-
                 $value += $amount;
             }
         }
         
         $value = number_format((float)$value, 2, '.', '');
-
-        //if($payment_provider=="paypal") $value = $value - ($value * 5/100);
-        //if($payment_provider=="stripe") $value = $value - ($value * 15/100);
 
         return $value;
     }
