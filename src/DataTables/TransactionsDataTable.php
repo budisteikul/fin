@@ -42,7 +42,7 @@ class TransactionsDataTable extends DataTable
                         return '<div class="btn-toolbar justify-content-end"><div class="btn-group mr-2 mb-0" role="group"><button id="btn-edit" type="button" onClick="EDIT(\''.$id->id.'\'); return false;" class="btn btn-sm btn-success pt-0 pb-0 pl-1 pr-1"><i class="fa fa-edit"></i> Edit</button><button id="btn-del" type="button" onClick="DELETE(\''. $id->id .'\')" class="btn btn-sm btn-danger pt-0 pb-0 pl-1 pr-1"><i class="fa fa-trash-alt"></i> Delete</button></div><div class="btn-group mb-2" role="group"></div></div>';
                     }
                 }
-                return '';
+                return '<div class="btn-toolbar justify-content-end"><div class="btn-group mr-2 mb-0" role="group"><button id="btn-edit" type="button" onClick="EDIT(\''.$id->id.'\'); return false;" class="btn btn-sm btn-success pt-0 pb-0 pl-1 pr-1"><i class="fa fa-edit"></i> Edit</button></div><div class="btn-group mb-2" role="group"></div></div>';
             })
 			->rawColumns(['action']);
     }
