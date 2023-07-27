@@ -35,7 +35,7 @@ class TransferController extends Controller
         $amount = 0;
         $transactions = fin_transactions::whereHas('categories',function($query){
             return $query->where('type','Expenses')->orWhere('type','Cost of Goods Sold');
-        })->where('updated_at','>',$last_transfer_date->created_at)->get();
+        })->where('created_at','>',$last_transfer_date->created_at)->get();
         foreach($transactions as $transaction)
         {
             $amount += $transaction->amount;
