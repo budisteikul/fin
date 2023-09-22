@@ -1,57 +1,5 @@
 
-<script language="javascript">
-function STORE()
-{
-	var error = false;
-	$("#submit").attr("disabled", true);
-	$('#submit').html('<i class="fa fa-spinner fa-spin"></i>');
-	var input = ["account_holder","account_number"];
-	
-	$.each(input, function( index, value ) {
-  		$('#'+ value).removeClass('is-invalid');
-  		$('#span-'+ value).remove();
-	});
-	
-	
-	$.ajax({
-		data: {
-        	"_token": $("meta[name=csrf-token]").attr("content"),
-			"account_holder": $('#account_holder').val(),
-			"account_number": $('#account_number').val(),
-			"bank_code": $('#bank_code').val(),
-			"bank_name": $( "#bank_code option:selected" ).text(),
-        },
-		type: 'POST',
-		url: '{{ route('route_fin_recipient.store') }}'
-		}).done(function( data ) {
-			
-			if(data.id=="1")
-			{
-				
-       				$('#dataTableBuilder').DataTable().ajax.reload( null, false );
-					$("#result").empty().append('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><b>Success!</b></div>').hide().fadeIn();
-       				setTimeout(function (){
-  						$.fancybox.close();
-					}, 1000);
-			}
-			else
-			{
-				$.each( data, function( index, value ) {
-					$('#'+ index).addClass('is-invalid');
-						if(value!="")
-						{
-							$('#'+ index).after('<span id="span-'+ index  +'" class="invalid-feedback" role="alert"><strong>'+ value +'</strong></span>');
-						}
-					});
-				$("#submit").attr("disabled", false);
-				$('#submit').html('<i class="fa fa-save"></i> {{ __('Save') }}');
-			}
-		});
-	
-	
-	return false;
-}
-</script>
+
  
 <div class="h-100" style="width:99%">		
  
@@ -107,3 +55,58 @@ function STORE()
     </div>
 
 </div>
+
+
+<script language="javascript">
+function STORE()
+{
+	var error = false;
+	$("#submit").attr("disabled", true);
+	$('#submit').html('<i class="fa fa-spinner fa-spin"></i>');
+	var input = ["account_holder","account_number"];
+	
+	$.each(input, function( index, value ) {
+  		$('#'+ value).removeClass('is-invalid');
+  		$('#span-'+ value).remove();
+	});
+	
+	
+	$.ajax({
+		data: {
+        	"_token": $("meta[name=csrf-token]").attr("content"),
+			"account_holder": $('#account_holder').val(),
+			"account_number": $('#account_number').val(),
+			"bank_code": $('#bank_code').val(),
+			"bank_name": $( "#bank_code option:selected" ).text(),
+        },
+		type: 'POST',
+		url: '{{ route('route_fin_recipient.store') }}'
+		}).done(function( data ) {
+			
+			if(data.id=="1")
+			{
+				
+       				$('#dataTableBuilder').DataTable().ajax.reload( null, false );
+					$("#result").empty().append('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><b>Success!</b></div>').hide().fadeIn();
+       				setTimeout(function (){
+  						$.fancybox.close();
+					}, 1000);
+			}
+			else
+			{
+				$.each( data, function( index, value ) {
+					$('#'+ index).addClass('is-invalid');
+						if(value!="")
+						{
+							$('#'+ index).after('<span id="span-'+ index  +'" class="invalid-feedback" role="alert"><strong>'+ value +'</strong></span>');
+						}
+					});
+				$("#submit").attr("disabled", false);
+				$('#submit').html('<i class="fa fa-save"></i> {{ __('Save') }}');
+			}
+		});
+	
+	
+	return false;
+}
+</script>

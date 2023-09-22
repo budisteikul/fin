@@ -1,52 +1,4 @@
-<script language="javascript">
-function UPDATE()
-{
-	var error = false;
-	$("#submit").attr("disabled", true);
-	$('#submit').html('<i class="fa fa-spinner fa-spin"></i>');
-	var input = ["amount","wise_id"];
-	
-	$.each(input, function( index, value ) {
-  		$('#'+ value).removeClass('is-invalid');
-  		$('#span-'+ value).remove();
-	});
-	
-	$.ajax({
-		data: {
-        	"_token": $("meta[name=csrf-token]").attr("content"),
-			"amount": $('#amount').val(),
-			"wise_id": $('#wise_id').val()
-        },
-		type: 'PUT',
-		url: '{{ route('route_fin_transfer.update',$transfer->id) }}',
-		success: function (data) {
-        	$('#dataTableBuilder').DataTable().ajax.reload( null, false );
-			$("#result").empty().append('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><b>Success!</b></div>').hide().fadeIn();
-       				setTimeout(function (){
-  						$.fancybox.close();
-					}, 1000);
-    	},
-    	error: function (data) {
-    		
-        	$.each(data.responseJSON.errors, function (key, value) {
-        		
-        		$('#'+ key).addClass('is-invalid');
-				if(value!="")
-				{
-					$('#'+ key).after('<span id="span-'+ key  +'" class="invalid-feedback" role="alert"><strong>'+ value +'</strong></span>');
-				}
-				$("#submit").attr("disabled", false);
-				$('#submit').html('<i class="fa fa-save"></i> {{ __('Save') }}');
-				
-        	});
-        	
-    	}
-	});
-	
-	
-	return false;
-}
-</script>
+
 <div class="h-100" style="width:99%">		
 
     <div class="row justify-content-center">
@@ -98,3 +50,55 @@ function UPDATE()
     </div>
 
 </div>
+
+
+
+<script language="javascript">
+function UPDATE()
+{
+	var error = false;
+	$("#submit").attr("disabled", true);
+	$('#submit').html('<i class="fa fa-spinner fa-spin"></i>');
+	var input = ["amount","wise_id"];
+	
+	$.each(input, function( index, value ) {
+  		$('#'+ value).removeClass('is-invalid');
+  		$('#span-'+ value).remove();
+	});
+	
+	$.ajax({
+		data: {
+        	"_token": $("meta[name=csrf-token]").attr("content"),
+			"amount": $('#amount').val(),
+			"wise_id": $('#wise_id').val()
+        },
+		type: 'PUT',
+		url: '{{ route('route_fin_transfer.update',$transfer->id) }}',
+		success: function (data) {
+        	$('#dataTableBuilder').DataTable().ajax.reload( null, false );
+			$("#result").empty().append('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><b>Success!</b></div>').hide().fadeIn();
+       				setTimeout(function (){
+  						$.fancybox.close();
+					}, 1000);
+    	},
+    	error: function (data) {
+    		
+        	$.each(data.responseJSON.errors, function (key, value) {
+        		
+        		$('#'+ key).addClass('is-invalid');
+				if(value!="")
+				{
+					$('#'+ key).after('<span id="span-'+ key  +'" class="invalid-feedback" role="alert"><strong>'+ value +'</strong></span>');
+				}
+				$("#submit").attr("disabled", false);
+				$('#submit').html('<i class="fa fa-save"></i> {{ __('Save') }}');
+				
+        	});
+        	
+    	}
+	});
+	
+	
+	return false;
+}
+</script>
