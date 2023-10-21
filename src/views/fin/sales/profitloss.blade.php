@@ -89,7 +89,7 @@
     <tr>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
-      <td class="font-weight-bolder">Total Sales</td>
+      <td class="font-weight-bolder">Total sales</td>
       @php
         $revenue_subtotal = 0;
       @endphp
@@ -177,7 +177,7 @@
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td class="font-weight-bolder">Gross Margin</td>
+      <td class="font-weight-bolder">Gross margin</td>
       <td>&nbsp;</td>
       @php
       $gross_margin_total = 0;
@@ -282,7 +282,7 @@
     <tr>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
-      <td class="font-weight-bolder">Total Profit (Loss)</td>
+      <td class="font-weight-bolder">Total profit (loss)</td>
       @php
         $profit_loss_total = 0;
       @endphp
