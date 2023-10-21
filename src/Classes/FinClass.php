@@ -246,6 +246,8 @@ class FinClass {
             $fin_date_end = date('Y-m-d') .' 23:59:00';
 
             $total = 0;
+
+            /*
             $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) {
                             return $query->where('booking_status','CONFIRMED');
                          })->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->get();
@@ -263,7 +265,8 @@ class FinClass {
                 //if($booking_channel=="WEBSITE") $total = $total - ($total*10/100);
                 $total = $total - ($total*10/100);
             }
-
+            */
+            
             $total += self::total_per_month_by_type('Revenue',$year,$month);
             return $total;
     }
@@ -311,6 +314,7 @@ class FinClass {
     public static function total_revenue_per_day($year,$month,$day){
 
             $total = 0;
+            /*
             $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) {
                             return $query->where('booking_status','CONFIRMED');
                          })->whereYear('date',$year)->whereMonth('date',$month)->whereDay('date',$day)->get();
@@ -329,7 +333,8 @@ class FinClass {
 
                 $total += $totalNya;
             }
-            
+            */
+
             $total += self::total_per_day_by_type('Revenue',$year,$month,$day);
 
             return $total;
