@@ -146,12 +146,12 @@ $(function() {
     <tr>
       <td><hr /></td>
     </tr>
-    <!-- tr><td>
+    <tr><td>
       <div class="alert alert-warning" role="alert">
             <b>Tax PPh 23 FINAL :</b> {{number_format($pph_23, 0, ',', '.')}}<br />
             <b>Tax PPh Pasal 25 :</b> {{number_format($pph_25, 0, ',', '.')}}
       </div>
-    </td></tr -->
+    </td></tr>
   </tbody>
 </table>
 
