@@ -79,7 +79,7 @@ function SHOW()
                 <div class="card-body">
                 	<div class="row w-100">
                 	<div class="col  text-left">
-                   		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Add categories</button>
+                   		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Add category</button>
                     </div>
                     <div class="col-auto text-right mr-0 pr-0">
                     	

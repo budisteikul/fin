@@ -81,7 +81,7 @@
                 	<hr />
                 	<div class="row w-100">
                 	<div class="col  text-left">
-                   		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Create Transactions</button>
+                   		<button type="button" class="btn btn-primary"  onclick="CREATE(); return false;"><b class="fa fa-plus-square"></b> Create Transaction</button>
                     </div>
                     <div class="col-auto text-right mr-0 pr-0">
                     	<a type="button" class="btn btn-secondary" href="{{ route('route_fin_categories.index') }}">
