@@ -251,6 +251,7 @@ class FinClass {
     public static function calculate_saldo($tahun,$bulan)
     {
                 $fin_date_start = env('FIN_DATE_START');
+                $modal = env('FIN_MODAL',0);;
 
                 $start_year = Str::substr($fin_date_start, 0,4);
                 $start_month = Str::substr($fin_date_start, 5,2);
@@ -268,7 +269,7 @@ class FinClass {
                 
                 
                 //print($bulan);
-                $total = 0;
+                $total = $modal;
                 for($i=$start_year;$i<=$tahun;$i++)
                 {
                     $xbulan = $bulan_past;
