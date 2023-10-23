@@ -138,7 +138,15 @@ class CategoryController extends Controller
             $fin_categories->type = $type;
         }
 		
+        
+
 		$fin_categories->save();
+
+        $categories = FinClass::getChild($fin_categories->id);
+        foreach($categories as $category)
+        {
+            fin_categories::where('id',$category)->update(['type' => $fin_categories->type]);
+        }
 		
 		return response()->json([
 					"id" => "1",
