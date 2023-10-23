@@ -1,5 +1,5 @@
 
-
+@inject('FinClass', 'budisteikul\fin\Classes\FinClass')
  
 <div class="h-100" style="width:99%">		
  
@@ -31,6 +31,16 @@
 </div>
 
 <div class="form-group">
+    <label for="parent_id">Parent</label>
+    <select class="form-control" id="parent_id">
+      <option value="0">No Parent</option>
+      @foreach($categories as $category)
+      <option value="{{ $category->id }}">{{ $category->name }} ({{ $category->type }})</option>
+      @endforeach
+    </select>
+</div>
+
+<div class="form-group" id="form-type">
 	<label for="type">Type :</label>
     <select class="form-control" id="type">
       <option value="Expenses">Expenses</option>
@@ -55,6 +65,20 @@
 
 
 <script language="javascript">
+
+
+$('#parent_id').on('change', function() {
+ if(this.value>0)
+ {
+ 	$('#form-type').hide();
+ }
+ else
+ {
+ 	$('#form-type').show();
+ }
+  
+});
+
 function STORE()
 {
 	var error = false;
@@ -72,7 +96,8 @@ function STORE()
 		data: {
         	"_token": $("meta[name=csrf-token]").attr("content"),
 			"name": $('#name').val(),
-			"type": $('#type').val()
+			"type": $('#type').val(),
+			"parent_id": $('#parent_id').val(),
         },
 		type: 'POST',
 		url: '{{ route('route_fin_categories.store') }}'

@@ -12,6 +12,117 @@ use Illuminate\Support\Facades\Cache;
 
 class FinClass {
     
+    public static function getCategories($notIn=false,$id=null)
+    {
+        if($notIn && $id!=null)
+        {
+            $allChild = self::getChild($id);
+            $categories = fin_categories::where('id','<>',$id)->whereNotIn('id',$allChild)->get();
+        }
+        else
+        {
+            $categories = fin_categories::get();
+        }
+        
+        foreach($categories as $category)
+        {
+            $category->name = self::nameCategory($category->id,'-');
+        }
+        return $categories->sortBy('name');
+    }
+
+    public static function getParent($id)
+    {
+        $status = true;
+        $array = array();
+
+        if($id==0) return $array;
+
+        while($status)
+        {
+            $category = fin_categories::where('id',$id)->first();
+            array_push($array,$category->id);
+            if($category->parent_id>0)
+            {
+                $id = $category->parent_id;
+            }
+            else
+            {
+                $status = false;
+            }
+        }
+        return $array;
+    }
+
+    public static function getChild($id)
+    {
+        $array = array();
+        array_push($array,$id);
+        $array = self::getChild_($id,$array);
+        return $array;
+    }
+
+    public static function getChild_($id,$array)
+    {
+        $categories = fin_categories::where('parent_id',$id)->get();
+        foreach($categories as $category)
+        {
+             array_push($array,$category->id);
+             $a = array();
+             if(count($category->child))
+             {
+                $a = self::getChild_($category->id,$a);
+                $array = array_merge($array,$a);
+             }
+        }
+        return $array;
+    }
+
+    public static function structure($id)
+    {
+        
+        $categories = fin_categories::where('parent_id',$id)->get();
+        foreach($categories as $category)
+        {
+             print("<ul>");
+             print('<li class="parent_li">');
+             print('<span>'.$category->name.'</span>');
+             if(count($category->child))
+             {
+                self::structure($category->id);
+             }
+             print("</li>");
+             print("</ul>");
+        }
+        
+    }
+
+    public static function nameCategory($id,$separator)
+    {
+        $strlen = strlen($separator) + 1;
+        $id = fin_categories::find($id);
+        if(isset($id))
+        {
+            $array_cat = self::getParent($id->id);
+            $categories = fin_categories::findMany($array_cat)->sortBy(function($model) use ($array_cat) {
+                return array_search($model->getKey(), array_reverse($array_cat));
+            });
+
+            $string = "";
+            foreach($categories as $category )
+            {
+                $string .= " ".$separator." ". $category->name;
+            }
+            return substr($string,$strlen);
+        }
+        else
+        {
+            return "Doesn't have category";
+        }
+            
+        
+    }
+
     public static function payment_calculate($amount,$provider)
     {
         if($provider=="paypal") $amount = $amount - (($amount * 4.4 / 100) + 0.30);

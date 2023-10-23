@@ -12,4 +12,15 @@ class fin_categories extends Model
     {
         return $this->hasMany('budisteikul\fin\Models\fin_transactions','category_id','id');
     }
+
+    public function child()
+    {
+        return $this->hasMany(fin_categories::class,'parent_id','id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(fin_categories::class,'parent_id','id');
+    }
+
 }

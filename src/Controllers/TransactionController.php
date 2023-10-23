@@ -46,7 +46,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-		$fin_categories = fin_categories::whereYear('created_at',date('Y'))->orderBy('name')->get();
+		$fin_categories = fin_categories::orderBy('name')->get();
         return view('fin::fin.transactions.create',['fin_categories'=>$fin_categories]);
     }
 

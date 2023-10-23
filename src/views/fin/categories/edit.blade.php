@@ -1,4 +1,4 @@
-
+@inject('FinClass', 'budisteikul\fin\Classes\FinClass')
 
 <div class="h-100" style="width:99%">		
 
@@ -24,15 +24,25 @@
 
 <div class="form-group">
 	<label for="name">Name :</label>
-	<input type="text" id="name" name="name" class="form-control" placeholder="name" value="{{ $categories->name }}">
+	<input type="text" id="name" name="name" class="form-control" placeholder="name" value="{{ $category->name }}">
 </div>
 
 <div class="form-group">
+    <label for="parent_id">Parent</label>
+    <select class="form-control" id="parent_id">
+      <option value="0">No Parent</option>
+      @foreach($categories as $parent_category)
+      <option value="{{ $parent_category->id }}" {{  ($parent_category->id == $category->parent_id) ? "selected" : "" }}>{{ $parent_category->name }} ({{ $parent_category->type }})</option>
+      @endforeach
+    </select>
+  </div>
+
+<div class="form-group" id="form-type">
 	<label for="type">Type :</label>
     <select class="form-control" id="type">
-      <option value="Expenses" {{ ($categories->type=='Expenses') ? 'selected' : '' }}>Expenses</option>
-      <option value="Revenue" {{ ($categories->type=='Revenue') ? 'selected' : '' }}>Revenue</option>
-      <option value="Cost of Goods Sold" {{ ($categories->type=='Cost of Goods Sold') ? 'selected' : '' }}>Cost of Goods Sold</option>
+      <option value="Expenses" {{ ($category->type=='Expenses') ? 'selected' : '' }}>Expenses</option>
+      <option value="Revenue" {{ ($category->type=='Revenue') ? 'selected' : '' }}>Revenue</option>
+      <option value="Cost of Goods Sold" {{ ($category->type=='Cost of Goods Sold') ? 'selected' : '' }}>Cost of Goods Sold</option>
 	</select>
 </div>
      
@@ -51,6 +61,29 @@
 </div>
 
 <script language="javascript">
+$(function() {
+	if($('#parent_id').val()>0)
+ 	{
+ 		$('#form-type').hide();
+ 	}
+ 	else
+ 	{
+ 		$('#form-type').show();
+ 	}
+});
+
+$('#parent_id').on('change', function() {
+ if(this.value>0)
+ {
+ 	$('#form-type').hide();
+ }
+ else
+ {
+ 	$('#form-type').show();
+ }
+  
+});
+
 function UPDATE()
 {
 	var error = false;
@@ -67,10 +100,11 @@ function UPDATE()
 		data: {
         	"_token": $("meta[name=csrf-token]").attr("content"),
 			"name": $('#name').val(),
-			"type": $('#type').val()
+			"type": $('#type').val(),
+			"parent_id": $('#parent_id').val(),
         },
 		type: 'PUT',
-		url: '{{ route('route_fin_categories.update',$categories->id) }}'
+		url: '{{ route('route_fin_categories.update',$category->id) }}'
 		}).done(function( data ) {
 			
 			if(data.id=="1")

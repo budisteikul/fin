@@ -24,3 +24,5 @@ Route::resource('/cms/fin/transfer/recipient', 'budisteikul\fin\Controllers\Reci
 Route::resource('/cms/fin/transfer/currency', 'budisteikul\fin\Controllers\CurrencyController',[ 'names' => 'route_fin_currency' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
 
 Route::resource('/cms/fin/transfer', 'budisteikul\fin\Controllers\TransferController',[ 'names' => 'route_fin_transfer' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
+
+Route::get('/cms/fin/test', 'budisteikul\fin\Controllers\CategoryController@test')->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);

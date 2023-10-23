@@ -9,9 +9,15 @@ use budisteikul\fin\DataTables\CategoriesDataTable;
 use Illuminate\Support\Facades\Validator;
 use budisteikul\fin\Models\fin_categories;
 use budisteikul\fin\Models\fin_transactions;
+use budisteikul\fin\Classes\FinClass;
 
 class CategoryController extends Controller
 {
+    public function test()
+    {
+        $test = FinClass::getChild(29);
+        print_r($test);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +35,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('fin::fin.categories.create');
+        $categories = FinClass::getCategories();
+        return view('fin::fin.categories.create',['categories'=>$categories]);
     }
 
     /**
@@ -41,7 +48,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-          	'name' => 'required|string|max:255',
+          	'name' => 'required|string|max:255|unique:fin_categories,name',
 			'type' => 'in:Expenses,Revenue,Cost of Goods Sold'
        	]);
         
@@ -52,10 +59,17 @@ class CategoryController extends Controller
 		
 		$name =  $request->input('name');
 		$type =  $request->input('type');
-		
+		$parent_id =  $request->input('parent_id');
+
 		$fin_categories = new fin_categories();
 		$fin_categories->name = $name;
-		$fin_categories->type = $type;
+        $fin_categories->parent_id = $parent_id;
+		if($parent_id>0) {
+            $type = fin_categories::select(['type'])->where('id', $parent_id)->first();
+            $fin_categories->type = $type->type;
+        } else {
+            $fin_categories->type = $type;
+        }
 		$fin_categories->save();
 		
 		return response()->json([
@@ -75,16 +89,18 @@ class CategoryController extends Controller
         //
     }
 
+    
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(fin_categories $category)
     {
-        $fin_categories = fin_categories::findOrFail($id);
-        return view('fin::fin.categories.edit',['categories'=>$fin_categories]);
+        $categories = FinClass::getCategories(true,$category->id);
+        return view('fin::fin.categories.edit',['category'=>$category,'categories'=>$categories]);
     }
 
     /**
@@ -108,10 +124,20 @@ class CategoryController extends Controller
 		
 		$name =  $request->input('name');
 		$type =  $request->input('type');
+        $parent_id =  $request->input('parent_id');
 		
 		$fin_categories = fin_categories::findOrFail($id);
 		$fin_categories->name = $name;
-		$fin_categories->type = $type;
+        $fin_categories->parent_id = $parent_id;
+        
+
+        if($parent_id>0) {
+            $type = fin_categories::select(['type'])->where('id', $parent_id)->first();
+            $fin_categories->type = $type->type;
+        } else {
+            $fin_categories->type = $type;
+        }
+		
 		$fin_categories->save();
 		
 		return response()->json([
@@ -126,9 +152,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(fin_categories $category)
     {
-        fin_categories::find($id)->delete();
-		fin_transactions::where('category_id', $id)->delete();
+        fin_categories::where('parent_id',$category->id)->update(['parent_id'=>0]);
+        fin_transactions::where('category_id', $category->id)->delete();
+        $category->delete();
+		
     }
 }

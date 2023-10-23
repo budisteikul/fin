@@ -1,5 +1,4 @@
 <?php
-
 namespace budisteikul\fin\DataTables;
 
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
@@ -11,6 +10,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use budisteikul\fin\Models\fin_categories;
+use budisteikul\fin\Classes\FinClass;
 
 class CategoriesDataTable extends DataTable
 {
@@ -24,6 +24,9 @@ class CategoriesDataTable extends DataTable
     {
         return datatables($query)
             ->addIndexColumn()
+            ->addColumn('detail', function($id){
+                    return FinClass::nameCategory($id->id,"-");
+                })
 			->addColumn('action', function ($id) {
 				return '<div class="btn-toolbar justify-content-end"><div class="btn-group mr-2 mb-0" role="group"><button id="btn-edit" type="button" onClick="EDIT(\''.$id->id.'\'); return false;" class="btn btn-sm btn-success pt-0 pb-0 pl-1 pr-1"><i class="fa fa-edit"></i> Edit</button><button id="btn-del" type="button" onClick="DELETE(\''. $id->id .'\')" class="btn btn-sm btn-danger pt-0 pb-0 pl-1 pr-1"><i class="fa fa-trash-alt"></i> Delete</button></div><div class="btn-group mb-2" role="group"></div></div>';
             })
@@ -38,7 +41,7 @@ class CategoriesDataTable extends DataTable
      */
     public function query(fin_categories $model): QueryBuilder
     {
-        return $model->whereYear('created_at',date('Y'))->newQuery();
+        return $model->newQuery();
     }
 
     /**
@@ -84,6 +87,7 @@ class CategoriesDataTable extends DataTable
                   ->searchable(false)
                   ->addClass('text-center align-middle'),
             Column::make('name')->title('Name')->orderable(false)->addClass('align-middle'),
+            Column::make('detail')->title('Detail')->orderable(false)->addClass('align-middle'),
             Column::make('type')->title('Type')->orderable(false)->addClass('align-middle'),
             
             Column::computed('action')
