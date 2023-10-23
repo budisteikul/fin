@@ -57,17 +57,11 @@ class SalesController extends Controller
         }
         */
 
-        $fin_categories_revenues = fin_categories::where('type','Revenue')->whereHas('transactions', function (Builder $query) use ($tahun,$fin_date_start,$fin_date_end) {
-                $query->whereYear('date',$tahun)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end );
-        })->orderBy('name')->get();
+        $fin_categories_revenues = fin_categories::where('type','Revenue')->where('parent_id',0)->orderBy('name')->get();
 
-        $fin_categories_expenses = fin_categories::where('type','Expenses')->whereHas('transactions', function (Builder $query) use ($tahun,$fin_date_start,$fin_date_end) {
-                $query->whereYear('date',$tahun)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end );
-        })->orderBy('name')->get();
+        $fin_categories_expenses = fin_categories::where('type','Expenses')->where('parent_id',0)->orderBy('name')->get();
         
-        $fin_categories_cogs = fin_categories::where('type','Cost of Goods Sold')->whereHas('transactions', function (Builder $query) use ($tahun,$fin_date_start,$fin_date_end) {
-                $query->whereYear('date',$tahun)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end );
-        })->orderBy('name')->get();
+        $fin_categories_cogs = fin_categories::where('type','Cost of Goods Sold')->where('parent_id',0)->orderBy('name')->get();
         
         
         return view('fin::fin.sales.profitloss',

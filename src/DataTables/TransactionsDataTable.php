@@ -14,6 +14,7 @@ use budisteikul\fin\Models\fin_transactions;
 use budisteikul\fin\Models\fin_categories;
 use budisteikul\toursdk\Helpers\GeneralHelper;
 use budisteikul\toursdk\Models\Transfer;
+use budisteikul\fin\Classes\FinClass;
 
 class TransactionsDataTable extends DataTable
 {
@@ -25,13 +26,17 @@ class TransactionsDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
+        //nameCategory($id,$separator)
         return datatables($query)
             ->addIndexColumn()
             ->addColumn('date_text', function($id){
                     return GeneralHelper::dateFormat($id->date,4);
                 })
+            ->editColumn('name', function($id){
+                    return FinClass::nameCategory($id->category_id,"-");
+            })
             ->editColumn('amount', function($id){
-                return number_format($id->amount, 0, ',', '.');
+                    return number_format($id->amount, 0, ',', '.');
             })
 			->addColumn('action', function ($id) {
                 
@@ -97,7 +102,7 @@ class TransactionsDataTable extends DataTable
                   ->searchable(false)
                   ->addClass('text-center align-middle'),
 
-            Column::make('categories.name')->title('Name')->orderable(false)->addClass('align-middle'),
+            Column::make('name')->title('Name')->orderable(false)->addClass('align-middle'),
             Column::make('date_text')->title('Date')->orderable(false)->addClass('align-middle'),
             Column::make('amount')->title('Amount')->orderable(false)->addClass('align-middle'),
             

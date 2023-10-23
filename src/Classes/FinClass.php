@@ -81,7 +81,7 @@ class FinClass {
     public static function structure($id)
     {
         
-        $categories = fin_categories::where('parent_id',$id)->get();
+        $categories = fin_categories::where('parent_id',$id)->orderBy('name')->get();
         foreach($categories as $category)
         {
              print("<ul>");
@@ -321,12 +321,13 @@ class FinClass {
     }
 
 	public static function total_per_month($category_id,$year,$month){
-
-        
-            $fin_date_start = env('FIN_DATE_START');
-            $fin_date_end = date('Y-m-d') .' 23:59:00';
-
-            $total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
+          $total = 0;
+          $categories = FinClass::getChild($category_id);
+          foreach($categories as $category)
+          {
+                $total += fin_transactions::where('category_id',$category)->whereYear('date',$year)->whereMonth('date',$month)->sum('amount');
+          }
+          
 		  return $total;
         
 	}
@@ -351,33 +352,7 @@ class FinClass {
 	}
 
     public static function total_revenue_per_month($year,$month){
-
-
-            $fin_date_start = env('FIN_DATE_START');
-            $fin_date_end = date('Y-m-d') .' 23:59:00';
-
             $total = 0;
-
-            /*
-            $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) {
-                            return $query->where('booking_status','CONFIRMED');
-                         })->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->get();
-            
-            foreach($sub_totals as $sub_total)
-            {
-                $total += $sub_total->total;
-            }
-            
-            $date1 = new \DateTime($year.'-'.$month.'-01');
-            $date2    = new \DateTime("2023-06-30");
-
-            if($date1>$date2)
-            {
-                //if($booking_channel=="WEBSITE") $total = $total - ($total*10/100);
-                $total = $total - ($total*10/100);
-            }
-            */
-            
             $total += self::total_per_month_by_type('Revenue',$year,$month);
             return $total;
     }
@@ -403,7 +378,6 @@ class FinClass {
 
             if($date1>$date2)
             {
-                //if($booking_channel=="WEBSITE") $total = $total - ($total*10/100);
                 $total = $total - ($total*10/100);
             }
             

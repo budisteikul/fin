@@ -4,6 +4,8 @@
     //error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 //}
 
+Route::get('/cms/fin/transactions/categories/structure','budisteikul\fin\Controllers\CategoryController@structure')->middleware(['web','auth','verified','CoreMiddleware']);
+
 Route::resource('/cms/fin/transactions/categories','budisteikul\fin\Controllers\CategoryController',[ 'names' => 'route_fin_categories' ])
     ->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
     

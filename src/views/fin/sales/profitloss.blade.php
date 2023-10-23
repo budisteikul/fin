@@ -58,7 +58,7 @@
             $total_sales_arr[$i] = 0;
       }
     
-      
+     
     @endphp
     @foreach($fin_categories_revenues as $fin_categories_revenue)
     <tr>

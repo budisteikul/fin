@@ -13,10 +13,10 @@ use budisteikul\fin\Classes\FinClass;
 
 class CategoryController extends Controller
 {
-    public function test()
+    public function structure()
     {
-        $test = FinClass::getChild(29);
-        print_r($test);
+        $root_categories = fin_categories::where('parent_id',0)->orderBy('name')->get();
+        return view('fin::fin.categories.show',['root_categories'=>$root_categories]);
     }
     /**
      * Display a listing of the resource.

@@ -12,6 +12,7 @@ use Yajra\DataTables\Services\DataTable;
 use budisteikul\fin\Models\fin_categories;
 use budisteikul\fin\Classes\FinClass;
 
+
 class CategoriesDataTable extends DataTable
 {
     /**
