@@ -61,7 +61,7 @@
      
     @endphp
     @foreach($fin_categories_revenues as $fin_categories_revenue)
-    <tr>
+    <tr id="rev-{{ $fin_categories_revenue->id }}">
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>{{ $fin_categories_revenue->name }}</td>
@@ -78,8 +78,14 @@
         <td align="right" style="background-color:#FEFEEF">{{  number_format($fin_categories_revenue_per, 0, ',', '.') }}</td>
       @endfor
       <td align="right" class="font-weight-bolder"><i>{{ number_format($fin_categories_revenue_subtotal, 0, ',', '.') }}</i></td>
-      <!-- #### -->
+      
     </tr>
+      <script>
+        @if ($fin_categories_revenue_subtotal==0)
+          $('#rev-{{ $fin_categories_revenue->id }}').remove();
+        @endif
+      </script>
+      <!-- #### -->
     @endforeach
     <tr>
       <td>&nbsp;</td>
@@ -130,7 +136,7 @@
       }
     @endphp
     @foreach($fin_categories_cogs as $fin_categories_cog)
-    <tr>
+    <tr id="cogs-{{ $fin_categories_cog->id }}">
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>{{ $fin_categories_cog->name }}</td>
@@ -147,8 +153,14 @@
         <td align="right" style="background-color:#FEFEEF">{{ number_format($fin_categories_cog_per, 0, ',', '.') }}</td>
       @endfor
       <td align="right" class="font-weight-bolder"><i>{{ number_format($fin_categories_cog_subtotal, 0, ',', '.') }}</i></td>
-      <!-- #### -->
+      
     </tr>
+      <script>
+        @if ($fin_categories_cog_subtotal==0)
+          $('#cogs-{{ $fin_categories_cog->id }}').remove();
+        @endif
+      </script>
+      <!-- #### -->
     @endforeach
     <tr>
       <td>&nbsp;</td>
@@ -227,7 +239,7 @@
       }
       @endphp
      @foreach($fin_categories_expenses as $fin_categories_expense)
-    <tr>
+    <tr id="exp-{{ $fin_categories_expense->id }}">
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>{{ $fin_categories_expense->name }}</td>
@@ -244,8 +256,14 @@
         <td align="right" style="background-color:#FEFEEF">{{ number_format($fin_categories_expense_per, 0, ',', '.') }}</td>
       @endfor
       <td align="right" class="font-weight-bolder"><i>{{ number_format($fin_categories_expense_subtotal, 0, ',', '.') }}</i></td>
-      <!-- #### -->
+      
     </tr>
+      <script>
+        @if ($fin_categories_expense_subtotal==0)
+          $('#exp-{{ $fin_categories_expense->id }}').remove();
+        @endif
+      </script>
+      <!-- #### -->
     @endforeach
 
 
