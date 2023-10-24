@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Cache;
 
 class FinClass {
     
+    public static function haveTransaction($id)
+    {
+        $status = false;
+        if(fin_transactions::where('category_id',$id)->first()) return true;
+        return $status;
+    }
+
     public static function getCategories($notIn=false,$id=null)
     {
         if($notIn && $id!=null)
