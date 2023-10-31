@@ -51,12 +51,8 @@ $(function() {
       if($date1->isPast())
       {
 
-      $total_revenue_per_day = $fin::total_revenue_per_day($tahun,$bulan,$i);
-      
-
+      $total_revenue_per_day = $fin::total_per_day_by_type('Revenue',$tahun,$bulan,$i);
       $total_cogs_per_day = $fin::total_per_day_by_type('Cost of Goods Sold',$tahun,$bulan,$i);
-      
-
       $total_expenses_per_day = $fin::total_per_day_by_type('Expenses',$tahun,$bulan,$i);
       
       $saldo += $total_revenue_per_day;
@@ -90,6 +86,7 @@ $(function() {
       <td><hr /></td>
     </tr>
     @php
+
       //PP23
       if($total_debit > 0)
       {
@@ -110,6 +107,7 @@ $(function() {
       {
           $pph_25 = 0;
       }
+      
     @endphp
     <tr>
       <td><b>Beginning balance :</b> {{number_format($saldo_awal, 0, ',', '.')}}</td>
