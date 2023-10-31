@@ -13,6 +13,7 @@ use budisteikul\fin\Classes\FinClass;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use budisteikul\toursdk\Helpers\GeneralHelper;
+use Illuminate\Support\Facades\Cache;
 
 class TransactionController extends Controller
 {
@@ -79,10 +80,16 @@ class TransactionController extends Controller
 		$fin_transactions->date = $date;
 		$fin_transactions->amount = $amount;
 		$fin_transactions->save();
+
+        if(date('Y-m',strtotime($date)) != date('Y-m'))
+        {
+            Cache::flush();
+        }
 		
 		return response()->json([
 					"id" => "1",
-					"message" => 'Success'
+					"message" => 'Success',
+                    "log_date" => $date
 				]);
     }
 
@@ -141,6 +148,11 @@ class TransactionController extends Controller
 		$fin_transactions->amount = $amount;
 		$fin_transactions->save();
 		
+        if(date('Y-m',strtotime($date)) != date('Y-m'))
+        {
+            Cache::flush();
+        }
+
 		return response()->json([
 					"id" => "1",
 					"message" => 'Success'
@@ -155,6 +167,11 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
+        $transaction = fin_transactions::find($id);
+        if(date('Y-m',strtotime($transaction->date)) != date('Y-m'))
+        {
+            Cache::flush();
+        }
         fin_transactions::find($id)->delete();
     }
 }

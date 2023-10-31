@@ -46,8 +46,6 @@
             			horizontal: 'left',
             			vertical: 'bottom'
         			},
-        			minDate: '{{date('Y-m-01')}}',
-        			maxDate: '{{date('Y-m-t')}}',
 				});
             });
         </script>    
