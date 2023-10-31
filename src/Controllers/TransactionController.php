@@ -13,7 +13,6 @@ use budisteikul\fin\Classes\FinClass;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use budisteikul\toursdk\Helpers\GeneralHelper;
-use Illuminate\Support\Facades\Cache;
 
 class TransactionController extends Controller
 {
@@ -83,7 +82,8 @@ class TransactionController extends Controller
 
         if(date('Y-m',strtotime($date)) != date('Y-m'))
         {
-            Cache::flush();
+            //Cache::flush();
+            FinClass::delete_saldo(date('Y',strtotime($date)),date('m',strtotime($date)));
         }
 		
 		return response()->json([
@@ -150,7 +150,8 @@ class TransactionController extends Controller
 		
         if(date('Y-m',strtotime($date)) != date('Y-m'))
         {
-            Cache::flush();
+            //Cache::flush();
+            FinClass::delete_saldo(date('Y',strtotime($date)),date('m',strtotime($date)));
         }
 
 		return response()->json([
@@ -170,7 +171,8 @@ class TransactionController extends Controller
         $transaction = fin_transactions::find($id);
         if(date('Y-m',strtotime($transaction->date)) != date('Y-m'))
         {
-            Cache::flush();
+            //Cache::flush();
+            FinClass::delete_saldo(date('Y',strtotime($transaction->date)),date('m',strtotime($transaction->date)));
         }
         fin_transactions::find($id)->delete();
     }
