@@ -5,7 +5,7 @@
       
         
         {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}
-        
+        {{ (request()->is('cms/fin/tax*')) ? 'active' : '' }}
         
         
       
@@ -13,7 +13,7 @@
       @php
         $collapsed = 'collapsed';
         $show = '';        
-        if(request()->is('cms/fin/profitloss*'))
+        if(request()->is('cms/fin/profitloss*') || request()->is('cms/fin/tax*'))
         {
           $collapsed = '';
           $show = 'show';
@@ -27,6 +27,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             
             <a class="collapse-item {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}" href="{{ route('route_fin_profitloss.index') }}"><i class="far fa-circle"></i> {{ __('Profit Loss') }}</a>
+            <a class="collapse-item {{ (request()->is('cms/fin/tax*')) ? 'active' : '' }}" href="{{ route('route_fin_tax.index') }}"><i class="far fa-circle"></i> {{ __('Tax PP23') }}</a>
 
             
 

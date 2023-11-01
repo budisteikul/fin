@@ -30,33 +30,6 @@ class SalesController extends Controller
 
         if($tahun=="") $tahun = date("Y");
         
-        $shoppingcarts = Shoppingcart::whereHas('shoppingcart_products', function ($query) use ($tahun) {
-                            return $query->whereYear('date',$tahun);
-                         })->where('booking_status','CONFIRMED')
-                         ->select(['booking_channel'])
-                         ->groupBy('booking_channel')
-                         ->get();
-        
-        /*
-        $total_sales_arr = [];
-        for($i=1; $i<=12; $i++)
-        {
-            $total_sales_arr[$i] = 0;
-        }
-
-
-        foreach($shoppingcarts as $shoppingcart)
-        {
-            $fin_categories_revenue_subtotal = 0;
-            for($i=1; $i<=12; $i++)
-            {
-                $fin_categories_revenue_per = FinClass::total_shoppingcart_per_month($shoppingcart->booking_channel,$tahun,$i);
-                $fin_categories_revenue_subtotal += $fin_categories_revenue_per;
-                $total_sales_arr[$i] += $fin_categories_revenue_per;
-            }
-        }
-        */
-
         $fin_categories_revenues = fin_categories::where('type','Revenue')->where('parent_id',0)->orderBy('name')->get();
 
         $fin_categories_expenses = fin_categories::where('type','Expenses')->where('parent_id',0)->orderBy('name')->get();
@@ -66,7 +39,6 @@ class SalesController extends Controller
         
         return view('fin::fin.sales.profitloss',
             [
-                'shoppingcarts'=>$shoppingcarts,
                 'fin_categories_revenues'=>$fin_categories_revenues,
                 'fin_categories_expenses'=>$fin_categories_expenses,
                 'fin_categories_cogs'=>$fin_categories_cogs,
