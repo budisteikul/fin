@@ -6,14 +6,14 @@
         
         {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}
         {{ (request()->is('cms/fin/tax*')) ? 'active' : '' }}
-        
+        {{ (request()->is('cms/fin/banking*')) ? 'active' : '' }}
         
       
       ">
       @php
         $collapsed = 'collapsed';
         $show = '';        
-        if(request()->is('cms/fin/profitloss*') || request()->is('cms/fin/tax*'))
+        if(request()->is('cms/fin/profitloss*') || request()->is('cms/fin/tax*') || request()->is('cms/fin/banking*'))
         {
           $collapsed = '';
           $show = 'show';
@@ -27,8 +27,10 @@
           <div class="bg-white py-2 collapse-inner rounded">
             
             <a class="collapse-item {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}" href="{{ route('route_fin_profitloss.index') }}"><i class="far fa-circle"></i> {{ __('Profit Loss') }}</a>
+
             <a class="collapse-item {{ (request()->is('cms/fin/tax*')) ? 'active' : '' }}" href="{{ route('route_fin_tax.index') }}"><i class="far fa-circle"></i> {{ __('Tax PP23') }}</a>
 
+            <a class="collapse-item {{ (request()->is('cms/fin/banking*')) ? 'active' : '' }}" href="{{ route('route_fin_banking.index') }}"><i class="far fa-circle"></i> {{ __('Bank') }}</a>
             
 
             
@@ -43,15 +45,13 @@
       <li class="nav-item 
       
         {{ (request()->is('cms/fin/transactions*')) ? 'active' : '' }}
-        {{ (request()->is('cms/fin/transfer*')) ? 'active' : '' }}
-        {{ (request()->is('cms/fin/payment*')) ? 'active' : '' }}
-        {{ (request()->is('cms/fin/banking*')) ? 'active' : '' }}
+        
 
       ">
       @php
         $collapsed = 'collapsed';
         $show = '';        
-        if(request()->is('cms/fin/transactions*') || request()->is('cms/fin/transfer*') || request()->is('cms/fin/payment*') || request()->is('cms/fin/banking*'))
+        if(request()->is('cms/fin/transactions*'))
         {
           $collapsed = '';
           $show = 'show';
@@ -66,11 +66,9 @@
             
             <a class="collapse-item {{ (request()->is('cms/fin/transactions*')) ? 'active' : '' }}" href="{{ route('route_fin_transactions.index') }}"><i class="far fa-circle"></i> {{ __('Transaction') }}</a>
 
-            <a class="collapse-item {{ (request()->is('cms/fin/banking*')) ? 'active' : '' }}" href="{{ route('route_fin_banking.index') }}"><i class="far fa-circle"></i> {{ __('Banking') }}</a>
             
-            <!-- a class="collapse-item {{ (request()->is('cms/fin/payment*')) ? 'active' : '' }}" href="{{ route('route_fin_payment.index') }}"><i class="far fa-circle"></i> {{ __('Payment') }}</a>
             
-            <a class="collapse-item {{ (request()->is('cms/fin/transfer*')) ? 'active' : '' }}" href="{{ route('route_fin_transfer.index') }}"><i class="far fa-circle"></i> {{ __('Transfer') }}</a -->
+           
 
           </div>
         </div>

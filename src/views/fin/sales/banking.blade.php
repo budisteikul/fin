@@ -16,7 +16,7 @@ $(function() {
 <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Banking</div>
+                <div class="card-header">Bank</div>
                 <div class="card-body">
                 
                     <div class="row w-100">
