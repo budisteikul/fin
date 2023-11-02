@@ -21,7 +21,7 @@
     <tr>
       <td width="20%"><strong>Month</strong></td>
       <td align="right"><strong>Revenue</strong></td>
-      <td align="right"><strong>Tax PP 23</strong></td>
+      <td align="right"><strong>Tax PP23</strong></td>
     </tr>
   </thead>
   <tbody>
