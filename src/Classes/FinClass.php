@@ -420,7 +420,32 @@ class FinClass {
     }
 
     
-
+    public static function total_revenue_per_month($year,$month){
+            $total = 0;
+            $total += self::total_per_month_by_type('Revenue',$year,$month);
+            return $total;
+    }
+    public static function total_shoppingcart_per_month($booking_channel,$year,$month){
+            
+            $fin_date_start = env('FIN_DATE_START');
+            $fin_date_end = date('Y-m-d') .' 23:59:00';
+            $total = 0;
+            $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($booking_channel) {
+                            return $query->where('booking_status','CONFIRMED')->where('booking_channel',$booking_channel);
+                         })->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->get();
+            foreach($sub_totals as $sub_total)
+            {
+                $total += $sub_total->total;
+            }
+            $date1 = new \DateTime($year.'-'.$month.'-01');
+            $date2    = new \DateTime("2023-06-30");
+            if($date1>$date2)
+            {
+                $total = $total - ($total*10/100);
+            }
+            
+            return $total;
+    }
 	
 
 }
