@@ -94,6 +94,7 @@ class CategoriesDataTable extends DataTable
                   ->orderable(false)
                   ->searchable(false)
                   ->addClass('text-center align-middle'),
+            Column::make('id')->title('ID')->orderable(false)->addClass('align-middle'),
             Column::make('name')->title('Name')->orderable(false)->addClass('align-middle'),
             Column::make('detail')->title('Detail')->orderable(false)->addClass('align-middle'),
             Column::make('type')->title('Type')->orderable(false)->addClass('align-middle'),

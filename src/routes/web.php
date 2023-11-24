@@ -16,8 +16,9 @@ Route::resource('/cms/fin/profitloss', 'budisteikul\fin\Controllers\SalesControl
 
 Route::resource('/cms/fin/profitloss-old', 'budisteikul\fin\Controllers\SalesControllerOld',[ 'names' => 'route_fin_profitloss_old' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
 
-
 Route::resource('/cms/fin/banking', 'budisteikul\fin\Controllers\BankingController',[ 'names' => 'route_fin_banking' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
+
+Route::resource('/cms/fin/report/guide', 'budisteikul\fin\Controllers\ReportGuideController',[ 'names' => 'route_fin_report_guide' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
 
 Route::resource('/cms/fin/tax', 'budisteikul\fin\Controllers\TaxController',[ 'names' => 'route_fin_tax' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
 
@@ -29,4 +30,4 @@ Route::resource('/cms/fin/transfer/currency', 'budisteikul\fin\Controllers\Curre
 
 Route::resource('/cms/fin/transfer', 'budisteikul\fin\Controllers\TransferController',[ 'names' => 'route_fin_transfer' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
 
-Route::get('/cms/fin/test', 'budisteikul\fin\Controllers\CategoryController@test')->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
+

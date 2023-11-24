@@ -3,7 +3,7 @@
       <hr class="sidebar-divider my-0">
       <li class="nav-item 
       
-        
+        {{ (request()->is('cms/fin/report/guide*')) ? 'active' : '' }}
         {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}
         {{ (request()->is('cms/fin/tax*')) ? 'active' : '' }}
         {{ (request()->is('cms/fin/banking*')) ? 'active' : '' }}
@@ -13,7 +13,7 @@
       @php
         $collapsed = 'collapsed';
         $show = '';        
-        if(request()->is('cms/fin/profitloss*') || request()->is('cms/fin/tax*') || request()->is('cms/fin/banking*') || request()->is('cms/fin/transactions*'))
+        if(request()->is('cms/fin/report/guide*') || request()->is('cms/fin/profitloss*') || request()->is('cms/fin/tax*') || request()->is('cms/fin/banking*') || request()->is('cms/fin/transactions*'))
         {
           $collapsed = '';
           $show = 'show';
@@ -26,6 +26,8 @@
         <div id="menu-fin" class="collapse {{$show}}" aria-labelledby="heading1" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             
+            <a class="collapse-item {{ (request()->is('cms/fin/report/guide*')) ? 'active' : '' }}" href="{{ route('route_fin_report_guide.index') }}"><i class="far fa-circle"></i> {{ __('Report Guide') }}</a>
+
             <a class="collapse-item {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}" href="{{ route('route_fin_profitloss.index') }}"><i class="far fa-circle"></i> {{ __('Profit Loss') }}</a>
 
             <a class="collapse-item {{ (request()->is('cms/fin/tax*')) ? 'active' : '' }}" href="{{ route('route_fin_tax.index') }}"><i class="far fa-circle"></i> {{ __('Tax PP23') }}</a>
