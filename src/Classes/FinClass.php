@@ -5,6 +5,7 @@ use budisteikul\fin\Models\fin_transactions;
 use budisteikul\fin\Models\fin_categories;
 use budisteikul\toursdk\Helpers\GeneralHelper;
 use budisteikul\toursdk\Models\Shoppingcart;
+use budisteikul\toursdk\Models\Product;
 use budisteikul\toursdk\Models\ShoppingcartProduct;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -12,6 +13,60 @@ use Illuminate\Support\Facades\Cache;
 
 class FinClass {
     
+    public static function count_per_year($category_id,$year){
+
+          $total = 0;
+          $total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->count();
+          return $total;
+        
+    }
+
+    public static function count_per_month($category_id,$year,$month){
+
+          $total = 0;
+          $total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->whereMonth('date',$month)->count();
+          return $total;
+        
+    }
+
+    public static function traveller_per_year($product_id,$year)
+    {
+        $total = 0;
+        $products = ShoppingcartProduct::where('product_id',$product_id)->whereYear('date',$year)->whereMonth('date',$month)->get();
+        
+        foreach($products as $product)
+        {
+            foreach($product->shoppingcart_product_details as $shoppingcart_product_detail)
+            {
+                $people = $shoppingcart_product_detail->people;
+                $total += $people;
+            }
+        }
+        return $total;
+    }
+
+    public static function traveller_per_month($product_id,$month,$year)
+    {
+        $total = 0;
+        $products = ShoppingcartProduct::where('product_id',$product_id)->whereYear('date',$year)->whereMonth('date',$month)->get();
+        
+        foreach($products as $product)
+        {
+            foreach($product->shoppingcart_product_details as $shoppingcart_product_detail)
+            {
+                $people = $shoppingcart_product_detail->people;
+                $total += $people;
+            }
+        }
+        return $total;
+    }
+
+    public static function nama_product($product_id)
+    {
+        $product = Product::where('bokun_id',$product_id)->first();
+        return $product->name;
+    }
+
     public static function haveTransaction($id)
     {
         $status = false;
@@ -393,13 +448,7 @@ class FinClass {
         
 	}
 
-    public static function count_per_month($category_id,$year,$month){
-
-          $total = 0;
-          $total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->whereMonth('date',$month)->count();
-          return $total;
-        
-    }
+    
 	
 	public static function total_per_month_by_type($type,$year,$month){
 		

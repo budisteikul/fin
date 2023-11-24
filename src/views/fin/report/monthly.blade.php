@@ -10,7 +10,7 @@
 <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Report Guide</div>
+                <div class="card-header">Monthly Report</div>
                 <div class="card-body">
                 
                     <div class="row w-100">
@@ -42,10 +42,32 @@
   </div>
 </div>
 
+
+
     </div>
   </div>
 
+<div class="row">
+    <div class="col-sm-auto">
 
+<div class="card text-white bg-light mb-3 w-100">
+  <div class="card-header bg-light text-dark"><h3>TRAVELLER</h3></div>
+  <div class="card-body bg-light text-dark">
+@php
+$total_tamu = 0;    
+foreach($products as $product)
+{
+    $tamu = $fin->traveller_per_month($product->bokun_id,$bulan,$tahun);
+    $total_tamu += $tamu;
+    print('<h3>'.$fin->nama_product($product->bokun_id).' : '. $tamu .'</h3>');
+}
+@endphp
+  </div>
+  <div class="card-footer bg-light text-dark"><h3>Total Traveller : {{$total_tamu}}</h3></div>
+</div>
+
+    </div>
+</div>
 
 
 

@@ -5,8 +5,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use budisteikul\toursdk\Models\Product;
 
-class ReportGuideController extends Controller
+class ReportMonthlyController extends Controller
 {
     public function index(Request $request)
     {
@@ -20,11 +21,13 @@ class ReportGuideController extends Controller
         //$bulan = $request->input('month');
         if($date=="") $bulan = date("m");
 
+        $products = Product::orderBy('id')->get();
         
-        return view('fin::fin.report.guide',
+        return view('fin::fin.report.monthly',
             [
                 'bulan'=>$bulan,
-                'tahun'=>$tahun
+                'tahun'=>$tahun,
+                'products'=>$products
             ]);
     }
 }
