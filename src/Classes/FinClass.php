@@ -29,14 +29,6 @@ class FinClass {
         
     }
 
-    
-
-    public static function nama_product($product_id)
-    {
-        $product = Product::where('bokun_id',$product_id)->first();
-        return $product->name;
-    }
-
     public static function haveTransaction($id)
     {
         $status = false;

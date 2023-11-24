@@ -1,13 +1,9 @@
 @inject('fin', 'budisteikul\fin\Classes\FinClass')
-@inject('report', 'budisteikul\toursdk\Classes\ReportHelper')
+@inject('report', 'budisteikul\toursdk\Helpers\ReportHelper')
+@inject('productHelper', 'budisteikul\toursdk\Helpers\ProductHelper')
 @extends('coresdk::layouts.app')
 @section('content')
 
-
-@php
-    $saldo_awal = $fin::calculate_saldo($tahun,$bulan);
-    $saldo = $saldo_awal;
-@endphp 
 <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -60,7 +56,7 @@ foreach($products as $product)
 {
     $tamu = $report->traveller_per_month($product->bokun_id,$bulan,$tahun);
     $total_tamu += $tamu;
-    print('<h3>'.$fin->nama_product($product->bokun_id).' : '. $tamu .'</h3>');
+    print('<h3>'.$productHelper->product_name_by_bokun_id($product->bokun_id).' : '. $tamu .'</h3>');
 }
 @endphp
   </div>
