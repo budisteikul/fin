@@ -3,6 +3,11 @@
 @inject('productHelper', 'budisteikul\toursdk\Helpers\ProductHelper')
 @extends('coresdk::layouts.app')
 @section('content')
+@push('scripts')
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+@endpush
 
 <div class="row justify-content-center">
         <div class="col-md-12">
@@ -16,8 +21,48 @@
                     </div>
                     </div>
 
+<div class="row mt-4">
+    <div class="col-md-6">
+      
+<canvas id="barChart" ></canvas>
 
-  <div class="row">
+    </div>
+    
+</div>
+
+
+<div class="row mt-4">
+    
+    <div class="col-md-6">
+     
+<div class="card text-white bg-light mb-3 w-100">
+  <div class="card-header bg-light text-dark">TRAVELLER</div>
+  <div class="card-body bg-light text-dark">
+@php
+$total_tamu = 0;    
+foreach($products as $product)
+{
+    $tamu = $report->traveller_product_per_month($product->bokun_id,$bulan,$tahun);
+    $total_tamu += $tamu;
+    print(''.$productHelper->product_name_by_bokun_id($product->bokun_id).' : '. $tamu .' persons <br />');
+}
+@endphp
+  </div>
+  <div class="card-footer bg-light text-dark">Total Traveller : {{$total_tamu}}</div>
+</div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+  <div class="row mt-4">
     <div class="col-sm-auto">
       
 <div class="card text-white bg-primary mb-3" style="width: 23rem;">
@@ -44,27 +89,7 @@
     </div>
   </div>
 
-<div class="row">
-    <div class="col-sm-auto">
 
-<div class="card text-white bg-light mb-3 w-100">
-  <div class="card-header bg-light text-dark"><h3>TRAVELLER</h3></div>
-  <div class="card-body bg-light text-dark">
-@php
-$total_tamu = 0;    
-foreach($products as $product)
-{
-    $tamu = $report->traveller_per_month($product->bokun_id,$bulan,$tahun);
-    $total_tamu += $tamu;
-    print('<h3>'.$productHelper->product_name_by_bokun_id($product->bokun_id).' : '. $tamu .'</h3>');
-}
-@endphp
-  </div>
-  <div class="card-footer bg-light text-dark"><h3>Total Traveller : {{$total_tamu}}</h3></div>
-</div>
-
-    </div>
-</div>
 
 
 
@@ -76,4 +101,21 @@ foreach($products as $product)
             </div>
         </div>
 </div>
+
+
+<script language="javascript">
+var ctx = document.getElementById("barChart").getContext('2d');
+var barChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: <?php echo json_encode($tgl); ?>,
+    datasets: [{
+      label: 'Traveller',
+      data: <?php echo json_encode($traveller); ?>,
+      backgroundColor: "rgba(54, 162, 235, 0.2)",
+      borderWidth: 1
+    }]
+  }
+});
+</script>
 @endsection
