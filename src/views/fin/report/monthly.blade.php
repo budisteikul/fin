@@ -1,4 +1,5 @@
 @inject('fin', 'budisteikul\fin\Classes\FinClass')
+@inject('report', 'budisteikul\toursdk\Classes\ReportHelper')
 @extends('coresdk::layouts.app')
 @section('content')
 
@@ -57,7 +58,7 @@
 $total_tamu = 0;    
 foreach($products as $product)
 {
-    $tamu = $fin->traveller_per_month($product->bokun_id,$bulan,$tahun);
+    $tamu = $report->traveller_per_month($product->bokun_id,$bulan,$tahun);
     $total_tamu += $tamu;
     print('<h3>'.$fin->nama_product($product->bokun_id).' : '. $tamu .'</h3>');
 }
