@@ -397,6 +397,74 @@ class FinClass {
                 return round($total);
     }
 
+    public static function calculate_saldo_akhir($tahun,$bulan)
+    {
+                $fin_date_start = env('FIN_DATE_START');
+                $modal = env('FIN_MODAL',0);
+
+                $start_year = Str::substr($fin_date_start, 0,4);
+                $start_month = Str::substr($fin_date_start, 5,2);
+
+                $newDateTime = Carbon::parse($start_year."-".$start_month."-01");
+                $tahun_past = Str::substr($newDateTime, 0,4);
+                $bulan_past = Str::substr($newDateTime, 5,2);
+
+                $tahun_req = $tahun;
+                $bulan_req = $bulan;
+
+                $newDateTime = Carbon::parse($tahun."-".$bulan."-01");
+                $tahun = Str::substr($newDateTime, 0,4);
+                $bulan = Str::substr($newDateTime, 5,2);
+                
+                
+                //print($bulan);
+                $total = $modal;
+                for($i=$start_year;$i<=$tahun;$i++)
+                {
+                    $xbulan = $bulan_past;
+                    $ybulan = $bulan;
+                    
+                    if(($tahun_req>$start_year))
+                    {
+                        if($i==$start_year)
+                        {
+                            $xbulan = $bulan_past;
+                            $ybulan = 12;
+                        }
+                        else if($i<$tahun_req)
+                        {
+                            $xbulan = 1;
+                            $ybulan = 12;
+                        }
+                        else
+                        {   
+                            $xbulan = 1;
+                            $ybulan = $bulan;
+                        }
+                    }
+
+                    
+                    for($j=$xbulan;$j<=$ybulan;$j++)
+                    {
+                            $jbulan = GeneralHelper::digitFormat($j,2);
+                            $total = Cache::rememberForever('saldo_'. $i .'_'. $jbulan, function() use ($i,$jbulan,$total) 
+                            {
+                                //$revenue_per = self::total_revenue_per_month($i,$jbulan);
+                                $revenue_per = self::total_per_month_by_type('Revenue',$i,$jbulan);
+                                $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$jbulan);
+                                $gross_margin = $revenue_per - $cogs_per;
+                                $total_expenses = self::total_per_month_by_type('Expenses',$i,$jbulan);
+                    
+                                $profit_loss = $gross_margin - $total_expenses;
+                                $total += $profit_loss;
+                                return $total;
+                            });
+                    }
+                }
+                
+                return round($total);
+    }
+
     
 	public static function total_per_month($category_id,$year,$month){
 

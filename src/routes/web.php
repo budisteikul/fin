@@ -18,6 +18,8 @@ Route::resource('/cms/fin/profitloss-old', 'budisteikul\fin\Controllers\SalesCon
 
 Route::resource('/cms/fin/banking', 'budisteikul\fin\Controllers\BankingController',[ 'names' => 'route_fin_banking' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
 
+Route::resource('/cms/fin/report/asset', 'budisteikul\fin\Controllers\AssetController',[ 'names' => 'route_fin_asset' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
+
 Route::resource('/cms/fin/report/monthly', 'budisteikul\fin\Controllers\ReportMonthlyController',[ 'names' => 'route_fin_report_monthly' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
 
 Route::resource('/cms/fin/tax', 'budisteikul\fin\Controllers\TaxController',[ 'names' => 'route_fin_tax' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);

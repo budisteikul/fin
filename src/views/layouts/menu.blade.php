@@ -4,6 +4,7 @@
       <li class="nav-item 
       
         {{ (request()->is('cms/fin/report/monthly*')) ? 'active' : '' }}
+        {{ (request()->is('cms/fin/report/asset*')) ? 'active' : '' }}
         {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}
         {{ (request()->is('cms/fin/tax*')) ? 'active' : '' }}
         {{ (request()->is('cms/fin/banking*')) ? 'active' : '' }}
@@ -13,7 +14,7 @@
       @php
         $collapsed = 'collapsed';
         $show = '';        
-        if(request()->is('cms/fin/report/monthly*') || request()->is('cms/fin/profitloss*') || request()->is('cms/fin/tax*') || request()->is('cms/fin/banking*') || request()->is('cms/fin/transactions*'))
+        if(request()->is('cms/fin/report/asset*') || request()->is('cms/fin/report/monthly*') || request()->is('cms/fin/profitloss*') || request()->is('cms/fin/tax*') || request()->is('cms/fin/banking*') || request()->is('cms/fin/transactions*'))
         {
           $collapsed = '';
           $show = 'show';
@@ -27,6 +28,8 @@
           <div class="bg-white py-2 collapse-inner rounded">
             
             <a class="collapse-item {{ (request()->is('cms/fin/report/monthly*')) ? 'active' : '' }}" href="{{ route('route_fin_report_monthly.index') }}"><i class="far fa-circle"></i> {{ __('Monthly Report') }}</a>
+
+            <a class="collapse-item {{ (request()->is('cms/fin/report/asset*')) ? 'active' : '' }}" href="{{ route('route_fin_asset.index') }}"><i class="far fa-circle"></i> {{ __('Asset') }}</a>
 
             <a class="collapse-item {{ (request()->is('cms/fin/profitloss*')) ? 'active' : '' }}" href="{{ route('route_fin_profitloss.index') }}"><i class="far fa-circle"></i> {{ __('Profit Loss') }}</a>
 
