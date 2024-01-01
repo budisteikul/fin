@@ -1,30 +1,42 @@
 @inject('fin', 'budisteikul\fin\Classes\FinClass')
-@extends('coresdk::layouts.app')
-@section('content')
-<div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Profit &amp; Loss</div>
-                <div class="card-body">
-                
-                
-      
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">   
+<title></title>
+<style type="text/css">
+  html { margin:20px}
+  .font-weight-bolder
+  {
+    font-weight: bold;
+  }
+  body {
+  margin: 0 auto; 
+  color: #555555;
+  background: #FFFFFF; 
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px; 
+}
+hr
+{
+  border: 1px thin black;
+}
+</style>
+</head>
+<body>
+ 
 
-<div class="row w-100">
-    <div class="col  text-left">
-      {!! $fin::select_profitloss_form($tahun)  !!} 
-    </div>
-    <div class="col-auto text-right mr-0 pr-0">
-        <a type="button" class="btn btn-secondary" href="/cms/fin/profitloss/pdf?year={{$tahun}}">
-          <i class="far fa-file-pdf"></i> Export PDF
-        </a>
-    </div>        
+<div>
+<div style="margin-top: 30px; margin-bottom: 40px; font-weight: bold; text-align: center;">
+  LAPORAN LABA RUGI {{env('APP_NAME')}}<br />TAHUN : {{$tahun}}
 </div>
-                
-<table border="0" cellspacing="1" cellpadding="2" class="table table-borderless table-responsive w-100 d-block d-md-table" >
+<div>
+<center>
+ <table border="0" cellspacing="5" cellpadding="2" class="table table-borderless table-responsive w-100 d-block d-md-table" >
   <thead>
     <tr class="table-active">
-      <th colspan="3" class="font-weight-bolder">{{ $tahun }}</th>
+      <th colspan="3" class="font-weight-bolder"></th>
       @for($i=1; $i<=12; $i++)
       <td align="center" class="font-weight-bolder">{{ Carbon\Carbon::createFromFormat('m', $i)->formatLocalized('%b') }}</td>
       @endfor
@@ -37,7 +49,7 @@
     
     <tr>
       <td colspan="16" class="font-weight-bolder">
-      <hr>
+      
       Income
       <hr>
       </td>
@@ -237,7 +249,7 @@
     </tr>
     <tr>
       <td colspan="16" class="font-weight-bolder">
-      <hr>
+      
       Expenses
       <hr>
       </td>
@@ -339,12 +351,15 @@
       <td colspan="16">&nbsp;</td>
     </tr>
   </tbody>
-</table>
+</table>     
+ </center>    
+</div>
+</div>
 
 
 
- </div>
-            </div>
-        </div>
-    </div>
-@endsection
+
+
+
+</body>
+</html>

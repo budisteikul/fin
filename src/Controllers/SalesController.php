@@ -9,13 +9,47 @@ use budisteikul\fin\Models\fin_categories;
 use budisteikul\toursdk\Models\Shoppingcart;
 use budisteikul\toursdk\Models\ShoppingcartProduct;
 use Illuminate\Database\Eloquent\Builder;
-
+use Barryvdh\DomPDF\Facade as PDF;
 use budisteikul\fin\Classes\FinClass;
 
 class SalesController extends Controller
 {
     
-    
+    public function profitloss_pdf(Request $request)
+    {
+        $fin_date_start = env('FIN_DATE_START');
+        $fin_date_end = date('Y-m-d') .' 23:59:00';
+
+        $tahun = $request->input('year');
+
+        if($tahun=="") $tahun = date("Y");
+        
+        $fin_categories_revenues = fin_categories::where('type','Revenue')->where('parent_id',0)->orderBy('name')->get();
+
+        $fin_categories_expenses = fin_categories::where('type','Expenses')->where('parent_id',0)->orderBy('name')->get();
+        
+        $fin_categories_cogs = fin_categories::where('type','Cost of Goods Sold')->where('parent_id',0)->orderBy('name')->get();
+        
+        
+        $pdf = PDF::setOptions(['tempDir' =>  storage_path(),'fontDir' => storage_path(),'fontCache' => storage_path(),'isRemoteEnabled' => true])->loadView('fin::fin.pdf.profitloss', [
+                'fin_categories_revenues'=>$fin_categories_revenues,
+                'fin_categories_expenses'=>$fin_categories_expenses,
+                'fin_categories_cogs'=>$fin_categories_cogs,
+                'tahun'=>$tahun
+            ])->setPaper('legal', 'landscape');
+
+        return $pdf->download('ProfitLoss.pdf');
+        
+        /*
+        return view('fin::fin.pdf.profitloss',
+            [
+                'fin_categories_revenues'=>$fin_categories_revenues,
+                'fin_categories_expenses'=>$fin_categories_expenses,
+                'fin_categories_cogs'=>$fin_categories_cogs,
+                'tahun'=>$tahun
+            ]);
+        */
+    }
     /**
      * Display a listing of the resource.
      *
