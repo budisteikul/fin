@@ -24,6 +24,8 @@ Route::resource('/cms/fin/report/asset', 'budisteikul\fin\Controllers\AssetContr
 
 Route::resource('/cms/fin/report/monthly', 'budisteikul\fin\Controllers\ReportMonthlyController',[ 'names' => 'route_fin_report_monthly' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
 
+Route::get('/cms/fin/tax/pdf','budisteikul\fin\Controllers\TaxController@tax_pdf')->middleware(['web','auth','verified','CoreMiddleware']);
+
 Route::resource('/cms/fin/tax', 'budisteikul\fin\Controllers\TaxController',[ 'names' => 'route_fin_tax' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
 
 Route::resource('/cms/fin/payment', 'budisteikul\fin\Controllers\PaymentController',[ 'names' => 'route_fin_payment' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);

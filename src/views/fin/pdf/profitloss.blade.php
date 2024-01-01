@@ -29,7 +29,7 @@ hr
 
 <div>
 <div style="margin-top: 30px; margin-bottom: 40px; font-weight: bold; text-align: center;">
-  LAPORAN LABA RUGI {{env('APP_NAME')}}<br />TAHUN : {{$tahun}}
+  Laporan Laba-Rugi {{env('APP_NAME')}} Tahun {{$tahun}}
 </div>
 <div>
 <center>

@@ -38,7 +38,7 @@ class SalesController extends Controller
                 'tahun'=>$tahun
             ])->setPaper('legal', 'landscape');
 
-        return $pdf->download('ProfitLoss.pdf');
+        return $pdf->download('ProfitLoss-'.$tahun.'.pdf');
         
         /*
         return view('fin::fin.pdf.profitloss',
