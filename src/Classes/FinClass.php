@@ -291,8 +291,6 @@ class FinClass {
                 $tahun = Str::substr($newDateTime, 0,4);
                 $bulan = Str::substr($newDateTime, 5,2);
                 
-                
-                //print($bulan);
                 $total = $modal;
                 for($i=$start_year;$i<=$tahun;$i++)
                 {
@@ -321,10 +319,7 @@ class FinClass {
                     
                     for($j=$xbulan;$j<=$ybulan;$j++)
                     {
-                            $jbulan = GeneralHelper::digitFormat($j,2);
-                            $total = Cache::rememberForever('saldo_'. $i .'_'. $jbulan, function() use ($i,$jbulan,$total) 
-                            {
-                                //$revenue_per = self::total_revenue_per_month($i,$jbulan);
+                                $jbulan = GeneralHelper::digitFormat($j,2);
                                 $revenue_per = self::total_per_month_by_type('Revenue',$i,$jbulan);
                                 $cogs_per = self::total_per_month_by_type('Cost of Goods Sold',$i,$jbulan);
                                 $gross_margin = $revenue_per - $cogs_per;
@@ -332,8 +327,6 @@ class FinClass {
                     
                                 $profit_loss = $gross_margin - $total_expenses;
                                 $total += $profit_loss;
-                                return $total;
-                            });
                     }
                 }
                 
@@ -419,7 +412,6 @@ class FinClass {
 	
 	public static function total_per_month_by_type($type,$year,$month){
 		
-            
                 $fin_date_start = env('FIN_DATE_START');
                 $fin_date_end = date('Y-m-d') .' 23:59:00';
 
