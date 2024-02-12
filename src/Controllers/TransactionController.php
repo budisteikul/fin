@@ -80,11 +80,7 @@ class TransactionController extends Controller
 		$fin_transactions->amount = $amount;
 		$fin_transactions->save();
 
-        if(date('Y-m',strtotime($date)) != date('Y-m'))
-        {
-            //Cache::flush();
-            FinClass::delete_saldo(date('Y',strtotime($date)),date('m',strtotime($date)));
-        }
+        
 		
 		return response()->json([
 					"id" => "1",
@@ -148,11 +144,7 @@ class TransactionController extends Controller
 		$fin_transactions->amount = $amount;
 		$fin_transactions->save();
 		
-        if(date('Y-m',strtotime($date)) != date('Y-m'))
-        {
-            //Cache::flush();
-            FinClass::delete_saldo(date('Y',strtotime($date)),date('m',strtotime($date)));
-        }
+        
 
 		return response()->json([
 					"id" => "1",
@@ -169,11 +161,6 @@ class TransactionController extends Controller
     public function destroy($id)
     {
         $transaction = fin_transactions::find($id);
-        if(date('Y-m',strtotime($transaction->date)) != date('Y-m'))
-        {
-            //Cache::flush();
-            FinClass::delete_saldo(date('Y',strtotime($transaction->date)),date('m',strtotime($transaction->date)));
-        }
         fin_transactions::find($id)->delete();
     }
 }
