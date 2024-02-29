@@ -42,9 +42,9 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 $total_tamu = 0;    
 foreach($products as $product)
 {
-    $tamu = $report->traveller_product_per_month($product->bokun_id,$bulan,$tahun);
+    $tamu = $product->count;
     $total_tamu += $tamu;
-    print(''.$productHelper->product_name_by_bokun_id($product->bokun_id).' : '. $tamu .' persons <br />');
+    print(''.$product->title.' : '. $tamu .' persons <br />');
 }
 @endphp
   </div>
