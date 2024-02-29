@@ -24,7 +24,10 @@ class ReportMonthlyController extends Controller
         if($date=="") $bulan = date("m");
 
         
-        $products = ShoppingcartProduct::select('title')->whereMonth('date',$bulan)->whereYear('date',$tahun)->groupBy('title')->get();
+        $products = ShoppingcartProduct::with('shoppingcart')
+        ->WhereHas('shoppingcart', function($query) {
+                 $query->where('booking_status','CONFIRMED');
+            })->select('title')->whereMonth('date',$bulan)->whereYear('date',$tahun)->groupBy('title')->get();
 
         $products_count = array();
         foreach($products as $product)
