@@ -14,6 +14,7 @@ class TaxController extends Controller
     {
 
         $tahun = $request->input('year');
+        $action = $request->input('action');
         if($tahun=="") $tahun = date("Y");
 
         $data = new \stdClass();
@@ -36,7 +37,16 @@ class TaxController extends Controller
             $data->tax[$i] = number_format($pp23, 0, ',', '.');
         }
 
-        
+        if($action=="pdf")
+        {
+        $pdf = PDF::setOptions(['tempDir' =>  storage_path(),'fontDir' => storage_path(),'fontCache' => storage_path(),'isRemoteEnabled' => true])->loadView('fin::fin.pdf.tax', [
+                'tahun'=>$tahun,
+                'data'=>$data
+            ])->setPaper('a4', 'portrait');
+
+        return $pdf->download('Tax-'.$tahun.'.pdf');
+        }
+
         return view('fin::fin.sales.tax',
             [
                 'tahun'=>$tahun,

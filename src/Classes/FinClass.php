@@ -407,7 +407,7 @@ class FinClass {
 		  return $total;
         
 	}
-
+    
     
 	
 	public static function total_per_month_by_type($type,$year,$month){
@@ -435,12 +435,14 @@ class FinClass {
         return $total;
     }
 
-    
+    /*
     public static function total_revenue_per_month($year,$month){
             $total = 0;
             $total += self::total_per_month_by_type('Revenue',$year,$month);
             return $total;
     }
+    */
+
     public static function total_shoppingcart_per_month($booking_channel,$year,$month){
             
             $fin_date_start = env('FIN_DATE_START');
