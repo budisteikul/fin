@@ -15,7 +15,7 @@
       {!! $fin::select_profitloss_form($tahun)  !!} 
     </div>
     <div class="col-auto text-right mr-0 pr-0">
-        <a type="button" class="btn btn-secondary" href="/cms/fin/profitloss/pdf?year={{$tahun}}">
+        <a type="button" class="btn btn-secondary" href="/cms/fin/profitloss?year={{$tahun}}&action=pdf">
           <i class="far fa-file-pdf"></i> Export PDF
         </a>
     </div>        

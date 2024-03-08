@@ -27,82 +27,72 @@
 </div>
                     
 
+<table id="table1" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-borderless table-responsive d-block d-md-table mt-4" >
+  
+  <tbody>
+    <tr>
+      <td><strong>Assets</strong></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Cash</td>
+      <td align="right">{{number_format($kas, 0, ',', '.')}}<hr /></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><strong>Total Assets</strong></td>
+      <td>&nbsp;</td>
+      <td align="right">{{number_format($kas, 0, ',', '.')}}<hr /></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><strong>Liabilities</strong></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Debt</td>
+      <td align="right">0</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><strong>Equity</strong></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Capital</td>
+      <td align="right">{{number_format($modal, 0, ',', '.')}}</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Earnings</td>
+      <td align="right">{{number_format($laba, 0, ',', '.')}}<hr /></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><strong>Total Liabilities dan Equity</strong></td>
+      <td>&nbsp;</td>
+      <td align="right">{{number_format($modal+$laba, 0, ',', '.')}}<hr /></td>
+    </tr>
 
+  </tbody>
+  
+</table>
                
                     
                     
-<table id="table1" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table mt-4" >
-  <thead>
-    <tr>
-      <td width="10" rowspan="2"><strong>No</strong></td>
-      <td colspan="2"><strong>Aset</strong></td>
-      <td align="left"><strong>Liabilitas</strong></td>
-      <td align="left"><strong>Ekuitas</strong></td>
-      <td align="center" rowspan="2"><strong>Keterangan</strong></td>
-    </tr>
-    <tr>
-      
-      <td><strong>Kas</strong></td>
-      <td align="left"><strong></strong></td>
-      <td align="left"><strong>Acc. Payable</strong></td>
-      <td align="left"><strong>Modal</strong></td>
-      
-    </tr>
-  </thead>
 
-  <tbody>
-    
-    
-    <tr>
-      <td align="center">1</td>
-      <td align="right">{{number_format($no1, 0, ',', '.')}}</td>
-      <td align="right"></td>
-      <td align="right"></td>
-      <td align="right">{{number_format($no1, 0, ',', '.')}}</td>
-      <td align="right"></td>
-    </tr>
-    <tr>
-      <td align="center">2</td>
-      <td align="right">{{number_format($no2, 0, ',', '.')}}</td>
-      <td align="right"></td>
-      <td align="right"></td>
-      <td align="right">{{number_format($no2, 0, ',', '.')}}</td>
-      <td align="left">Revenue</td>
-    </tr>
-    <tr>
-      <td align="center">3</td>
-      <td align="right">{{number_format($no3, 0, ',', '.')}}</td>
-      <td align="right"></td>
-      <td align="right"></td>
-      <td align="right">{{number_format($no3, 0, ',', '.')}}</td>
-      <td align="left">Cost of sales</td>
-    </tr>
-    <tr>
-      <td align="center">4</td>
-      <td align="right">{{number_format($no4, 0, ',', '.')}}</td>
-      <td align="right"></td>
-      <td align="right"></td>
-      <td align="right">{{number_format($no4, 0, ',', '.')}}</td>
-      <td align="left">Expenses</td>
-    </tr>
-    <tr>
-      <td align="center"><strong>Saldo</strong></td>
-      <td align="right">{{number_format($saldo, 0, ',', '.')}}</td>
-      <td align="right">0</td>
-      <td align="right">0</td>
-      <td align="right">{{number_format($saldo, 0, ',', '.')}}</td>
-      <td align="left"></td>
-    </tr>
-    <tr>
-      <td align="center"></td>
-      <td colspan="2" align="right"><strong>{{number_format($saldo, 0, ',', '.')}}</strong></td>
-      <td colspan="2" align="right"><strong>{{number_format($saldo, 0, ',', '.')}}</strong></td>
-      <td align="right"></td>
-    </tr>
-    
-    
-  </tbody>
-</table>
 
 
 

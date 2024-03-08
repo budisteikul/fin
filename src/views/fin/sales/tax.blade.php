@@ -35,7 +35,7 @@
   <thead>
     <tr>
       <td width="10"><strong>No</strong></td>
-      <td><strong>Bulan</strong></td>
+      <td><strong>Month</strong></td>
       <td align="right"><strong>DPP</strong></td>
       <td align="right"><strong>PPH</strong></td>
     </tr>
@@ -49,8 +49,15 @@
       <td align="right">{{$data->revenue[$i]}}</td>
       <td align="right">{{$data->tax[$i]}}</td>
     </tr>
+
     @endfor
     
+    <tr>
+      <td align="center" colspan="2"><strong>Total</strong></td>
+      
+      <td align="right">{{$data->dpp_total}}</td>
+      <td align="right">{{$data->pph_total}}</td>
+    </tr>
     
   </tbody>
 </table>

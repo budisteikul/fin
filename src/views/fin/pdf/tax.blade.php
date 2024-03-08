@@ -43,15 +43,18 @@ table{
 
 <div>
 <div style="margin-top: 30px; margin-bottom: 40px; font-weight: bold; text-align: center;">
-  List Pembayaran PP23 {{env('APP_NAME')}} Tahun {{$tahun}}
+  Payment List PP23 {{env('APP_NAME')}} Year {{$tahun}}
 </div>
 
 <center>
+
+
+
  <table id="table1" border="1" cellspacing="2" cellpadding="3" style="border-collapse: collapse; " >
   <thead>
     <tr>
       <td width="10"><strong>No</strong></td>
-      <td ><strong>Bulan</strong></td>
+      <td ><strong>Month</strong></td>
       <td align="right"><strong>DPP</strong></td>
       <td align="right"><strong>PPH</strong></td>
     </tr>
@@ -67,7 +70,13 @@ table{
     </tr>
     @endfor
     
-    
+    <tr>
+      <td align="center" colspan="2"><strong>Total</strong></td>
+      
+      <td align="right">{{$data->dpp_total}}</td>
+      <td align="right">{{$data->pph_total}}</td>
+    </tr>
+
   </tbody>
 </table>  
  </center>    

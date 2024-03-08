@@ -24,6 +24,9 @@ class TaxController extends Controller
         $data->revenue = [];
         $data->tax = [];
 
+        $data->dpp_total = 0;
+        $data->pph_total = 0;
+
         for($i=1;$i <= 12; $i++)
         {
 
@@ -35,7 +38,13 @@ class TaxController extends Controller
             $pp23 = $revenue * 0.5 / 100;
             if(date('Y-m-01',strtotime($data->month[$i])) >= date('Y-m-01')) $pp23 = 0;
             $data->tax[$i] = number_format($pp23, 0, ',', '.');
+
+            $data->dpp_total += $revenue;
+            $data->pph_total += $pp23;
         }
+
+        $data->dpp_total = number_format($data->dpp_total, 0, ',', '.');
+        $data->pph_total = number_format($data->pph_total, 0, ',', '.');
 
         if($action=="pdf")
         {
