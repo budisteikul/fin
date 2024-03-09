@@ -4,23 +4,55 @@ namespace budisteikul\fin\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use budisteikul\toursdk\Helpers\WiseHelper;
-use budisteikul\fin\Models\fin_transactions;
-
-use budisteikul\toursdk\Models\ShoppingcartProduct;
-use Ramsey\Uuid\Uuid;
-use budisteikul\toursdk\Helpers\FirebaseHelper;
-use budisteikul\toursdk\Helpers\TazapayHelper;
-use budisteikul\toursdk\Helpers\BookingHelper;
-use budisteikul\toursdk\Helpers\RapydHelper;
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use budisteikul\fin\Classes\FinClass;
+use budisteikul\toursdk\Helpers\GeneralHelper;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class TestController extends Controller
 {
-    public function test(Request $request)
+    public function test($tahun)
     {
+        if($tahun=="") $tahun = date("Y");
+
+        //NERACA ==========================================================================
+        $modal = FinClass::calculate_saldo_akhir($tahun-1,12);
+
+        $revenue = 0;
+        for($i=1;$i<=12;$i++)
+        {
+            $revenue += FinClass::total_per_month_by_type('Revenue',$tahun,$i);
+        }
         
+        $cogs = 0;
+        for($i=1;$i<=12;$i++)
+        {
+            $cogs += FinClass::total_per_month_by_type('Cost of Goods Sold',$tahun,$i);
+        }
+
+        $expenses = 0;
+        for($i=1;$i<=12;$i++)
+        {
+            $expenses += FinClass::total_per_month_by_type('Expenses',$tahun,$i);
+        }
         
+        $laba = $revenue - $cogs - $expenses;
+        $kas = $modal + $laba;
+
+        $pdf = PDF::setOptions(['tempDir' =>  storage_path(),'fontDir' => storage_path(),'fontCache' => storage_path(),'isRemoteEnabled' => true])->loadView('fin::fin.pdf.neraca', [
+                'tahun'=>$tahun,
+                'modal'=>$modal,
+                'laba'=>$laba,
+                'kas'=>$kas,
+            ])->setPaper('a4', 'portrait');
+
+        $content = $pdf->download()->getOriginalContent();
+        
+        //NERACA ==========================================================================
+
+
     }
     
 }

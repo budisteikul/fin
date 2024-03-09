@@ -36,3 +36,6 @@ Route::resource('/cms/fin/transfer/currency', 'budisteikul\fin\Controllers\Curre
 Route::resource('/cms/fin/transfer', 'budisteikul\fin\Controllers\TransferController',[ 'names' => 'route_fin_transfer' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
 
 Route::resource('/cms/fin/neraca', 'budisteikul\fin\Controllers\NeracaController',[ 'names' => 'route_fin_neraca' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
+
+
+Route::get('/cms/fin/report/pdf/{tahun}','budisteikul\fin\Controllers\TestController@test')->middleware(['web','auth','verified','CoreMiddleware']);
