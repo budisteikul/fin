@@ -18,6 +18,9 @@
         <a type="button" class="btn btn-secondary" href="/cms/fin/profitloss?year={{$tahun}}&action=pdf">
           <i class="far fa-file-pdf"></i> Export PDF
         </a>
+        <a type="button" class="btn btn-secondary" href="/cms/fin/report/pdf/{{$tahun}}">
+          <i class="far fa-file-pdf"></i> Export All PDF
+        </a>
     </div>        
 </div>
                 

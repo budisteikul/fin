@@ -18,9 +18,7 @@ class SalesController extends Controller
     
     public function index(Request $request)
     {
-        $fin_date_start = env('FIN_DATE_START');
-        $fin_date_end = date('Y-m-d') .' 23:59:00';
-
+        
         $tahun = $request->input('year');
         $action = $request->input('action');
         if($tahun=="") $tahun = date("Y");

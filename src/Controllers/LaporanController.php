@@ -17,6 +17,7 @@ use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 
 class LaporanController extends Controller
 {
+    
     public function pdf($tahun)
     {
         if($tahun=="") $tahun = date("Y");

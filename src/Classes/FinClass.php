@@ -14,15 +14,12 @@ use Illuminate\Support\Facades\Cache;
 class FinClass {
     
     public static function count_per_year($category_id,$year){
-
           $total = 0;
           $total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->count();
           return $total;
-        
     }
 
     public static function count_per_month($category_id,$year,$month){
-
           $total = 0;
           $total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->whereMonth('date',$month)->count();
           return $total;
@@ -104,7 +101,6 @@ class FinClass {
 
     public static function structure($id)
     {
-        
         $categories = fin_categories::where('parent_id',$id)->orderBy('name')->get();
         foreach($categories as $category)
         {
@@ -118,7 +114,6 @@ class FinClass {
              print("</li>");
              print("</ul>");
         }
-        
     }
 
     public static function nameCategory($id,$separator)
@@ -143,48 +138,9 @@ class FinClass {
         {
             return "Doesn't have category";
         }
-            
-        
     }
 
-    public static function payment_calculate($amount,$provider)
-    {
-        if($provider=="paypal") $amount = $amount - (($amount * 4.4 / 100) + 0.30);
-        if($provider=="stripe") $amount = $amount - ($amount * 2.9/100) - ($amount * 0.5/100) - ($amount * 1/100) - ($amount * 1/100) - 0.30;
-        return $amount;
-    }
-
-    public static function payment_total($tahun,$bulan,$payment_provider,$currency)
-    {
-        $fin_date_start = env('FIN_DATE_START');
-        $fin_date_end = date('Y-m-t') .' 23:59:00';
-
-        $ShoppingcartProduct = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($payment_provider,$currency) {
-                $query = $query->whereHas('shoppingcart_payment', function ($query) use ($payment_provider,$currency) {
-                    return $query->where('payment_provider',$payment_provider)->where('currency',$currency);
-                })->where('booking_status','CONFIRMED')->where('booking_channel','WEBSITE');
-                return $query;
-        })->whereYear('date',$tahun)->whereMonth('date',$bulan)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->get();
-
-        $value = 0;
-
-        foreach($ShoppingcartProduct as $id)
-        {
-            if(isset($id->shoppingcart->shoppingcart_payment->amount) && isset($id->shoppingcart->shoppingcart_payment->currency) && $id->shoppingcart->shoppingcart_payment->payment_provider==$payment_provider)
-            {
-                $amount = $id->due_now;
-                $amount = $amount / $id->shoppingcart->shoppingcart_payment->rate;
-
-                //$amount = $amount - ($amount * 10/100);
-                
-                $value += $amount;
-            }
-        }
-        
-        $value = number_format((float)$value, 2, '.', '');
-
-        return $value;
-    }
+    
 
     public static function select_yearmonth_form($tahun,$bulan)
     {
@@ -275,7 +231,7 @@ class FinClass {
     public static function calculate_saldo($tahun,$bulan)
     {
                 $fin_date_start = env('FIN_DATE_START');
-                $modal = env('FIN_MODAL',0);;
+                $modal = env('FIN_MODAL',0);
 
                 $start_year = Str::substr($fin_date_start, 0,4);
                 $start_month = Str::substr($fin_date_start, 5,2);
@@ -396,8 +352,8 @@ class FinClass {
     }
 
     
-	public static function total_per_month($category_id,$year,$month){
-
+	public static function total_per_month($category_id,$year,$month)
+    {
           $total = 0;
           $categories = FinClass::getChild($category_id);
           foreach($categories as $category)
@@ -405,13 +361,12 @@ class FinClass {
                 $total += fin_transactions::where('category_id',$category)->whereYear('date',$year)->whereMonth('date',$month)->sum('amount');
           }
 		  return $total;
-        
 	}
     
     
 	
-	public static function total_per_month_by_type($type,$year,$month){
-		
+	public static function total_per_month_by_type($type,$year,$month)
+    {
                 $fin_date_start = env('FIN_DATE_START');
                 $fin_date_end = date('Y-m-d') .' 23:59:00';
 
@@ -422,7 +377,6 @@ class FinClass {
                     $total += fin_transactions::where('category_id',$fin_categorie->id)->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->sum('amount');
                 }
                 return $total;
-		
 	}
 
 	public static function total_per_day_by_type($type,$year,$month,$day){
