@@ -91,11 +91,7 @@
       <td align="right" class="font-weight-bolder"><i>{{ number_format($fin_categories_revenue_subtotal, 0, ',', '.') }}</i></td>
       
     </tr>
-      <script>
-        @if ($fin_categories_revenue_subtotal==0)
-          $('#rev-{{ $fin_categories_revenue->id }}').remove();
-        @endif
-      </script>
+      
       <!-- #### -->
     @endforeach
     <tr>
@@ -146,7 +142,9 @@
             $total_cogs_arr[$i] = 0;
       }
     @endphp
+
     @foreach($fin_categories_cogs as $fin_categories_cog)
+    
     <tr id="cogs-{{ $fin_categories_cog->id }}">
       <td>&nbsp;</td>
       <td>&nbsp;</td>
@@ -164,13 +162,8 @@
         <td align="right" style="background-color:#FEFEEF">{{ number_format($fin_categories_cog_per, 0, ',', '.') }}</td>
       @endfor
       <td align="right" class="font-weight-bolder"><i>{{ number_format($fin_categories_cog_subtotal, 0, ',', '.') }}</i></td>
-      
     </tr>
-      <script>
-        @if ($fin_categories_cog_subtotal==0)
-          $('#cogs-{{ $fin_categories_cog->id }}').remove();
-        @endif
-      </script>
+      
       <!-- #### -->
     @endforeach
     <tr>
@@ -269,11 +262,7 @@
       <td align="right" class="font-weight-bolder"><i>{{ number_format($fin_categories_expense_subtotal, 0, ',', '.') }}</i></td>
       
     </tr>
-      <script>
-        @if ($fin_categories_expense_subtotal==0)
-          $('#exp-{{ $fin_categories_expense->id }}').remove();
-        @endif
-      </script>
+      
       <!-- #### -->
     @endforeach
 

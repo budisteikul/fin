@@ -28,7 +28,7 @@ hr
  
 
 <div>
-<div style="margin-top: 30px; margin-bottom: 40px; font-weight: bold; text-align: center;">
+<div style="margin-top: 30px; margin-bottom: 40px; font-weight: bold; text-align: center; font-size:22px">
   Income Statement {{env('APP_NAME')}} Year {{$tahun}}
 </div>
 <div>
@@ -36,7 +36,7 @@ hr
  <table border="0" cellspacing="5" cellpadding="2" class="table table-borderless table-responsive w-100 d-block d-md-table" >
   <thead>
     <tr class="table-active">
-      <th colspan="3" class="font-weight-bolder"></th>
+      <th colspan="3" class="font-weight-bolder">{{ $tahun }}</th>
       @for($i=1; $i<=12; $i++)
       <td align="center" class="font-weight-bolder">{{ Carbon\Carbon::createFromFormat('m', $i)->formatLocalized('%b') }}</td>
       @endfor
@@ -49,7 +49,7 @@ hr
     
     <tr>
       <td colspan="16" class="font-weight-bolder">
-      
+      <hr>
       Income
       <hr>
       </td>
@@ -249,7 +249,7 @@ hr
     </tr>
     <tr>
       <td colspan="16" class="font-weight-bolder">
-      
+      <hr>
       Expenses
       <hr>
       </td>
@@ -351,7 +351,7 @@ hr
       <td colspan="16">&nbsp;</td>
     </tr>
   </tbody>
-</table>     
+</table>
  </center>    
 </div>
 </div>

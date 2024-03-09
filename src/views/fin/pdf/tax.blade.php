@@ -42,7 +42,7 @@ table{
  
 
 <div>
-<div style="margin-top: 30px; margin-bottom: 40px; font-weight: bold; text-align: center;">
+<div style="margin-top: 30px; margin-bottom: 40px; font-weight: bold; text-align: center; font-size:22px">
   Payment List PP23 {{env('APP_NAME')}} Year {{$tahun}}
 </div>
 

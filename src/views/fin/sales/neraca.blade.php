@@ -31,66 +31,84 @@
   
   <tbody>
     <tr>
-      <td><strong>Assets</strong></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td valign="top"><strong>Assets</strong></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td>Cash</td>
-      <td align="right">{{number_format($kas, 0, ',', '.')}}<hr /></td>
-      <td>&nbsp;</td>
+      <td valign="top">Cash</td>
+      <td valign="top" align="right">{{number_format($kas, 0, ',', '.')}}<hr  class="s1" /></td>
+      <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td><strong>Total Assets</strong></td>
-      <td>&nbsp;</td>
-      <td align="right">{{number_format($kas, 0, ',', '.')}}<hr /></td>
+      <td valign="top"><strong>Total Assets</strong></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top" align="right">{{number_format($kas, 0, ',', '.')}}<hr  class="s9" /></td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td><strong>Liabilities</strong></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td valign="top"><strong>Liabilities</strong></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td>Debt</td>
-      <td align="right">0</td>
-      <td>&nbsp;</td>
+      <td valign="top">Debt</td>
+      <td valign="top" align="right">0</td>
+      <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td><strong>Equity</strong></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td valign="top"><strong>Equity</strong></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td>Capital</td>
-      <td align="right">{{number_format($modal, 0, ',', '.')}}</td>
-      <td>&nbsp;</td>
+      <td valign="top">Capital</td>
+      <td valign="top" align="right">{{number_format($modal, 0, ',', '.')}}</td>
+      <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td>Earnings</td>
-      <td align="right">{{number_format($laba, 0, ',', '.')}}<hr /></td>
-      <td>&nbsp;</td>
+      <td valign="top">Earnings</td>
+      <td valign="top" align="right">{{number_format($laba, 0, ',', '.')}}<hr class="s1" /></td>
+      <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td><strong>Total Liabilities dan Equity</strong></td>
-      <td>&nbsp;</td>
-      <td align="right">{{number_format($modal+$laba, 0, ',', '.')}}<hr /></td>
+      <td valign="top"><strong>Total Liabilities dan Equity</strong></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top" align="right">{{number_format($modal+$laba, 0, ',', '.')}}<hr class="s9" /></td>
     </tr>
 
   </tbody>
   
 </table>
                
-                    
+<style type="text/css">
+  
+  .s9 {
+    height:1px;
+    border-top:1px solid ;
+    border-bottom:1px solid ;
+    background-color:white;
+    margin:0 0 45px 0;
+    max-width:600px;
+  }
+  .s1 {
+    height:1px;
+    background-color:white;
+    margin:0 0 45px 0;
+    max-width:600px;
+    border-width:0;
+    border-bottom:1px solid ;
+  }
+</style>                    
                     
 
 
