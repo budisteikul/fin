@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Cache;
 
 class FinClass {
     
+    public static function initial_capital()
+    {
+        return env('FIN_MODAL',0);
+    }
+
+    public static function first_date_transaction()
+    {
+        //$fin_transactions = fin_transactions::first();
+        //return $fin_transactions->date;
+        return env('FIN_DATE_START');
+    }
+
     public static function count_per_year($category_id,$year){
           $total = 0;
           $total = fin_transactions::where('category_id',$category_id)->whereYear('date',$year)->count();
@@ -145,7 +157,7 @@ class FinClass {
     public static function select_yearmonth_form($tahun,$bulan)
     {
         
-        $fin_date_start = env('FIN_DATE_START');
+        $fin_date_start = self::first_date_transaction();
         
         $start_year = Str::substr($fin_date_start, 0,4);
         $start_month = Str::substr($fin_date_start, 5,2);
@@ -193,7 +205,7 @@ class FinClass {
     public static function select_profitloss_form($tahun)
     {
         
-        $fin_date_start = env('FIN_DATE_START');
+        $fin_date_start = self::first_date_transaction();
         
         $start_year = Str::substr($fin_date_start, 0,4);
 
@@ -230,8 +242,8 @@ class FinClass {
     
     public static function calculate_saldo($tahun,$bulan)
     {
-                $fin_date_start = env('FIN_DATE_START');
-                $modal = env('FIN_MODAL',0);
+                $fin_date_start = self::first_date_transaction();
+                $modal = self::initial_capital();
 
                 $start_year = Str::substr($fin_date_start, 0,4);
                 $start_month = Str::substr($fin_date_start, 5,2);
@@ -291,8 +303,8 @@ class FinClass {
 
     public static function calculate_saldo_akhir($tahun,$bulan)
     {
-                $fin_date_start = env('FIN_DATE_START');
-                $modal = env('FIN_MODAL',0);
+                $fin_date_start = self::first_date_transaction();
+                $modal = self::initial_capital();
 
                 $start_year = Str::substr($fin_date_start, 0,4);
                 $start_month = Str::substr($fin_date_start, 5,2);
@@ -367,7 +379,7 @@ class FinClass {
 	
 	public static function total_per_month_by_type($type,$year,$month)
     {
-                $fin_date_start = env('FIN_DATE_START');
+                $fin_date_start = self::first_date_transaction();
                 $fin_date_end = date('Y-m-d') .' 23:59:00';
 
                 $total = 0;
@@ -399,7 +411,7 @@ class FinClass {
 
     public static function total_shoppingcart_per_month($booking_channel,$year,$month){
             
-            $fin_date_start = env('FIN_DATE_START');
+            $fin_date_start = self::first_date_transaction();
             $fin_date_end = date('Y-m-d') .' 23:59:00';
             $total = 0;
             $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($booking_channel) {
