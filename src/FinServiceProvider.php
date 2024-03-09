@@ -13,7 +13,9 @@ class FinServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        
+        $this->app->register('Webklex\PDFMerger\Providers\PDFMergerServiceProvider');
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('PDFMerger', 'Webklex\PDFMerger\Facades\PDFMergerFacade');
     }
 
     /**
