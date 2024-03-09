@@ -38,4 +38,4 @@ Route::resource('/cms/fin/transfer', 'budisteikul\fin\Controllers\TransferContro
 Route::resource('/cms/fin/neraca', 'budisteikul\fin\Controllers\NeracaController',[ 'names' => 'route_fin_neraca' ])->middleware(['web','auth','verified','CoreMiddleware','LevelMiddleware']);
 
 
-Route::get('/cms/fin/report/pdf/{tahun}','budisteikul\fin\Controllers\TestController@test')->middleware(['web','auth','verified','CoreMiddleware']);
+Route::get('/cms/fin/report/pdf/{tahun}','budisteikul\fin\Controllers\LaporanController@pdf')->middleware(['web','auth','verified','CoreMiddleware']);

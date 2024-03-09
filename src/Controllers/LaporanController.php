@@ -17,7 +17,7 @@ use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 
 class LaporanController extends Controller
 {
-    public function test($tahun)
+    public function pdf($tahun)
     {
         if($tahun=="") $tahun = date("Y");
 
@@ -118,7 +118,7 @@ class LaporanController extends Controller
         $oMerger->addPDF(Storage::disk('local')->path('pdf/laporan/neraca-'. $tahun .'.pdf'), 'all');
         $oMerger->addPDF(Storage::disk('local')->path('pdf/laporan/pp23-'. $tahun .'.pdf'), 'all');
         $oMerger->merge();
-        $oMerger->save(Storage::disk('local')->path('pdf/laporan/keuangan-'. $tahun .'.pdf'));
+        $oMerger->save(Storage::disk('local')->path('pdf/laporan/LaporanKeuangan-'. $tahun .'.pdf'));
         return response()->download(Storage::disk('local')->path('pdf/laporan/LaporanKeuangan-'. $tahun .'.pdf'));
     }
     
