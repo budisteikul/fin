@@ -8,7 +8,7 @@
                 <div class="card-body">
                 
                 
-{!! $fin::select_profitloss_form($tahun)  !!}                
+{!! $fin::select_year_form($tahun)  !!}                
                 
 <table border="0" cellspacing="1" cellpadding="2" class="table table-borderless table-responsive w-100 d-block d-md-table" >
   <thead>
@@ -58,26 +58,7 @@
             $total_sales_arr[$i] = 0;
       }
     @endphp
-    @foreach($shoppingcarts as $shoppingcart)
-    <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>{{ $shoppingcart->booking_channel }}</td>
-      @php
-          $fin_categories_revenue_subtotal = 0;
-      @endphp
-      @for($i=1; $i<=12; $i++)
-        @php
-            $fin_categories_revenue_per = $fin::total_shoppingcart_per_month($shoppingcart->booking_channel,$tahun,$i);
-            $fin_categories_revenue_subtotal += $fin_categories_revenue_per;
-            $total_sales_arr[$i] += $fin_categories_revenue_per;
-        @endphp
-        <td align="right" style="background-color:#FEFEEF">{{  number_format($fin_categories_revenue_per, 0, ',', '.') }}</td>
-      @endfor
-      <td align="right" class="font-weight-bolder"><i>{{ number_format($fin_categories_revenue_subtotal, 0, ',', '.') }}</i></td>
-      <!-- #### -->
-    </tr>
-    @endforeach
+    
     @php
       
     @endphp

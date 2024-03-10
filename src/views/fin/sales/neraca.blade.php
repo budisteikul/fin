@@ -17,7 +17,7 @@
 
                     <div class="row w-100">
     <div class="col  text-left">
-      {!! $fin::select_profitloss_form($tahun)  !!} 
+      {!! $fin::select_year_form($tahun)  !!} 
     </div>
     <div class="col-auto text-right mr-0 pr-0">
         <a type="button" class="btn btn-secondary" href="/cms/fin/neraca?year={{$tahun}}&action=pdf">
@@ -34,7 +34,7 @@
   
   <tbody>
     <tr>
-      <td valign="top"><strong>Assets</strong></td>
+      <td valign="top"><strong>ASSETS</strong></td>
       <td valign="top">&nbsp;</td>
       <td valign="top">&nbsp;</td>
     </tr>
@@ -44,7 +44,7 @@
       <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td valign="top"><strong>Total Assets</strong></td>
+      <td valign="top"><strong>TOTAL ASSETS</strong></td>
       <td valign="top">&nbsp;</td>
       <td valign="top" align="right">{{number_format($kas, 0, ',', '.')}}<hr  class="s9" /></td>
     </tr>
@@ -54,7 +54,7 @@
       <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td valign="top"><strong>Liabilities</strong></td>
+      <td valign="top"><strong>LIABILITIES</strong></td>
       <td valign="top">&nbsp;</td>
       <td valign="top">&nbsp;</td>
     </tr>
@@ -69,7 +69,7 @@
       <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td valign="top"><strong>Equity</strong></td>
+      <td valign="top"><strong>EQUITY</strong></td>
       <td valign="top">&nbsp;</td>
       <td valign="top">&nbsp;</td>
     </tr>
@@ -79,14 +79,19 @@
       <td valign="top">&nbsp;</td>
     </tr>
     <tr>
+      <td valign="top">Retained Earnings</td>
+      <td valign="top" align="right">{{number_format($retained_earnings, 0, ',', '.')}}</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr>
       <td valign="top">Earnings</td>
       <td valign="top" align="right">{{number_format($laba, 0, ',', '.')}}<hr class="s1" /></td>
       <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td valign="top"><strong>Total Liabilities dan Equity</strong></td>
+      <td valign="top"><strong>TOTAL LIABILITIES AND EQUITY</strong></td>
       <td valign="top">&nbsp;</td>
-      <td valign="top" align="right">{{number_format($modal+$laba, 0, ',', '.')}}<hr class="s9" /></td>
+      <td valign="top" align="right">{{number_format($modal+$laba+$retained_earnings, 0, ',', '.')}}<hr class="s9" /></td>
     </tr>
 
   </tbody>

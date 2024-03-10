@@ -19,7 +19,8 @@ class NeracaController extends Controller
 
         if($tahun=="") $tahun = date("Y");
 
-        $modal = FinClass::calculate_saldo_akhir($tahun-1,12);
+        $modal = FinClass::capital();
+        $retained_earnings = FinClass::calculate_saldo_akhir($tahun-1,12);
 
         $revenue = 0;
         for($i=1;$i<=12;$i++)
@@ -40,13 +41,14 @@ class NeracaController extends Controller
         }
         
         $laba = $revenue - $cogs - $expenses;
-        $kas = $modal + $laba;
+        $kas = $modal + $retained_earnings + $laba;
 
         if($action=="pdf")
         {
             $pdf = PDF::setOptions(['tempDir' =>  storage_path(),'fontDir' => storage_path(),'fontCache' => storage_path(),'isRemoteEnabled' => true])->loadView('fin::fin.pdf.neraca', [
                 'tahun'=>$tahun,
                 'modal'=>$modal,
+                'retained_earnings'=>$retained_earnings,
                 'laba'=>$laba,
                 'kas'=>$kas,
             ])->setPaper('a4', 'portrait');
@@ -58,6 +60,7 @@ class NeracaController extends Controller
             [
                 'tahun'=>$tahun,
                 'modal'=>$modal,
+                'retained_earnings'=>$retained_earnings,
                 'laba'=>$laba,
                 'kas'=>$kas,
             ]);

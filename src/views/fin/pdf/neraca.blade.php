@@ -43,7 +43,7 @@ table{
 
 <div>
 <div style="margin-top: 30px; margin-bottom: 40px; font-weight: bold; text-align: center; font-size: 22px;">
-  Balance Sheet {{env('APP_NAME')}} Year {{$tahun}}
+  Balance Sheet {{env('APP_NAME')}} For Year {{$tahun}}
 </div>
 
 <center>
@@ -55,7 +55,7 @@ table{
   <table id="table1" border="0" cellspacing="2" cellpadding="3" style="border-collapse: collapse; " >
   <tbody>
     <tr>
-      <td valign="top"><strong>Assets</strong></td>
+      <td valign="top"><strong>ASSETS</strong></td>
       <td valign="top">&nbsp;</td>
       <td valign="top">&nbsp;</td>
     </tr>
@@ -65,7 +65,7 @@ table{
       <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td valign="top"><strong>Total Assets</strong></td>
+      <td valign="top"><strong>TOTAL ASSETS</strong></td>
       <td valign="top">&nbsp;</td>
       <td valign="top" align="right">{{number_format($kas, 0, ',', '.')}}<hr  class="s9" /></td>
     </tr>
@@ -75,7 +75,7 @@ table{
       <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td valign="top"><strong>Liabilities</strong></td>
+      <td valign="top"><strong>LIABILITIES</strong></td>
       <td valign="top">&nbsp;</td>
       <td valign="top">&nbsp;</td>
     </tr>
@@ -90,7 +90,7 @@ table{
       <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td valign="top"><strong>Equity</strong></td>
+      <td valign="top"><strong>EQUITY</strong></td>
       <td valign="top">&nbsp;</td>
       <td valign="top">&nbsp;</td>
     </tr>
@@ -100,14 +100,19 @@ table{
       <td valign="top">&nbsp;</td>
     </tr>
     <tr>
+      <td valign="top">Retained Earnings</td>
+      <td valign="top" align="right">{{number_format($retained_earnings, 0, ',', '.')}}</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr>
       <td valign="top">Earnings</td>
       <td valign="top" align="right">{{number_format($laba, 0, ',', '.')}}<hr class="s1" /></td>
       <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td valign="top"><strong>Total Liabilities dan Equity</strong></td>
+      <td valign="top"><strong>TOTAL LIABILITIES AND EQUITY</strong></td>
       <td valign="top">&nbsp;</td>
-      <td valign="top" align="right">{{number_format($modal+$laba, 0, ',', '.')}}<hr class="s9" /></td>
+      <td valign="top" align="right">{{number_format($modal+$laba+$retained_earnings, 0, ',', '.')}}<hr class="s9" /></td>
     </tr>
 
   </tbody>

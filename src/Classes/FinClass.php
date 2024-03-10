@@ -13,16 +13,16 @@ use Illuminate\Support\Facades\Cache;
 
 class FinClass {
     
-    public static function initial_capital()
+    public static function capital()
     {
         return env('FIN_MODAL',0);
     }
 
     public static function first_date_transaction()
     {
-        //$fin_transactions = fin_transactions::first();
-        //return $fin_transactions->date;
-        return env('FIN_DATE_START');
+        $fin_transactions = fin_transactions::orderBy('date')->first();
+        return $fin_transactions->date;
+        //return env('FIN_DATE_START');
     }
 
     public static function count_per_year($category_id,$year){
@@ -202,7 +202,7 @@ class FinClass {
         return $string;
     }
 
-    public static function select_profitloss_form($tahun)
+    public static function select_year_form($tahun)
     {
         
         $fin_date_start = self::first_date_transaction();
@@ -243,7 +243,7 @@ class FinClass {
     public static function calculate_saldo($tahun,$bulan)
     {
                 $fin_date_start = self::first_date_transaction();
-                $modal = self::initial_capital();
+                //$modal = self::capital();
 
                 $start_year = Str::substr($fin_date_start, 0,4);
                 $start_month = Str::substr($fin_date_start, 5,2);
@@ -259,7 +259,7 @@ class FinClass {
                 $tahun = Str::substr($newDateTime, 0,4);
                 $bulan = Str::substr($newDateTime, 5,2);
                 
-                $total = $modal;
+                $total = 0;
                 for($i=$start_year;$i<=$tahun;$i++)
                 {
                     $xbulan = $bulan_past;
@@ -304,7 +304,7 @@ class FinClass {
     public static function calculate_saldo_akhir($tahun,$bulan)
     {
                 $fin_date_start = self::first_date_transaction();
-                $modal = self::initial_capital();
+                //$modal = self::capital();
 
                 $start_year = Str::substr($fin_date_start, 0,4);
                 $start_month = Str::substr($fin_date_start, 5,2);
@@ -320,9 +320,7 @@ class FinClass {
                 $tahun = Str::substr($newDateTime, 0,4);
                 $bulan = Str::substr($newDateTime, 5,2);
                 
-                
-                //print($bulan);
-                $total = $modal;
+                $total = 0;
                 for($i=$start_year;$i<=$tahun;$i++)
                 {
                     $xbulan = $bulan_past;
@@ -401,35 +399,7 @@ class FinClass {
         return $total;
     }
 
-    /*
-    public static function total_revenue_per_month($year,$month){
-            $total = 0;
-            $total += self::total_per_month_by_type('Revenue',$year,$month);
-            return $total;
-    }
-    */
-
-    public static function total_shoppingcart_per_month($booking_channel,$year,$month){
-            
-            $fin_date_start = self::first_date_transaction();
-            $fin_date_end = date('Y-m-d') .' 23:59:00';
-            $total = 0;
-            $sub_totals = ShoppingcartProduct::whereHas('shoppingcart', function ($query) use ($booking_channel) {
-                            return $query->where('booking_status','CONFIRMED')->where('booking_channel',$booking_channel);
-                         })->whereYear('date',$year)->whereMonth('date',$month)->where('date', '>=', $fin_date_start )->where('date', '<=', $fin_date_end )->get();
-            foreach($sub_totals as $sub_total)
-            {
-                $total += $sub_total->total;
-            }
-            $date1 = new \DateTime($year.'-'.$month.'-01');
-            $date2    = new \DateTime("2023-06-30");
-            if($date1>$date2)
-            {
-                $total = $total - ($total*10/100);
-            }
-            
-            return $total;
-    }
+    
 	
 
 }

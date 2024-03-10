@@ -12,7 +12,7 @@
 
 <div class="row w-100">
     <div class="col  text-left">
-      {!! $fin::select_profitloss_form($tahun)  !!} 
+      {!! $fin::select_year_form($tahun)  !!} 
     </div>
     <div class="col-auto text-right mr-0 pr-0">
         <a type="button" class="btn btn-secondary" href="/cms/fin/profitloss?year={{$tahun}}&action=pdf">

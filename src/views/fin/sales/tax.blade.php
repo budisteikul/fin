@@ -17,7 +17,7 @@
 
                     <div class="row w-100">
     <div class="col  text-left">
-      {!! $fin::select_profitloss_form($tahun)  !!} 
+      {!! $fin::select_year_form($tahun)  !!} 
     </div>
     <div class="col-auto text-right mr-0 pr-0">
         <a type="button" class="btn btn-secondary" href="/cms/fin/tax?year={{$tahun}}&action=pdf">
@@ -37,8 +37,8 @@
 <table id="table1" border="0" cellspacing="1" cellpadding="2" class="table table-sm table-bordered table-hover table-striped table-responsive w-100 d-block d-md-table mt-4" >
   <thead>
     <tr>
-      <td width="10"><strong>No</strong></td>
-      <td><strong>Month</strong></td>
+      <td width="10"><strong>NO</strong></td>
+      <td><strong>MONTH</strong></td>
       <td align="right"><strong>DPP</strong></td>
       <td align="right"><strong>PPH</strong></td>
     </tr>
@@ -56,7 +56,7 @@
     @endfor
     
     <tr>
-      <td align="center" colspan="2"><strong>Total</strong></td>
+      <td align="center" colspan="2"><strong>TOTAL</strong></td>
       
       <td align="right">{{$data->dpp_total}}</td>
       <td align="right">{{$data->pph_total}}</td>

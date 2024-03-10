@@ -29,7 +29,7 @@ hr
 
 <div>
 <div style="margin-top: 30px; margin-bottom: 40px; font-weight: bold; text-align: center; font-size:22px">
-  Income Statement {{env('APP_NAME')}} Year {{$tahun}}
+  Income Statement {{env('APP_NAME')}} For Year {{$tahun}}
 </div>
 <div>
 <center>
