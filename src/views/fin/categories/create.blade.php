@@ -47,6 +47,7 @@
       <option value="Revenue">Revenue</option>
       <option value="Cost of Goods Sold">Cost of Goods Sold</option>
       <option value="Capital">Capital</option>
+      <option value="Debt">Debt</option>
 	</select>
 </div>
 
