@@ -19,7 +19,7 @@
           <i class="far fa-file-pdf"></i> Export PDF
         </a>
         <a type="button" class="btn btn-secondary" href="/cms/fin/report/pdf/{{$tahun}}">
-          <i class="far fa-file-pdf"></i> Export All PDF
+          <i class="far fa-file-pdf"></i> Export All {{$tahun}} PDF
         </a>
     </div>        
 </div>
