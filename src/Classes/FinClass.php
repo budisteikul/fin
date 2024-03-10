@@ -15,15 +15,27 @@ class FinClass {
     
     public static function capital()
     {
-        return env('FIN_MODAL',0);
+        return self::total_by_type('Capital');
     }
 
     public static function first_date_transaction()
     {
         $fin_transactions = fin_transactions::orderBy('date')->first();
         return $fin_transactions->date;
-        //return env('FIN_DATE_START');
     }
+
+    public static function total_by_type($type)
+    {
+        $total = 0;
+        $fin_categories = fin_categories::where('type',$type)->get();
+        foreach($fin_categories as $fin_categorie)
+        {
+            $total += fin_transactions::where('category_id',$fin_categorie->id)->sum('amount');
+        }
+        return $total;
+    }
+
+    
 
     public static function count_per_year($category_id,$year){
           $total = 0;

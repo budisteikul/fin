@@ -18,9 +18,12 @@ class CreateFinCategoriesTable extends Migration
 			
             $table->bigInteger('parent_id')->default(0);
 			$table->string('name')->nullable();
-			//$table->enum('type', ['Expenses', 'Revenue', 'Cost of Goods Sold']);
 			$table->string('type')->nullable();
             $table->timestamps(6);
+        });
+
+        Schema::table('fin_categories', function (Blueprint $table) {
+            $table->index('type');
         });
     }
 
