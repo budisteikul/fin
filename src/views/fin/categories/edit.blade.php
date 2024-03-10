@@ -43,6 +43,7 @@
       <option value="Expenses" {{ ($category->type=='Expenses') ? 'selected' : '' }}>Expenses</option>
       <option value="Revenue" {{ ($category->type=='Revenue') ? 'selected' : '' }}>Revenue</option>
       <option value="Cost of Goods Sold" {{ ($category->type=='Cost of Goods Sold') ? 'selected' : '' }}>Cost of Goods Sold</option>
+      <option value="Capital" {{ ($category->type=='Capital') ? 'selected' : '' }}>Capital</option>
 	</select>
 </div>
      

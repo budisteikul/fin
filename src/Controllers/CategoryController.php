@@ -49,7 +49,6 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
           	'name' => 'required|string|max:255|unique:fin_categories,name',
-			'type' => 'in:Expenses,Revenue,Cost of Goods Sold'
        	]);
         
        	if ($validator->fails()) {
@@ -114,7 +113,6 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
           	'name' => 'required|string|max:255|unique:fin_categories,name,'. $id,
-			'type' => 'in:Expenses,Revenue,Cost of Goods Sold'
        	]);
         
        	if ($validator->fails()) {

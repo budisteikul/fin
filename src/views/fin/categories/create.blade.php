@@ -46,6 +46,7 @@
       <option value="Expenses">Expenses</option>
       <option value="Revenue">Revenue</option>
       <option value="Cost of Goods Sold">Cost of Goods Sold</option>
+      <option value="Capital">Capital</option>
 	</select>
 </div>
 
