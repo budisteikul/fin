@@ -59,15 +59,29 @@ table{
       <td valign="top">&nbsp;</td>
       <td valign="top">&nbsp;</td>
     </tr>
+    @if($cash>0)
     <tr>
-      <td valign="top">Cash</td>
-      <td valign="top" align="right">{{number_format($kas, 0, ',', '.')}}<hr  class="s1" /></td>
+      <td valign="top">Cash and Cash Equivalents</td>
+      <td valign="top" align="right">{{number_format($cash, 0, ',', '.')}}</td>
       <td valign="top">&nbsp;</td>
+    </tr>
+    @endif
+    @if($accounts_receivable>0)
+    <tr>
+      <td valign="top">Accounts Receivable</td>
+      <td valign="top" align="right">{{number_format($accounts_receivable, 0, ',', '.')}}</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    @endif
+    <tr>
+      <td align="right"></td>
+      <td align="right"><hr  class="s1" /></td>
+      <td align="right"></td>
     </tr>
     <tr>
       <td valign="top"><strong>TOTAL ASSETS</strong></td>
       <td valign="top">&nbsp;</td>
-      <td valign="top" align="right">{{number_format($kas, 0, ',', '.')}}<hr  class="s9" /></td>
+      <td valign="top" align="right">{{number_format($total_asset, 0, ',', '.')}}<hr  class="s9" /></td>
     </tr>
     <tr>
       <td valign="top">&nbsp;</td>
@@ -94,25 +108,36 @@ table{
       <td valign="top">&nbsp;</td>
       <td valign="top">&nbsp;</td>
     </tr>
+    @if($capital>0)
     <tr>
       <td valign="top">Capital</td>
-      <td valign="top" align="right">{{number_format($modal, 0, ',', '.')}}</td>
+      <td valign="top" align="right">{{number_format($capital, 0, ',', '.')}}</td>
       <td valign="top">&nbsp;</td>
     </tr>
+    @endif
+    @if($retained_earnings>0)
     <tr>
       <td valign="top">Retained Earnings</td>
       <td valign="top" align="right">{{number_format($retained_earnings, 0, ',', '.')}}</td>
       <td valign="top">&nbsp;</td>
     </tr>
+    @endif
+    @if($earning>0)
     <tr>
       <td valign="top">Earnings</td>
-      <td valign="top" align="right">{{number_format($laba, 0, ',', '.')}}<hr class="s1" /></td>
+      <td valign="top" align="right">{{number_format($earning, 0, ',', '.')}}</td>
       <td valign="top">&nbsp;</td>
+    </tr>
+    @endif
+    <tr>
+      <td align="right"></td>
+      <td align="right"><hr  class="s1" /></td>
+      <td align="right"></td>
     </tr>
     <tr>
       <td valign="top"><strong>TOTAL LIABILITIES AND EQUITY</strong></td>
       <td valign="top">&nbsp;</td>
-      <td valign="top" align="right">{{number_format($modal+$laba+$retained_earnings, 0, ',', '.')}}<hr class="s9" /></td>
+      <td valign="top" align="right">{{number_format($total_liabilities_and_equity, 0, ',', '.')}}<hr class="s9" /></td>
     </tr>
 
   </tbody>

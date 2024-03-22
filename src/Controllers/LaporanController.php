@@ -43,7 +43,7 @@ class LaporanController extends Controller
 
 
         //NERACA ==========================================================================
-        $modal = FinClass::capital();
+        $capital = FinClass::capital();
         $retained_earnings = FinClass::calculate_saldo_akhir($tahun-1,12);
 
         $revenue = 0;
@@ -64,15 +64,30 @@ class LaporanController extends Controller
             $expenses += FinClass::total_per_month_by_type('Expenses',$tahun,$i);
         }
         
-        $laba = $revenue - $cogs - $expenses;
-        $kas = $modal + $retained_earnings + $laba;
+        $cash = 0;
+        $accounts_receivable = 0;
+        $earning = $revenue - $cogs - $expenses;
+
+        $cash = $capital + $retained_earnings + $earning;
+        if($earning<0)
+        {
+            $accounts_receivable = $earning * -1;
+            $earning = 0;
+        }
+        
+
+        $total_asset = $cash + $accounts_receivable;
+        $total_liabilities_and_equity =  $capital+$earning+$retained_earnings;
 
         $pdf = PDF::setOptions(['tempDir' =>  storage_path(),'fontDir' => storage_path(),'fontCache' => storage_path(),'isRemoteEnabled' => true])->loadView('fin::fin.pdf.neraca', [
                 'tahun'=>$tahun,
-                'modal'=>$modal,
+                'cash'=>$cash,
                 'retained_earnings'=>$retained_earnings,
-                'laba'=>$laba,
-                'kas'=>$kas,
+                'capital'=>$capital,
+                'accounts_receivable'=>$accounts_receivable,
+                'earning'=>$earning,
+                'total_asset'=>$total_asset,
+                'total_liabilities_and_equity'=>$total_liabilities_and_equity,
             ])->setPaper('a4', 'portrait');
 
         $content = $pdf->download()->getOriginalContent();
