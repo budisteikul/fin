@@ -73,7 +73,7 @@
     </tr>
     <tr>
       <td valign="top">Debt</td>
-      <td valign="top" align="right">0</td>
+      <td valign="top" align="right">{{number_format($debt, 0, ',', '.')}}</td>
       <td valign="top">&nbsp;</td>
     </tr>
     <tr>

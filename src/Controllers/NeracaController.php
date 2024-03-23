@@ -20,6 +20,7 @@ class NeracaController extends Controller
         if($tahun=="") $tahun = date("Y");
 
         $capital = FinClass::capital();
+        $debt = FinClass::debt();
         $retained_earnings = FinClass::calculate_saldo_akhir($tahun-1,12);
 
         $revenue = 0;
@@ -44,7 +45,7 @@ class NeracaController extends Controller
         $accounts_receivable = 0;
         $earning = $revenue - $cogs - $expenses;
 
-        $cash = $capital + $retained_earnings + $earning;
+        $cash = $capital + $debt + $retained_earnings + $earning;
         if($earning<0)
         {
             $accounts_receivable = $earning * -1;
@@ -62,6 +63,7 @@ class NeracaController extends Controller
                 'cash'=>$cash,
                 'retained_earnings'=>$retained_earnings,
                 'capital'=>$capital,
+                'debt'=>$debt,
                 'accounts_receivable'=>$accounts_receivable,
                 'earning'=>$earning,
                 'total_asset'=>$total_asset,
@@ -77,6 +79,7 @@ class NeracaController extends Controller
                 'cash'=>$cash,
                 'retained_earnings'=>$retained_earnings,
                 'capital'=>$capital,
+                'debt'=>$debt,
                 'accounts_receivable'=>$accounts_receivable,
                 'earning'=>$earning,
                 'total_asset'=>$total_asset,

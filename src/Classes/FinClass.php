@@ -18,6 +18,11 @@ class FinClass {
         return self::total_by_type('Capital');
     }
 
+    public static function debt()
+    {
+        return self::total_by_type('Debt');
+    }
+
     public static function first_date_transaction()
     {
         $fin_transactions = fin_transactions::orderBy('date')->first();
@@ -255,7 +260,6 @@ class FinClass {
     public static function calculate_saldo($tahun,$bulan)
     {
                 $fin_date_start = self::first_date_transaction();
-                //$modal = self::capital();
 
                 $start_year = Str::substr($fin_date_start, 0,4);
                 $start_month = Str::substr($fin_date_start, 5,2);
@@ -316,7 +320,6 @@ class FinClass {
     public static function calculate_saldo_akhir($tahun,$bulan)
     {
                 $fin_date_start = self::first_date_transaction();
-                //$modal = self::capital();
 
                 $start_year = Str::substr($fin_date_start, 0,4);
                 $start_month = Str::substr($fin_date_start, 5,2);
